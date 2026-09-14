@@ -43,12 +43,16 @@
   .chip.off{ opacity:.35; text-decoration:line-through; }
   .chip.theme{ opacity:.5; }
   .chip.theme.active{ opacity:1; border-color:currentColor; }
+  .chip.theme.secondary{ border-style:dashed; }
+  .chip.era.off{ opacity:.3; }
 
   #chart-panel{ padding:8px 8px 4px; }
   svg{ display:block; width:100%; height:auto; }
   .axis text{ fill:var(--muted); font-size:11px; }
   .axis path, .axis line{ stroke:var(--line); }
   .track-line{ stroke:var(--line); stroke-width:2; }
+  .era-band{ pointer-events:none; }
+  .era-band-label{ font-size:9px; fill:var(--muted); pointer-events:none; text-transform:uppercase; letter-spacing:.04em; }
   .event-dot{ cursor:pointer; stroke:#fff; stroke-width:1.4px; transition:opacity .15s ease; }
   .event-dot.dim{ opacity:.10; }
   .event-range{ stroke-width:4; stroke-linecap:round; opacity:.3; }
@@ -107,7 +111,7 @@
 
 <header>
   <h1>Murder by Inches — Dissertation Explorer</h1>
-  <p>All 308 dated actions extracted from the dissertation, organized by the book's own four spaces of protest (plus intro and conclusion), filterable by cross-cutting theme, and connected through the 48 recurring named figures who tie the timeline together. Click a figure to trace every appearance and see who else they show up alongside.</p>
+  <p>All <span id="event-count">308</span> dated actions extracted from the dissertation, organized by the book's own four spaces of protest (plus intro and conclusion), filterable by cross-cutting theme and by era, and connected through the <span id="figure-count">48</span> recurring named figures who tie the timeline together. Click a figure to trace every appearance and see who else they show up alongside.</p>
 </header>
 
 <div class="wrap">
@@ -129,8 +133,20 @@
     </div>
 
     <div class="legend-block">
+      <div class="legend" id="era-legend">
+        <span class="legend-label">Eras (click to show/hide)</span>
+      </div>
+    </div>
+
+    <div class="legend-block">
       <div class="legend" id="theme-legend">
         <span class="legend-label">Cross-cutting themes (click to highlight)</span>
+      </div>
+    </div>
+
+    <div class="legend-block">
+      <div class="legend" id="secondary-theme-legend">
+        <span class="legend-label">Secondary themes, added from manuscript review (click to highlight)</span>
       </div>
     </div>
   </div>
@@ -154,33 +170,42 @@
 
     <div class="panel">
       <p class="section-title">Events per Space</p>
-      <p class="section-sub">How the 308 actions distribute across the dissertation's structure.</p>
+      <p class="section-sub">How the dated actions distribute across the dissertation's structure.</p>
       <svg id="barchart" viewBox="0 0 380 340"></svg>
     </div>
   </div>
 
 </div>
 
-<footer>Built from Dissertation_Timeline.xlsx — 308 events, 48 recurring named figures, organized by the dissertation's own chapter structure.</footer>
+<footer id="footer-note">Built from Dissertation_Timeline.xlsx — 308 events, 48 recurring named figures, organized by the dissertation's own chapter structure.</footer>
 
 <div class="tooltip" id="tooltip"></div>
 
 <script>
 async function init(){
-  const [EVENTS, FIGURES, CHAPTER_META] = await Promise.all([
+  const [EVENTS, FIGURES, CHAPTER_META, ERAS, THEMES_RAW] = await Promise.all([
     fetch('data/events.json').then(r => r.json()),
     fetch('data/figures.json').then(r => r.json()),
     fetch('data/chapters.json').then(r => r.json()),
+    fetch('data/eras.json').then(r => r.json()),
+    fetch('data/themes.json').then(r => r.json()),
   ]);
 
+  document.getElementById('event-count').textContent = EVENTS.length;
+  document.getElementById('figure-count').textContent = FIGURES.length;
+  document.getElementById('fig-sub').textContent = `${FIGURES.length} recurring people tie this timeline together. Click one to trace their thread.`;
+  document.getElementById('footer-note').textContent =
+    `Built from Dissertation_Timeline.xlsx — ${EVENTS.length} events, ${FIGURES.length} recurring named figures, organized by the dissertation's own chapter structure.`;
 
-const THEME_META = {
-  fugitivity_maritime: { label: "Fugitivity & the Maritime Railroad", color: "var(--t-fugitivity)", hex:"#0891b2" },
-  selfgov_revolt:      { label: "Self-Governance & the Revolt", color: "var(--t-selfgov)", hex:"#dc2626" },
-  race_enfranchise:    { label: "Race, Enfranchisement & Belonging", color: "var(--t-race)", hex:"#7c3aed" },
-  land_guardianship:   { label: "Land & Guardianship", color: "var(--t-land)", hex:"#a16207" },
-  memory_return:       { label: "Memory, Recognition & Return", color: "var(--t-memory)", hex:"#0d9488" },
-};
+const THEME_META = {};
+Object.entries(THEMES_RAW).forEach(([key, t]) => { THEME_META[key] = { label: t.label, hex: t.color, kind: t.kind || 'primary' }; });
+const PRIMARY_THEME_KEYS = Object.keys(THEME_META).filter(k => THEME_META[k].kind === 'primary');
+const SECONDARY_THEME_KEYS = Object.keys(THEME_META).filter(k => THEME_META[k].kind === 'secondary');
+
+const ERA_META = {};
+const ERA_ORDER = ERAS.map(e => e.id);
+ERAS.forEach(e => { ERA_META[e.id] = e; });
+
 const CHAPTER_ORDER = ["preface_intro","dissertation-seed-timeline","chapter1_homestead","chapter2_parsonage_schoolhouse","chapter3_garret","chapter4_meetinghouse","conclusion"];
 const CHAPTER_COLOR_VAR = {
   preface_intro: "var(--c-intro)", "dissertation-seed-timeline": "var(--c-overview)",
@@ -191,7 +216,7 @@ const CHAPTER_COLOR_VAR = {
 const figMap = new Map(FIGURES.map(f => [f.name, f]));
 const idMap = new Map(EVENTS.map(e => [e.id, e]));
 
-let state = { hiddenChapters: new Set(), theme: null, figure: null, selected: null, search: "" };
+let state = { hiddenChapters: new Set(), hiddenEras: new Set(), theme: null, figure: null, selected: null, search: "" };
 
 // ---------- lane assignment (alternating up/down from a single baseline) ----------
 function assignLanes(events, gap, maxLanes){
@@ -209,7 +234,10 @@ function assignLanes(events, gap, maxLanes){
   return sorted;
 }
 const MAX_LANES = 22;
-const allEvents = assignLanes(EVENTS, 2, MAX_LANES);
+// Events without a numeric year (e.g. an undated "time immemorial" entry) can't be placed
+// on the timeline scatter; they still appear in figure threads, search, and per-chapter counts.
+const datedEvents = EVENTS.filter(e => typeof e.year === 'number');
+const allEvents = assignLanes(datedEvents, 2, MAX_LANES);
 
 // ---------- chapter legend ----------
 const chapterLegend = d3.select('#chapter-legend');
@@ -220,10 +248,27 @@ CHAPTER_ORDER.forEach(ch=>{
     .on('click', function(){ toggleChapter(ch, this); });
 });
 
-// ---------- theme legend ----------
+// ---------- era legend ----------
+const eraLegend = d3.select('#era-legend');
+ERA_ORDER.forEach(eraId=>{
+  const meta = ERA_META[eraId];
+  eraLegend.append('span').attr('class','chip era').attr('data-era', eraId)
+    .html(`<span class="dot" style="background:${meta.color}"></span>${meta.label}`)
+    .on('click', function(){ toggleEra(eraId, this); });
+});
+
+// ---------- theme legends (primary + secondary) ----------
 const themeLegend = d3.select('#theme-legend');
-Object.entries(THEME_META).forEach(([key,meta])=>{
+PRIMARY_THEME_KEYS.forEach(key=>{
+  const meta = THEME_META[key];
   themeLegend.append('span').attr('class','chip theme').attr('data-theme', key)
+    .html(`<span class="dot" style="background:${meta.hex}"></span>${meta.label}`)
+    .on('click', function(){ toggleTheme(key, this); });
+});
+const secondaryThemeLegend = d3.select('#secondary-theme-legend');
+SECONDARY_THEME_KEYS.forEach(key=>{
+  const meta = THEME_META[key];
+  secondaryThemeLegend.append('span').attr('class','chip theme secondary').attr('data-theme', key)
     .html(`<span class="dot" style="background:${meta.hex}"></span>${meta.label}`)
     .on('click', function(){ toggleTheme(key, this); });
 });
@@ -231,6 +276,11 @@ Object.entries(THEME_META).forEach(([key,meta])=>{
 function toggleChapter(ch, el){
   if(state.hiddenChapters.has(ch)){ state.hiddenChapters.delete(ch); d3.select(el).classed('off', false); }
   else { state.hiddenChapters.add(ch); d3.select(el).classed('off', true); }
+  render();
+}
+function toggleEra(eraId, el){
+  if(state.hiddenEras.has(eraId)){ state.hiddenEras.delete(eraId); d3.select(el).classed('off', false); }
+  else { state.hiddenEras.add(eraId); d3.select(el).classed('off', true); }
   render();
 }
 function toggleTheme(key, el){
@@ -256,6 +306,7 @@ let xScale = xScale0;
 
 const g = svg.append('g');
 const gAxis = g.append('g').attr('class','axis');
+const gEraBands = g.append('g');
 const gTrack = g.append('g');
 const gConnectors = g.append('g');
 const gDots = g.append('g');
@@ -265,6 +316,31 @@ gTrack.append('line').attr('class','track-line')
 
 const xAxis = d3.axisBottom(xScale).ticks(16).tickFormat(d3.format('d'));
 gAxis.attr('transform', `translate(0,${H-margin.bottom})`).call(xAxis);
+
+function renderEraBands(){
+  const domain = xScale.domain();
+  const bands = ERA_ORDER.map(id=>{
+    const meta = ERA_META[id];
+    const y0 = meta.yearStart == null ? domain[0] : Math.max(meta.yearStart, domain[0]);
+    const y1 = meta.yearEnd == null ? domain[1] : Math.min(meta.yearEnd, domain[1]);
+    return { id, meta, y0, y1 };
+  }).filter(b => b.y1 > b.y0 && !state.hiddenEras.has(b.id));
+
+  const rects = gEraBands.selectAll('rect.era-band').data(bands, d=>d.id);
+  rects.enter().append('rect').attr('class','era-band')
+    .merge(rects)
+    .attr('x', d=>xScale(d.y0)).attr('width', d=>Math.max(0, xScale(d.y1)-xScale(d.y0)))
+    .attr('y', margin.top).attr('height', H-margin.top-margin.bottom)
+    .attr('fill', d=>d.meta.color).attr('opacity', 0.07);
+  rects.exit().remove();
+
+  const labels = gEraBands.selectAll('text.era-band-label').data(bands, d=>d.id);
+  labels.enter().append('text').attr('class','era-band-label')
+    .merge(labels)
+    .attr('x', d=>xScale(d.y0)+4).attr('y', margin.top+10)
+    .text(d=> (xScale(d.y1)-xScale(d.y0) > 40) ? d.meta.label : '');
+  labels.exit().remove();
+}
 
 function yFor(d){
   const lane = d._lane;
@@ -277,6 +353,7 @@ const tooltip = d3.select('#tooltip');
 
 function passesFilters(d){
   if(state.hiddenChapters.has(d.chapter)) return false;
+  if(d.era && state.hiddenEras.has(d.era)) return false;
   if(state.search){
     const hay = (d.headline + ' ' + d.text).toLowerCase();
     if(!hay.includes(state.search)) return false;
@@ -289,12 +366,15 @@ function isDimmed(d){
     return !fig.events.includes(d.id);
   }
   if(state.theme){
-    return d.theme !== state.theme;
+    const matchesPrimary = d.theme === state.theme;
+    const matchesSecondary = Array.isArray(d.secondaryThemes) && d.secondaryThemes.includes(state.theme);
+    return !(matchesPrimary || matchesSecondary);
   }
   return false;
 }
 
 function render(){
+  renderEraBands();
   const visible = allEvents.filter(passesFilters);
 
   const ranged = visible.filter(d=>d.endYear);
@@ -345,10 +425,15 @@ function selectEvent(d){
   render();
   const chMeta = CHAPTER_META[d.chapter];
   const thMeta = THEME_META[d.theme];
+  const eraMeta = ERA_META[d.era];
+  const secondaryHtml = (d.secondaryThemes||[]).map(k=>`<span class="badge" style="background:${THEME_META[k].hex}">${THEME_META[k].label}</span>`).join('');
+  const eraHtml = eraMeta ? `<span class="badge" style="background:${eraMeta.color}">${eraMeta.label}</span>` : '';
   const figsHtml = d.figures.length ? `<div class="fig-row">${d.figures.map(f=>`<span class="fig-chip" data-fig="${f}">${f}</span>`).join('')}</div>` : '';
   d3.select('#detail').html(`
     <span class="badge" style="background:${chMeta.color}">${chMeta.short}</span>
     <span class="badge" style="background:${thMeta.hex}">${thMeta.label}</span>
+    ${secondaryHtml}
+    ${eraHtml}
     <div class="date">${d.displayDate}</div>
     <h3>${d.headline}</h3>
     <p>${d.text}</p>
@@ -433,9 +518,9 @@ function selectFigure(name){
   const evList = detail.append('div').attr('class','fig-events-list');
   evList.append('div').style('font-size','.72rem').style('text-transform','uppercase').style('letter-spacing','.05em')
     .style('color','var(--muted)').style('font-weight','700').style('margin-bottom','6px').text('Timeline');
-  fig.events.map(id=>idMap.get(id)).filter(Boolean).sort((a,b)=>a.year-b.year).forEach(ev=>{
+  fig.events.map(id=>idMap.get(id)).filter(Boolean).sort((a,b)=>(a.year??0)-(b.year??0)).forEach(ev=>{
     const row = evList.append('div').attr('class','ev-row').on('click', ()=> selectEvent(ev));
-    row.append('span').attr('class','ev-year').text(ev.year);
+    row.append('span').attr('class','ev-year').text(ev.displayDate);
     row.append('span').text(ev.headline);
   });
 }
@@ -446,7 +531,7 @@ renderFiguresList();
 function renderBarChart(){
   const bw = 380, bh = 340;
   const bmargin = {top:10,right:16,bottom:110,left:34};
-  const counts = CHAPTER_ORDER.map(ch=>({ ch, label: CHAPTER_META[ch].short, count: allEvents.filter(e=>e.chapter===ch).length, color: CHAPTER_META[ch].color }));
+  const counts = CHAPTER_ORDER.map(ch=>({ ch, label: CHAPTER_META[ch].short, count: EVENTS.filter(e=>e.chapter===ch).length, color: CHAPTER_META[ch].color }));
   const bsvg = d3.select('#barchart');
   const x0 = d3.scaleBand().domain(CHAPTER_ORDER).range([bmargin.left, bw-bmargin.right]).padding(0.25);
   const y = d3.scaleLinear().domain([0, d3.max(counts,d=>d.count)+5]).range([bh-bmargin.bottom, bmargin.top]);
