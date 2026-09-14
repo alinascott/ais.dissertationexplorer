@@ -10,7 +10,9 @@
     "theme": "land_guardianship",
     "figures": [
       "Mary Cleggett Vanderhoop"
-    ]
+    ],
+    "era": "colonial_contact",
+    "secondaryThemes": []
   },
   {
     "id": "e1",
@@ -21,7 +23,9 @@
     "text": "The Cabots came to the region in 1497, as recounted in Vanderhoop's history of Gay Head.",
     "chapter": "chapter1_homestead",
     "theme": "memory_return",
-    "figures": []
+    "figures": [],
+    "era": "colonial_contact",
+    "secondaryThemes": []
   },
   {
     "id": "e2",
@@ -32,7 +36,9 @@
     "text": "Gosnold and about twenty English colonists took possession of Cuttyhunk in 1602.",
     "chapter": "chapter1_homestead",
     "theme": "land_guardianship",
-    "figures": []
+    "figures": [],
+    "era": "colonial_contact",
+    "secondaryThemes": []
   },
   {
     "id": "e3",
@@ -45,6 +51,10 @@
     "theme": "land_guardianship",
     "figures": [
       "Matthew Mayhew (missionary)"
+    ],
+    "era": "colonial_contact",
+    "secondaryThemes": [
+      "religious_authority"
     ]
   },
   {
@@ -56,7 +66,9 @@
     "text": "The Plymouth Colony General Colonial Court made the first attempt to restrict Native Wampanoag land sales in 1650, ruling no person could buy Indian land without license of the General Court.",
     "chapter": "chapter1_homestead",
     "theme": "land_guardianship",
-    "figures": []
+    "figures": [],
+    "era": "colonial_contact",
+    "secondaryThemes": []
   },
   {
     "id": "e5",
@@ -67,7 +79,9 @@
     "text": "The Massachusetts General Court passed one of its earliest acts limiting Native land sales in 1650, affirming that tribal land would be held in common and that no person could buy Indian land without the General Court's license.",
     "chapter": "chapter4_meetinghouse",
     "theme": "land_guardianship",
-    "figures": []
+    "figures": [],
+    "era": "colonial_contact",
+    "secondaryThemes": []
   },
   {
     "id": "e6",
@@ -78,7 +92,9 @@
     "text": "The 1650 restriction on purchasing Native land was renewed by the colonial government in 1665.",
     "chapter": "chapter1_homestead",
     "theme": "land_guardianship",
-    "figures": []
+    "figures": [],
+    "era": "colonial_contact",
+    "secondaryThemes": []
   },
   {
     "id": "e7",
@@ -91,7 +107,9 @@
     "theme": "selfgov_revolt",
     "figures": [
       "William Apess"
-    ]
+    ],
+    "era": "colonial_contact",
+    "secondaryThemes": []
   },
   {
     "id": "e8",
@@ -102,7 +120,9 @@
     "text": "Wampanoag sachem King Philip (Metacomet) was killed by colonial forces at the close of King Philip's War, and his head was cut off and carried on a pole to New Plymouth.",
     "chapter": "chapter2_parsonage_schoolhouse",
     "theme": "land_guardianship",
-    "figures": []
+    "figures": [],
+    "era": "colonial_contact",
+    "secondaryThemes": []
   },
   {
     "id": "e9",
@@ -113,7 +133,11 @@
     "text": "The historic Mashpee meetinghouse, later central to the Mashpee Revolt, was built in 1684 on what became Meetinghouse Road in Mashpee.",
     "chapter": "chapter2_parsonage_schoolhouse",
     "theme": "selfgov_revolt",
-    "figures": []
+    "figures": [],
+    "era": "colonial_contact",
+    "secondaryThemes": [
+      "religious_authority"
+    ]
   },
   {
     "id": "e10",
@@ -124,7 +148,9 @@
     "text": "Legislative changes in 1693–94 allowed the Massachusetts governor to appoint individuals to oversee Indian communities, establishing a guardianship system.",
     "chapter": "chapter1_homestead",
     "theme": "land_guardianship",
-    "figures": []
+    "figures": [],
+    "era": "colonial_contact",
+    "secondaryThemes": []
   },
   {
     "id": "e11",
@@ -135,7 +161,9 @@
     "text": "By 1693, Massachusetts had placed Native towns under state-appointed guardianship, restricting tribal governance and control over land.",
     "chapter": "chapter4_meetinghouse",
     "theme": "land_guardianship",
-    "figures": []
+    "figures": [],
+    "era": "colonial_contact",
+    "secondaryThemes": []
   },
   {
     "id": "e12",
@@ -146,7 +174,9 @@
     "text": "Similar laws restricting the purchase of Native land were adopted again in 1701.",
     "chapter": "chapter1_homestead",
     "theme": "land_guardianship",
-    "figures": []
+    "figures": [],
+    "era": "colonial_contact",
+    "secondaryThemes": []
   },
   {
     "id": "e13",
@@ -159,6 +189,10 @@
     "theme": "land_guardianship",
     "figures": [
       "Matthew Mayhew (missionary)"
+    ],
+    "era": "colonial_contact",
+    "secondaryThemes": [
+      "religious_authority"
     ]
   },
   {
@@ -170,7 +204,11 @@
     "text": "English minister Daniel Williams founded the Williams Fund in 1711 by donating his estate to support conversion efforts among enslaved people in the West Indies and Indians in New England, funds later used to support ministers to Mashpee.",
     "chapter": "chapter2_parsonage_schoolhouse",
     "theme": "land_guardianship",
-    "figures": []
+    "figures": [],
+    "era": "colonial_contact",
+    "secondaryThemes": [
+      "religious_authority"
+    ]
   },
   {
     "id": "e15",
@@ -181,7 +219,9 @@
     "text": "Abigail Wampis, a Native woman from Chilmark, was kidnapped and imprisoned in irons by John Allen, the White high sheriff of Dukes County, who sold her as a servant to John Coddington in Newport, Rhode Island. She later escaped with help from Peter Quonit and other Native men, sued Allen for kidnapping, and won forty pounds in damages from a jury.",
     "chapter": "chapter3_garret",
     "theme": "fugitivity_maritime",
-    "figures": []
+    "figures": [],
+    "era": "colonial_contact",
+    "secondaryThemes": []
   },
   {
     "id": "e16",
@@ -194,6 +234,10 @@
     "theme": "land_guardianship",
     "figures": [
       "Elisha Amos"
+    ],
+    "era": "colonial_contact",
+    "secondaryThemes": [
+      "kinship_family"
     ]
   },
   {
@@ -205,7 +249,9 @@
     "text": "An Indian woman named Esther, being transported from Boston back to her enslaver in North Carolina aboard the sloop Endeavor, escaped from the crew's custody near Edgartown Harbor after being bound and locked below decks, disappearing along with the ship's long boat.",
     "chapter": "chapter3_garret",
     "theme": "fugitivity_maritime",
-    "figures": []
+    "figures": [],
+    "era": "colonial_contact",
+    "secondaryThemes": []
   },
   {
     "id": "e18",
@@ -216,7 +262,9 @@
     "text": "By 1746–47, the Massachusetts General Court formalized the guardianship system, appointing three guardians for each Native plantation to manage lands and allocate resources.",
     "chapter": "chapter1_homestead",
     "theme": "land_guardianship",
-    "figures": []
+    "figures": [],
+    "era": "colonial_contact",
+    "secondaryThemes": []
   },
   {
     "id": "e19",
@@ -229,7 +277,9 @@
     "theme": "land_guardianship",
     "figures": [
       "Matthew Mayhew Jr."
-    ]
+    ],
+    "era": "colonial_contact",
+    "secondaryThemes": []
   },
   {
     "id": "e20",
@@ -242,6 +292,10 @@
     "theme": "land_guardianship",
     "figures": [
       "Gideon Hawley"
+    ],
+    "era": "colonial_contact",
+    "secondaryThemes": [
+      "religious_authority"
     ]
   },
   {
@@ -253,7 +307,9 @@
     "text": "A 1758–59 law placed Native land-sale transactions under the control of appointed guardians, though individuals could still sell land.",
     "chapter": "chapter1_homestead",
     "theme": "land_guardianship",
-    "figures": []
+    "figures": [],
+    "era": "colonial_contact",
+    "secondaryThemes": []
   },
   {
     "id": "e22",
@@ -267,7 +323,9 @@
     "figures": [
       "Rebecca Amos",
       "Elisha Amos"
-    ]
+    ],
+    "era": "colonial_contact",
+    "secondaryThemes": []
   },
   {
     "id": "e23",
@@ -278,7 +336,9 @@
     "text": "Mashpee was established as a district in 1763–64, allowing Native proprietors to elect overseers, including two Englishmen.",
     "chapter": "chapter1_homestead",
     "theme": "selfgov_revolt",
-    "figures": []
+    "figures": [],
+    "era": "colonial_contact",
+    "secondaryThemes": []
   },
   {
     "id": "e24",
@@ -291,7 +351,9 @@
     "theme": "land_guardianship",
     "figures": [
       "Desire Mingo Attaquin"
-    ]
+    ],
+    "era": "colonial_contact",
+    "secondaryThemes": []
   },
   {
     "id": "e25",
@@ -302,7 +364,9 @@
     "text": "State records cited in the chapter indicated that around 1771, twenty-one years before 1792, fourteen Black residents lived in Mashpee, after which the Black population was said to grow as the Indian population declined.",
     "chapter": "chapter4_meetinghouse",
     "theme": "land_guardianship",
-    "figures": []
+    "figures": [],
+    "era": "colonial_contact",
+    "secondaryThemes": []
   },
   {
     "id": "e26",
@@ -316,7 +380,9 @@
     "figures": [
       "Elisha Amos",
       "Zachariah Howwaswee"
-    ]
+    ],
+    "era": "colonial_contact",
+    "secondaryThemes": []
   },
   {
     "id": "e27",
@@ -330,7 +396,9 @@
     "figures": [
       "Rebecca Amos",
       "Elisha Amos"
-    ]
+    ],
+    "era": "colonial_contact",
+    "secondaryThemes": []
   },
   {
     "id": "e28",
@@ -341,7 +409,9 @@
     "text": "In January 1776, George Washington requested troops from Barnstable County for the Revolutionary War, and many Mashpee men enlisted and, per Simeon L. Deyo's later history, 'made valiant soldiers.'",
     "chapter": "chapter2_parsonage_schoolhouse",
     "theme": "land_guardianship",
-    "figures": []
+    "figures": [],
+    "era": "colonial_contact",
+    "secondaryThemes": []
   },
   {
     "id": "e29",
@@ -354,7 +424,9 @@
     "theme": "land_guardianship",
     "figures": [
       "Elisha Amos"
-    ]
+    ],
+    "era": "colonial_contact",
+    "secondaryThemes": []
   },
   {
     "id": "e30",
@@ -368,6 +440,10 @@
     "figures": [
       "Nancy Michael",
       "Rebecca Amos"
+    ],
+    "era": "colonial_contact",
+    "secondaryThemes": [
+      "kinship_family"
     ]
   },
   {
@@ -379,7 +455,9 @@
     "text": "By the 1780s, Native tribal elders in the northeastern United States had been relegated to the margins of decision-making by state entities, a marginalization that persisted well into the nineteenth century.",
     "chapter": "preface_intro",
     "theme": "land_guardianship",
-    "figures": []
+    "figures": [],
+    "era": "early_republic",
+    "secondaryThemes": []
   },
   {
     "id": "e32",
@@ -390,7 +468,9 @@
     "text": "Massachusetts effectively bans slavery.",
     "chapter": "dissertation-seed-timeline",
     "theme": "land_guardianship",
-    "figures": []
+    "figures": [],
+    "era": "early_republic",
+    "secondaryThemes": []
   },
   {
     "id": "e33",
@@ -401,7 +481,9 @@
     "text": "Slavery was effectively abolished in Massachusetts in 1783, establishing that anyone born in the state thereafter was born free.",
     "chapter": "chapter1_homestead",
     "theme": "land_guardianship",
-    "figures": []
+    "figures": [],
+    "era": "early_republic",
+    "secondaryThemes": []
   },
   {
     "id": "e34",
@@ -414,6 +496,10 @@
     "theme": "land_guardianship",
     "figures": [
       "Matthias Amos"
+    ],
+    "era": "early_republic",
+    "secondaryThemes": [
+      "religious_authority"
     ]
   },
   {
@@ -428,6 +514,10 @@
     "figures": [
       "Solomon Attaquin",
       "Desire Mingo Attaquin"
+    ],
+    "era": "early_republic",
+    "secondaryThemes": [
+      "kinship_family"
     ]
   },
   {
@@ -442,6 +532,10 @@
     "figures": [
       "Solomon Attaquin",
       "Ezra Attaquin"
+    ],
+    "era": "early_republic",
+    "secondaryThemes": [
+      "kinship_family"
     ]
   },
   {
@@ -453,7 +547,9 @@
     "text": "Mashpee's limited self-governance as a district was revoked in 1788, and state-appointed guardians resumed control.",
     "chapter": "chapter1_homestead",
     "theme": "selfgov_revolt",
-    "figures": []
+    "figures": [],
+    "era": "early_republic",
+    "secondaryThemes": []
   },
   {
     "id": "e38",
@@ -464,7 +560,9 @@
     "text": "Henry Knox, U.S. Secretary of War, wrote to President George Washington affirming the need for the 'administration of justice towards the Indian tribes.'",
     "chapter": "preface_intro",
     "theme": "memory_return",
-    "figures": []
+    "figures": [],
+    "era": "early_republic",
+    "secondaryThemes": []
   },
   {
     "id": "e39",
@@ -477,7 +575,9 @@
     "theme": "selfgov_revolt",
     "figures": [
       "Gideon Hawley"
-    ]
+    ],
+    "era": "early_republic",
+    "secondaryThemes": []
   },
   {
     "id": "e40",
@@ -488,7 +588,11 @@
     "text": "In 1789, residents of Gay Head launched a two-pronged campaign to remove a White minister who had been appointed to supervise Indian churches on Martha's Vineyard.",
     "chapter": "chapter1_homestead",
     "theme": "land_guardianship",
-    "figures": []
+    "figures": [],
+    "era": "early_republic",
+    "secondaryThemes": [
+      "religious_authority"
+    ]
   },
   {
     "id": "e41",
@@ -499,7 +603,9 @@
     "text": "Under the Massachusetts act of 1789, the Chappaquiddick tribe's commonly held island lands were divided such that, in the commissioners' words, 'the white man received the lion's share.'",
     "chapter": "chapter4_meetinghouse",
     "theme": "land_guardianship",
-    "figures": []
+    "figures": [],
+    "era": "early_republic",
+    "secondaryThemes": []
   },
   {
     "id": "e42",
@@ -510,7 +616,9 @@
     "text": "The federal Trade and Intercourse Act of 1790 required Congressional approval to extinguish tribal land title, a requirement Massachusetts never satisfied for its later division of Mashpee lands.",
     "chapter": "chapter4_meetinghouse",
     "theme": "land_guardianship",
-    "figures": []
+    "figures": [],
+    "era": "early_republic",
+    "secondaryThemes": []
   },
   {
     "id": "e43",
@@ -521,7 +629,9 @@
     "text": "The Indian Nonintercourse Act was originally enacted, barring the sale of Native lands to any person or state without a public treaty conducted under United States authority.",
     "chapter": "preface_intro",
     "theme": "land_guardianship",
-    "figures": []
+    "figures": [],
+    "era": "early_republic",
+    "secondaryThemes": []
   },
   {
     "id": "e44",
@@ -532,7 +642,9 @@
     "text": "State records cited by journalist Grace Weld Soper indicated that in 1792 only forty or fifty individuals of 'unmixed Indian blood' remained in Mashpee.",
     "chapter": "chapter4_meetinghouse",
     "theme": "race_enfranchise",
-    "figures": []
+    "figures": [],
+    "era": "early_republic",
+    "secondaryThemes": []
   },
   {
     "id": "e45",
@@ -543,7 +655,9 @@
     "text": "Congress reenacted the Indian Nonintercourse Act, renewing federal protections restricting the sale of Native lands to outsiders.",
     "chapter": "preface_intro",
     "theme": "land_guardianship",
-    "figures": []
+    "figures": [],
+    "era": "early_republic",
+    "secondaryThemes": []
   },
   {
     "id": "e46",
@@ -554,7 +668,13 @@
     "text": "Wampanoag weaver Bathsheba (Bashie) Occouch of Aquinnah lived from 1793 to 1853, per Peabody Museum records crediting her with weaving a twined beachgrass pack basket later passed down through her family.",
     "chapter": "preface_intro",
     "theme": "memory_return",
-    "figures": []
+    "figures": [
+      "Bathsheba Occouch"
+    ],
+    "era": "early_republic",
+    "secondaryThemes": [
+      "kinship_family"
+    ]
   },
   {
     "id": "e47",
@@ -565,7 +685,9 @@
     "text": "Congress passed the Fugitive Slave Law of 1793, mandating the return of runaway slaves to their enslavers even from free states.",
     "chapter": "chapter3_garret",
     "theme": "fugitivity_maritime",
-    "figures": []
+    "figures": [],
+    "era": "early_republic",
+    "secondaryThemes": []
   },
   {
     "id": "e48",
@@ -578,7 +700,9 @@
     "theme": "race_enfranchise",
     "figures": [
       "John Milton Earle"
-    ]
+    ],
+    "era": "early_republic",
+    "secondaryThemes": []
   },
   {
     "id": "e49",
@@ -591,7 +715,9 @@
     "theme": "land_guardianship",
     "figures": [
       "Gideon Hawley"
-    ]
+    ],
+    "era": "early_republic",
+    "secondaryThemes": []
   },
   {
     "id": "e50",
@@ -602,7 +728,9 @@
     "text": "The Indian Nonintercourse Act was reenacted a second time, continuing federal restrictions on the sale of Native lands.",
     "chapter": "preface_intro",
     "theme": "land_guardianship",
-    "figures": []
+    "figures": [],
+    "era": "early_republic",
+    "secondaryThemes": []
   },
   {
     "id": "e51",
@@ -613,7 +741,9 @@
     "text": "Regular legislative renewals of the guardianship system ceased in 1796, when the law was omitted from the list of permanent acts.",
     "chapter": "chapter1_homestead",
     "theme": "land_guardianship",
-    "figures": []
+    "figures": [],
+    "era": "early_republic",
+    "secondaryThemes": []
   },
   {
     "id": "e52",
@@ -624,7 +754,9 @@
     "text": "The Indian Nonintercourse Act was reenacted again, maintaining protections against unauthorized sales of Native land.",
     "chapter": "preface_intro",
     "theme": "land_guardianship",
-    "figures": []
+    "figures": [],
+    "era": "early_republic",
+    "secondaryThemes": []
   },
   {
     "id": "e53",
@@ -635,7 +767,9 @@
     "text": "The 1800 US census recorded Mashpee as home to fifty-eight White males, fifty-eight White females, and thirty-nine Black residents across twenty-seven houses.",
     "chapter": "chapter2_parsonage_schoolhouse",
     "theme": "race_enfranchise",
-    "figures": []
+    "figures": [],
+    "era": "early_republic",
+    "secondaryThemes": []
   },
   {
     "id": "e54",
@@ -646,7 +780,9 @@
     "text": "Guardians of Native communities were required to report their accounts to legislative committees beginning in 1801.",
     "chapter": "chapter1_homestead",
     "theme": "land_guardianship",
-    "figures": []
+    "figures": [],
+    "era": "early_republic",
+    "secondaryThemes": []
   },
   {
     "id": "e55",
@@ -657,7 +793,9 @@
     "text": "The Indian Nonintercourse Act was made permanent, cementing federal oversight of Native land sales going forward.",
     "chapter": "preface_intro",
     "theme": "land_guardianship",
-    "figures": []
+    "figures": [],
+    "era": "early_republic",
+    "secondaryThemes": []
   },
   {
     "id": "e56",
@@ -671,7 +809,9 @@
     "figures": [
       "Matthew Mayhew Jr.",
       "Zachariah Howwaswee"
-    ]
+    ],
+    "era": "early_republic",
+    "secondaryThemes": []
   },
   {
     "id": "e57",
@@ -685,6 +825,10 @@
     "figures": [
       "Matthew Mayhew Jr.",
       "Zachariah Howwaswee"
+    ],
+    "era": "early_republic",
+    "secondaryThemes": [
+      "religious_authority"
     ]
   },
   {
@@ -699,7 +843,9 @@
     "figures": [
       "George Peters",
       "Sarah Francis"
-    ]
+    ],
+    "era": "early_republic",
+    "secondaryThemes": []
   },
   {
     "id": "e59",
@@ -710,7 +856,9 @@
     "text": "Land sales beginning in 1805 set in motion a slow, incremental process of settler colonialism that reshaped tribal landholdings in Massachusetts through the turn of the twentieth century.",
     "chapter": "preface_intro",
     "theme": "land_guardianship",
-    "figures": []
+    "figures": [],
+    "era": "early_republic",
+    "secondaryThemes": []
   },
   {
     "id": "e60",
@@ -723,6 +871,10 @@
     "theme": "land_guardianship",
     "figures": [
       "Blind Joe Amos"
+    ],
+    "era": "early_republic",
+    "secondaryThemes": [
+      "religious_authority"
     ]
   },
   {
@@ -736,6 +888,10 @@
     "theme": "land_guardianship",
     "figures": [
       "Gideon Hawley"
+    ],
+    "era": "early_republic",
+    "secondaryThemes": [
+      "religious_authority"
     ]
   },
   {
@@ -747,7 +903,9 @@
     "text": "In December 1807, proprietors from Mashpee and Herring Pond, led by Moses Pocknet, petitioned the state legislature to reduce the number of guardians from five to three.",
     "chapter": "chapter1_homestead",
     "theme": "land_guardianship",
-    "figures": []
+    "figures": [],
+    "era": "early_republic",
+    "secondaryThemes": []
   },
   {
     "id": "e63",
@@ -760,7 +918,9 @@
     "theme": "land_guardianship",
     "figures": [
       "Ezra Attaquin"
-    ]
+    ],
+    "era": "early_republic",
+    "secondaryThemes": []
   },
   {
     "id": "e64",
@@ -773,7 +933,9 @@
     "theme": "selfgov_revolt",
     "figures": [
       "Barsa Jeshel"
-    ]
+    ],
+    "era": "early_republic",
+    "secondaryThemes": []
   },
   {
     "id": "e65",
@@ -784,7 +946,11 @@
     "text": "In 1809, Massachusetts Senate Speaker Timothy Bigelow affirmed the deed reserving Mashpee parsonage land 'forever' for the use of a Congregational gospel minister.",
     "chapter": "chapter2_parsonage_schoolhouse",
     "theme": "land_guardianship",
-    "figures": []
+    "figures": [],
+    "era": "early_republic",
+    "secondaryThemes": [
+      "religious_authority"
+    ]
   },
   {
     "id": "e66",
@@ -795,7 +961,9 @@
     "text": "A second Bathsheba Occouch of Gay Head, a relative of the basket-weaver of the same name, was born in the 1810s.",
     "chapter": "preface_intro",
     "theme": "land_guardianship",
-    "figures": []
+    "figures": [],
+    "era": "early_republic",
+    "secondaryThemes": []
   },
   {
     "id": "e67",
@@ -808,6 +976,10 @@
     "theme": "selfgov_revolt",
     "figures": [
       "Phineas Fish"
+    ],
+    "era": "early_republic",
+    "secondaryThemes": [
+      "religious_authority"
     ]
   },
   {
@@ -823,7 +995,9 @@
       "Sarah Francis",
       "Hannah Capen",
       "Mercy Popenna"
-    ]
+    ],
+    "era": "early_republic",
+    "secondaryThemes": []
   },
   {
     "id": "e69",
@@ -836,7 +1010,9 @@
     "theme": "land_guardianship",
     "figures": [
       "Sarah Francis"
-    ]
+    ],
+    "era": "early_republic",
+    "secondaryThemes": []
   },
   {
     "id": "e70",
@@ -847,7 +1023,9 @@
     "text": "Gay Head received gubernatorial-appointed guardians in 1811, beginning a new phase of state oversight.",
     "chapter": "chapter1_homestead",
     "theme": "land_guardianship",
-    "figures": []
+    "figures": [],
+    "era": "early_republic",
+    "secondaryThemes": []
   },
   {
     "id": "e71",
@@ -858,7 +1036,9 @@
     "text": "The Gay Head Petition Series of 1811–1824 saw a sustained sequence of petitions to the state legislature to sell lands held in common by the tribe, reshaping elder care and guardianship in the community.",
     "chapter": "chapter1_homestead",
     "theme": "land_guardianship",
-    "figures": []
+    "figures": [],
+    "era": "early_republic",
+    "secondaryThemes": []
   },
   {
     "id": "e72",
@@ -872,6 +1052,10 @@
     "figures": [
       "Ezra Attaquin",
       "Phineas Fish"
+    ],
+    "era": "early_republic",
+    "secondaryThemes": [
+      "religious_authority"
     ]
   },
   {
@@ -885,6 +1069,10 @@
     "theme": "selfgov_revolt",
     "figures": [
       "Phineas Fish"
+    ],
+    "era": "early_republic",
+    "secondaryThemes": [
+      "religious_authority"
     ]
   },
   {
@@ -898,6 +1086,10 @@
     "theme": "selfgov_revolt",
     "figures": [
       "Phineas Fish"
+    ],
+    "era": "early_republic",
+    "secondaryThemes": [
+      "religious_authority"
     ]
   },
   {
@@ -911,7 +1103,9 @@
     "theme": "land_guardianship",
     "figures": [
       "Beulah Vanderhoop"
-    ]
+    ],
+    "era": "early_republic",
+    "secondaryThemes": []
   },
   {
     "id": "e76",
@@ -922,7 +1116,9 @@
     "text": "The Massachusetts legislature passed 'An Act for the better regulation of the Indian, Mulatto, and Negro Proprietors of Gay Head in the County of Duke's County,' establishing a state guardianship over Gay Head despite community objections.",
     "chapter": "chapter3_garret",
     "theme": "race_enfranchise",
-    "figures": []
+    "figures": [],
+    "era": "early_republic",
+    "secondaryThemes": []
   },
   {
     "id": "e77",
@@ -935,7 +1131,9 @@
     "theme": "selfgov_revolt",
     "figures": [
       "Phineas Fish"
-    ]
+    ],
+    "era": "early_republic",
+    "secondaryThemes": []
   },
   {
     "id": "e78",
@@ -950,6 +1148,10 @@
       "Solomon Attaquin",
       "Cynthia Attaquin",
       "John Conet"
+    ],
+    "era": "early_republic",
+    "secondaryThemes": [
+      "kinship_family"
     ]
   },
   {
@@ -963,7 +1165,9 @@
     "theme": "land_guardianship",
     "figures": [
       "Abraham Cooper"
-    ]
+    ],
+    "era": "early_republic",
+    "secondaryThemes": []
   },
   {
     "id": "e80",
@@ -978,7 +1182,9 @@
       "Beulah Vanderhoop",
       "Abraham Cooper",
       "Zachariah Howwaswee"
-    ]
+    ],
+    "era": "early_republic",
+    "secondaryThemes": []
   },
   {
     "id": "e81",
@@ -991,7 +1197,9 @@
     "theme": "race_enfranchise",
     "figures": [
       "Johann Gaspar Spurzheim"
-    ]
+    ],
+    "era": "early_republic",
+    "secondaryThemes": []
   },
   {
     "id": "e82",
@@ -1004,7 +1212,9 @@
     "theme": "race_enfranchise",
     "figures": [
       "John Milton Earle"
-    ]
+    ],
+    "era": "early_republic",
+    "secondaryThemes": []
   },
   {
     "id": "e83",
@@ -1015,7 +1225,9 @@
     "text": "In 1818, Herring Pond's governor-appointed board of overseers was authorized to act as guardians.",
     "chapter": "chapter1_homestead",
     "theme": "land_guardianship",
-    "figures": []
+    "figures": [],
+    "era": "early_republic",
+    "secondaryThemes": []
   },
   {
     "id": "e84",
@@ -1028,6 +1240,10 @@
     "theme": "land_guardianship",
     "figures": [
       "John Conet"
+    ],
+    "era": "early_republic",
+    "secondaryThemes": [
+      "kinship_family"
     ]
   },
   {
@@ -1042,7 +1258,9 @@
     "figures": [
       "Hannah Capen",
       "Elizabeth Occouch"
-    ]
+    ],
+    "era": "early_republic",
+    "secondaryThemes": []
   },
   {
     "id": "e86",
@@ -1053,7 +1271,9 @@
     "text": "Aquinnah and Mashpee community members navigated their relationship to external American forces during what this study terms the Era of Removal, spanning 1820 to 1850.",
     "chapter": "preface_intro",
     "theme": "land_guardianship",
-    "figures": []
+    "figures": [],
+    "era": "indian_removal",
+    "secondaryThemes": []
   },
   {
     "id": "e87",
@@ -1064,7 +1284,9 @@
     "text": "By the 1820s, U.S. policies toward Indigenous peoples had begun to be explicitly framed around removal and relocation, including proposals to move the Cherokee Nation to lands in the West.",
     "chapter": "preface_intro",
     "theme": "land_guardianship",
-    "figures": []
+    "figures": [],
+    "era": "indian_removal",
+    "secondaryThemes": []
   },
   {
     "id": "e88",
@@ -1075,7 +1297,9 @@
     "text": "In 1820, Frederick Baylies wrote a letter to the deciding legislative committee protesting the Occouch-Capen land petition, warning it would cause Native people to lose their birthright.",
     "chapter": "chapter1_homestead",
     "theme": "land_guardianship",
-    "figures": []
+    "figures": [],
+    "era": "indian_removal",
+    "secondaryThemes": []
   },
   {
     "id": "e89",
@@ -1086,7 +1310,9 @@
     "text": "Mashpee residents waged legal battles through the 1820s and 1830s that succeeded in removing the community's state-appointed guardian and establishing a new local governance structure.",
     "chapter": "chapter4_meetinghouse",
     "theme": "land_guardianship",
-    "figures": []
+    "figures": [],
+    "era": "indian_removal",
+    "secondaryThemes": []
   },
   {
     "id": "e90",
@@ -1101,7 +1327,9 @@
       "Hannah Capen",
       "Elizabeth Occouch",
       "Matthew Mayhew (missionary)"
-    ]
+    ],
+    "era": "indian_removal",
+    "secondaryThemes": []
   },
   {
     "id": "e91",
@@ -1116,7 +1344,9 @@
       "Sarah Francis",
       "Hannah Pocknet",
       "Bathsheba Wickett"
-    ]
+    ],
+    "era": "indian_removal",
+    "secondaryThemes": []
   },
   {
     "id": "e92",
@@ -1131,7 +1361,9 @@
       "Mercy Popenna",
       "Hannah Pocknet",
       "Bathsheba Wickett"
-    ]
+    ],
+    "era": "indian_removal",
+    "secondaryThemes": []
   },
   {
     "id": "e93",
@@ -1146,6 +1378,10 @@
       "Mercy Popenna",
       "Hannah Pocknet",
       "Bathsheba Wickett"
+    ],
+    "era": "indian_removal",
+    "secondaryThemes": [
+      "kinship_family"
     ]
   },
   {
@@ -1159,7 +1395,9 @@
     "theme": "land_guardianship",
     "figures": [
       "George Peters"
-    ]
+    ],
+    "era": "indian_removal",
+    "secondaryThemes": []
   },
   {
     "id": "e95",
@@ -1172,7 +1410,9 @@
     "theme": "land_guardianship",
     "figures": [
       "George Peters"
-    ]
+    ],
+    "era": "indian_removal",
+    "secondaryThemes": []
   },
   {
     "id": "e96",
@@ -1183,7 +1423,9 @@
     "text": "A new law in 1824 required guardians of Native trust properties to provide a bond.",
     "chapter": "chapter1_homestead",
     "theme": "land_guardianship",
-    "figures": []
+    "figures": [],
+    "era": "indian_removal",
+    "secondaryThemes": []
   },
   {
     "id": "e97",
@@ -1196,6 +1438,10 @@
     "theme": "land_guardianship",
     "figures": [
       "John Conet"
+    ],
+    "era": "indian_removal",
+    "secondaryThemes": [
+      "kinship_family"
     ]
   },
   {
@@ -1207,7 +1453,9 @@
     "text": "Several elderly Christiantown women, possibly on a guardian's recommendation, petitioned to sell lands previously held in common by the tribe.",
     "chapter": "chapter3_garret",
     "theme": "land_guardianship",
-    "figures": []
+    "figures": [],
+    "era": "indian_removal",
+    "secondaryThemes": []
   },
   {
     "id": "e99",
@@ -1220,7 +1468,9 @@
     "theme": "land_guardianship",
     "figures": [
       "George Peters"
-    ]
+    ],
+    "era": "indian_removal",
+    "secondaryThemes": []
   },
   {
     "id": "e100",
@@ -1234,7 +1484,9 @@
     "figures": [
       "George Peters",
       "Sarah Francis"
-    ]
+    ],
+    "era": "indian_removal",
+    "secondaryThemes": []
   },
   {
     "id": "e101",
@@ -1247,7 +1499,9 @@
     "theme": "land_guardianship",
     "figures": [
       "Levi Lincoln"
-    ]
+    ],
+    "era": "indian_removal",
+    "secondaryThemes": []
   },
   {
     "id": "e102",
@@ -1258,7 +1512,9 @@
     "text": "Chappaquiddick and Christiantown came under state-appointed guardians in 1827, though Native residents there still elected overseers.",
     "chapter": "chapter1_homestead",
     "theme": "land_guardianship",
-    "figures": []
+    "figures": [],
+    "era": "indian_removal",
+    "secondaryThemes": []
   },
   {
     "id": "e103",
@@ -1269,7 +1525,9 @@
     "text": "In 1827, the Salem Observer counted twenty-four 'Indians on the Vineyard' and tallied 695 in Dukes and Barnstable Counties combined.",
     "chapter": "chapter1_homestead",
     "theme": "land_guardianship",
-    "figures": []
+    "figures": [],
+    "era": "indian_removal",
+    "secondaryThemes": []
   },
   {
     "id": "e104",
@@ -1282,6 +1540,10 @@
     "theme": "fugitivity_maritime",
     "figures": [
       "James W.C. Pennington"
+    ],
+    "era": "indian_removal",
+    "secondaryThemes": [
+      "religious_authority"
     ]
   },
   {
@@ -1293,7 +1555,9 @@
     "text": "Andrew Jackson was elected President of the United States, reflecting voter tolerance for anti-Native rhetoric and removal proposals following his earlier popularity in the Seminole Wars.",
     "chapter": "preface_intro",
     "theme": "land_guardianship",
-    "figures": []
+    "figures": [],
+    "era": "indian_removal",
+    "secondaryThemes": []
   },
   {
     "id": "e106",
@@ -1306,7 +1570,9 @@
     "theme": "race_enfranchise",
     "figures": [
       "John Milton Earle"
-    ]
+    ],
+    "era": "indian_removal",
+    "secondaryThemes": []
   },
   {
     "id": "e107",
@@ -1320,7 +1586,9 @@
     "figures": [
       "George Combe",
       "Johann Gaspar Spurzheim"
-    ]
+    ],
+    "era": "indian_removal",
+    "secondaryThemes": []
   },
   {
     "id": "e108",
@@ -1333,6 +1601,10 @@
     "theme": "selfgov_revolt",
     "figures": [
       "William Apess"
+    ],
+    "era": "indian_removal",
+    "secondaryThemes": [
+      "kinship_family"
     ]
   },
   {
@@ -1346,6 +1618,10 @@
     "theme": "selfgov_revolt",
     "figures": [
       "William Apess"
+    ],
+    "era": "indian_removal",
+    "secondaryThemes": [
+      "kinship_family"
     ]
   },
   {
@@ -1357,7 +1633,9 @@
     "text": "The Indian Removal Act passes.",
     "chapter": "dissertation-seed-timeline",
     "theme": "land_guardianship",
-    "figures": []
+    "figures": [],
+    "era": "indian_removal",
+    "secondaryThemes": []
   },
   {
     "id": "e111",
@@ -1368,7 +1646,9 @@
     "text": "By 1830, abolitionist and anti-removal organizers in major Northern cities began funding large-scale petition drives that flooded Congress with appeals on Native removal and slavery.",
     "chapter": "preface_intro",
     "theme": "land_guardianship",
-    "figures": []
+    "figures": [],
+    "era": "indian_removal",
+    "secondaryThemes": []
   },
   {
     "id": "e112",
@@ -1381,7 +1661,9 @@
     "theme": "land_guardianship",
     "figures": [
       "Levi Lincoln"
-    ]
+    ],
+    "era": "indian_removal",
+    "secondaryThemes": []
   },
   {
     "id": "e113",
@@ -1395,7 +1677,9 @@
     "figures": [
       "Beulah Vanderhoop",
       "William Vanderhoop"
-    ]
+    ],
+    "era": "indian_removal",
+    "secondaryThemes": []
   },
   {
     "id": "e114",
@@ -1406,7 +1690,9 @@
     "text": "Andrew Jackson's Indian Removal Act, referenced in the chapter as thirty years before Massachusetts's Civil War-era enfranchisement debates, was passed in 1830.",
     "chapter": "chapter4_meetinghouse",
     "theme": "race_enfranchise",
-    "figures": []
+    "figures": [],
+    "era": "indian_removal",
+    "secondaryThemes": []
   },
   {
     "id": "e115",
@@ -1417,7 +1703,9 @@
     "text": "By the 1830s, phrenology had begun to be applied in American courtrooms, with expert witnesses and physicians vouching for its credibility in assessing criminality and insanity.",
     "chapter": "chapter4_meetinghouse",
     "theme": "race_enfranchise",
-    "figures": []
+    "figures": [],
+    "era": "indian_removal",
+    "secondaryThemes": []
   },
   {
     "id": "e116",
@@ -1428,7 +1716,9 @@
     "text": "In the 1830s, the District of Mashpee was established, a moment later cited in court as evidence that the Mashpee were then recognized as a tribe.",
     "chapter": "conclusion",
     "theme": "selfgov_revolt",
-    "figures": []
+    "figures": [],
+    "era": "indian_removal",
+    "secondaryThemes": []
   },
   {
     "id": "e117",
@@ -1441,6 +1731,10 @@
     "theme": "land_guardianship",
     "figures": [
       "Blind Joe Amos"
+    ],
+    "era": "indian_removal",
+    "secondaryThemes": [
+      "religious_authority"
     ]
   },
   {
@@ -1452,7 +1746,9 @@
     "text": "A petition bearing over eight hundred signatures from Connecticut residents in fourteen towns was submitted to Congress protesting the forced removal of the Cherokee, with the names of Sally, Caroline, and Martha of Salisbury and thirty additional women concealed beneath an attached flap of paper.",
     "chapter": "preface_intro",
     "theme": "land_guardianship",
-    "figures": []
+    "figures": [],
+    "era": "indian_removal",
+    "secondaryThemes": []
   },
   {
     "id": "e119",
@@ -1465,6 +1761,10 @@
     "theme": "land_guardianship",
     "figures": [
       "Blind Joe Amos"
+    ],
+    "era": "indian_removal",
+    "secondaryThemes": [
+      "religious_authority"
     ]
   },
   {
@@ -1478,7 +1778,9 @@
     "theme": "race_enfranchise",
     "figures": [
       "Johann Gaspar Spurzheim"
-    ]
+    ],
+    "era": "indian_removal",
+    "secondaryThemes": []
   },
   {
     "id": "e121",
@@ -1489,7 +1791,9 @@
     "text": "The Mashpee revolts of 1833 and 1834 grew out of decades of petitioning and signaled a new willingness by the Massachusetts legislature to alter Native guardianship arrangements.",
     "chapter": "chapter1_homestead",
     "theme": "selfgov_revolt",
-    "figures": []
+    "figures": [],
+    "era": "indian_removal",
+    "secondaryThemes": []
   },
   {
     "id": "e122",
@@ -1503,6 +1807,10 @@
     "figures": [
       "Phineas Fish",
       "Blind Joe Amos"
+    ],
+    "era": "indian_removal",
+    "secondaryThemes": [
+      "religious_authority"
     ]
   },
   {
@@ -1517,6 +1825,10 @@
     "figures": [
       "William Apess",
       "Phineas Fish"
+    ],
+    "era": "indian_removal",
+    "secondaryThemes": [
+      "religious_authority"
     ]
   },
   {
@@ -1531,7 +1843,9 @@
     "figures": [
       "Ebenezer Attaquin",
       "William Apess"
-    ]
+    ],
+    "era": "indian_removal",
+    "secondaryThemes": []
   },
   {
     "id": "e125",
@@ -1542,7 +1856,9 @@
     "text": "In 1833, Mashpee petitioners sent a first petition to the Massachusetts governor and council resolving 'that we, as a tribe, will rule ourselves' and barring White men from removing wood or hay from the plantation after July 1.",
     "chapter": "chapter2_parsonage_schoolhouse",
     "theme": "selfgov_revolt",
-    "figures": []
+    "figures": [],
+    "era": "indian_removal",
+    "secondaryThemes": []
   },
   {
     "id": "e126",
@@ -1553,7 +1869,11 @@
     "text": "In 1833, Mashpee petitioners submitted a second petition to Harvard College and the trustees of the Williams Fund demanding the right to choose their own preacher and threatening to publicize the dispute if Reverend Fish was not discharged.",
     "chapter": "chapter2_parsonage_schoolhouse",
     "theme": "selfgov_revolt",
-    "figures": []
+    "figures": [],
+    "era": "indian_removal",
+    "secondaryThemes": [
+      "religious_authority"
+    ]
   },
   {
     "id": "e127",
@@ -1564,7 +1884,11 @@
     "text": "Amid the petition drive, a competing faction of Mashpee residents submitted their own 1833 petition stating they were satisfied with Reverend Fish and hoped he would be allowed to continue laboring among them.",
     "chapter": "chapter2_parsonage_schoolhouse",
     "theme": "selfgov_revolt",
-    "figures": []
+    "figures": [],
+    "era": "indian_removal",
+    "secondaryThemes": [
+      "religious_authority"
+    ]
   },
   {
     "id": "e128",
@@ -1578,7 +1902,9 @@
     "figures": [
       "Phineas Fish",
       "Josiah Quincy"
-    ]
+    ],
+    "era": "indian_removal",
+    "secondaryThemes": []
   },
   {
     "id": "e129",
@@ -1591,6 +1917,10 @@
     "theme": "selfgov_revolt",
     "figures": [
       "William Apess"
+    ],
+    "era": "indian_removal",
+    "secondaryThemes": [
+      "religious_authority"
     ]
   },
   {
@@ -1604,6 +1934,10 @@
     "theme": "selfgov_revolt",
     "figures": [
       "William Apess"
+    ],
+    "era": "indian_removal",
+    "secondaryThemes": [
+      "religious_authority"
     ]
   },
   {
@@ -1618,6 +1952,10 @@
     "figures": [
       "Ebenezer Attaquin",
       "William Apess"
+    ],
+    "era": "indian_removal",
+    "secondaryThemes": [
+      "religious_authority"
     ]
   },
   {
@@ -1629,7 +1967,9 @@
     "text": "The Mashpee petitioners set a July 1, 1833 deadline for their demands to be met, after which they threatened to forcibly remove their overseers from the plantation.",
     "chapter": "chapter2_parsonage_schoolhouse",
     "theme": "selfgov_revolt",
-    "figures": []
+    "figures": [],
+    "era": "indian_removal",
+    "secondaryThemes": []
   },
   {
     "id": "e133",
@@ -1643,7 +1983,9 @@
     "figures": [
       "William Apess",
       "Josiah Fiske"
-    ]
+    ],
+    "era": "indian_removal",
+    "secondaryThemes": []
   },
   {
     "id": "e134",
@@ -1657,7 +1999,9 @@
     "figures": [
       "William Apess",
       "Josiah Fiske"
-    ]
+    ],
+    "era": "indian_removal",
+    "secondaryThemes": []
   },
   {
     "id": "e135",
@@ -1668,7 +2012,11 @@
     "text": "The Mashpee Wampanoag petitioned the Massachusetts State Legislature for access to their meetinghouse, a significant moment in the Mashpee Revolt.",
     "chapter": "dissertation-seed-timeline",
     "theme": "selfgov_revolt",
-    "figures": []
+    "figures": [],
+    "era": "indian_removal",
+    "secondaryThemes": [
+      "religious_authority"
+    ]
   },
   {
     "id": "e136",
@@ -1679,7 +2027,9 @@
     "text": "Following an uprising in 1834, Herring Pond's overseers were replaced by a state-appointed commissioner.",
     "chapter": "chapter1_homestead",
     "theme": "selfgov_revolt",
-    "figures": []
+    "figures": [],
+    "era": "indian_removal",
+    "secondaryThemes": []
   },
   {
     "id": "e137",
@@ -1690,7 +2040,9 @@
     "text": "In 1834, the Mashpee Wampanoag submitted a third petition to the Massachusetts legislature signed by 287 residents, declaring 'we think we have been in slavery long enough' and demanding abolition of the overseership and incorporation of the town.",
     "chapter": "chapter2_parsonage_schoolhouse",
     "theme": "selfgov_revolt",
-    "figures": []
+    "figures": [],
+    "era": "indian_removal",
+    "secondaryThemes": []
   },
   {
     "id": "e138",
@@ -1701,7 +2053,9 @@
     "text": "In 1834, the Massachusetts legislature passed an act granting Mashpee limited self-governance, abolishing the guardianship system, and barring non-Indians from removing natural resources from the reservation.",
     "chapter": "chapter2_parsonage_schoolhouse",
     "theme": "selfgov_revolt",
-    "figures": []
+    "figures": [],
+    "era": "indian_removal",
+    "secondaryThemes": []
   },
   {
     "id": "e139",
@@ -1714,7 +2068,9 @@
     "theme": "land_guardianship",
     "figures": [
       "Benjamin Hallett"
-    ]
+    ],
+    "era": "indian_removal",
+    "secondaryThemes": []
   },
   {
     "id": "e140",
@@ -1727,7 +2083,9 @@
     "theme": "race_enfranchise",
     "figures": [
       "George Combe"
-    ]
+    ],
+    "era": "indian_removal",
+    "secondaryThemes": []
   },
   {
     "id": "e141",
@@ -1740,7 +2098,9 @@
     "theme": "land_guardianship",
     "figures": [
       "Benjamin Hallett"
-    ]
+    ],
+    "era": "indian_removal",
+    "secondaryThemes": []
   },
   {
     "id": "e142",
@@ -1751,7 +2111,9 @@
     "text": "By 1835, unlike Gay Head and other Native towns, the majority of Mashpee's tribal lands remained held in common rather than divided among individual owners.",
     "chapter": "chapter2_parsonage_schoolhouse",
     "theme": "land_guardianship",
-    "figures": []
+    "figures": [],
+    "era": "indian_removal",
+    "secondaryThemes": []
   },
   {
     "id": "e143",
@@ -1764,6 +2126,10 @@
     "theme": "selfgov_revolt",
     "figures": [
       "George Peters"
+    ],
+    "era": "indian_removal",
+    "secondaryThemes": [
+      "kinship_family"
     ]
   },
   {
@@ -1775,7 +2141,9 @@
     "text": "The U.S. House of Representatives passed a 'gag rule' that automatically tabled any petition addressing the issue of slavery.",
     "chapter": "preface_intro",
     "theme": "land_guardianship",
-    "figures": []
+    "figures": [],
+    "era": "indian_removal",
+    "secondaryThemes": []
   },
   {
     "id": "e145",
@@ -1788,7 +2156,9 @@
     "theme": "land_guardianship",
     "figures": [
       "Nathan Pocknet"
-    ]
+    ],
+    "era": "indian_removal",
+    "secondaryThemes": []
   },
   {
     "id": "e146",
@@ -1799,7 +2169,9 @@
     "text": "An 1837 report described squalid, neglectful conditions in the building assigned to Black inmates at a New York mental hospital.",
     "chapter": "chapter1_homestead",
     "theme": "land_guardianship",
-    "figures": []
+    "figures": [],
+    "era": "indian_removal",
+    "secondaryThemes": []
   },
   {
     "id": "e147",
@@ -1812,7 +2184,9 @@
     "theme": "selfgov_revolt",
     "figures": [
       "Solomon Attaquin"
-    ]
+    ],
+    "era": "indian_removal",
+    "secondaryThemes": []
   },
   {
     "id": "e148",
@@ -1825,7 +2199,9 @@
     "theme": "land_guardianship",
     "figures": [
       "Solomon Attaquin"
-    ]
+    ],
+    "era": "indian_removal",
+    "secondaryThemes": []
   },
   {
     "id": "e149",
@@ -1838,7 +2214,9 @@
     "theme": "land_guardianship",
     "figures": [
       "Nathan Pocknet"
-    ]
+    ],
+    "era": "indian_removal",
+    "secondaryThemes": []
   },
   {
     "id": "e150",
@@ -1851,7 +2229,9 @@
     "theme": "land_guardianship",
     "figures": [
       "Matthew Mayhew Jr."
-    ]
+    ],
+    "era": "indian_removal",
+    "secondaryThemes": []
   },
   {
     "id": "e151",
@@ -1864,6 +2244,10 @@
     "theme": "selfgov_revolt",
     "figures": [
       "Ebenezer Attaquin"
+    ],
+    "era": "indian_removal",
+    "secondaryThemes": [
+      "religious_authority"
     ]
   },
   {
@@ -1877,7 +2261,9 @@
     "theme": "land_guardianship",
     "figures": [
       "John Conet"
-    ]
+    ],
+    "era": "indian_removal",
+    "secondaryThemes": []
   },
   {
     "id": "e153",
@@ -1891,7 +2277,9 @@
     "figures": [
       "George Combe",
       "Johann Gaspar Spurzheim"
-    ]
+    ],
+    "era": "indian_removal",
+    "secondaryThemes": []
   },
   {
     "id": "e154",
@@ -1905,7 +2293,9 @@
     "figures": [
       "Solomon Attaquin",
       "Ebenezer Attaquin"
-    ]
+    ],
+    "era": "indian_removal",
+    "secondaryThemes": []
   },
   {
     "id": "e155",
@@ -1918,7 +2308,9 @@
     "theme": "selfgov_revolt",
     "figures": [
       "Ebenezer Attaquin"
-    ]
+    ],
+    "era": "indian_removal",
+    "secondaryThemes": []
   },
   {
     "id": "e156",
@@ -1931,6 +2323,10 @@
     "theme": "selfgov_revolt",
     "figures": [
       "Solomon Attaquin"
+    ],
+    "era": "indian_removal",
+    "secondaryThemes": [
+      "religious_authority"
     ]
   },
   {
@@ -1944,7 +2340,9 @@
     "theme": "land_guardianship",
     "figures": [
       "Solomon Attaquin"
-    ]
+    ],
+    "era": "indian_removal",
+    "secondaryThemes": []
   },
   {
     "id": "e158",
@@ -1957,7 +2355,9 @@
     "theme": "selfgov_revolt",
     "figures": [
       "William Apess"
-    ]
+    ],
+    "era": "indian_removal",
+    "secondaryThemes": []
   },
   {
     "id": "e159",
@@ -1968,7 +2368,9 @@
     "text": "American physician Samuel Morton published Crania Americana in 1839, dividing humanity into five races based on skull measurements and becoming a foundational text of American ethnography.",
     "chapter": "chapter4_meetinghouse",
     "theme": "race_enfranchise",
-    "figures": []
+    "figures": [],
+    "era": "indian_removal",
+    "secondaryThemes": []
   },
   {
     "id": "e160",
@@ -1979,7 +2381,9 @@
     "text": "By 1840, US census data was being used as a tool to diagnose and assess rates of mental illness and pauperism, showing higher initial insanity rates among whites and free Blacks compared to enslaved Blacks.",
     "chapter": "chapter1_homestead",
     "theme": "fugitivity_maritime",
-    "figures": []
+    "figures": [],
+    "era": "indian_removal",
+    "secondaryThemes": []
   },
   {
     "id": "e161",
@@ -1990,7 +2394,9 @@
     "text": "During the 1840s, Native women in southern Massachusetts added their signatures to anti-segregation and pro-sovereignty petitions, forging alliances with abolitionist societies.",
     "chapter": "chapter2_parsonage_schoolhouse",
     "theme": "fugitivity_maritime",
-    "figures": []
+    "figures": [],
+    "era": "indian_removal",
+    "secondaryThemes": []
   },
   {
     "id": "e162",
@@ -2001,7 +2407,9 @@
     "text": "The 1840 US Federal Census noted that schools and highway repairs in Native districts like Mashpee were funded 'of public charge' from land held in common rather than through equitable outside public support.",
     "chapter": "chapter3_garret",
     "theme": "selfgov_revolt",
-    "figures": []
+    "figures": [],
+    "era": "indian_removal",
+    "secondaryThemes": []
   },
   {
     "id": "e163",
@@ -2012,7 +2420,9 @@
     "text": "In the 1840s, the District of Mashpee was partitioned, another moment later cited in court as evidence that the Mashpee were again recognized as a tribe.",
     "chapter": "conclusion",
     "theme": "selfgov_revolt",
-    "figures": []
+    "figures": [],
+    "era": "indian_removal",
+    "secondaryThemes": []
   },
   {
     "id": "e164",
@@ -2025,7 +2435,9 @@
     "theme": "fugitivity_maritime",
     "figures": [
       "Frederick Douglass"
-    ]
+    ],
+    "era": "indian_removal",
+    "secondaryThemes": []
   },
   {
     "id": "e165",
@@ -2039,6 +2451,10 @@
     "figures": [
       "Phineas Fish",
       "Josiah Quincy"
+    ],
+    "era": "indian_removal",
+    "secondaryThemes": [
+      "religious_authority"
     ]
   },
   {
@@ -2050,7 +2466,9 @@
     "text": "David Ruggles, a Black abolitionist from New York active in the Underground Railroad, was ordered to move to a segregated 'Jim Crow' car while traveling by train from New Bedford to Boston.",
     "chapter": "chapter3_garret",
     "theme": "fugitivity_maritime",
-    "figures": []
+    "figures": [],
+    "era": "indian_removal",
+    "secondaryThemes": []
   },
   {
     "id": "e167",
@@ -2063,7 +2481,9 @@
     "theme": "fugitivity_maritime",
     "figures": [
       "Frederick Douglass"
-    ]
+    ],
+    "era": "indian_removal",
+    "secondaryThemes": []
   },
   {
     "id": "e168",
@@ -2074,7 +2494,9 @@
     "text": "The Liberator published a petition circulated by the Board of Managers of the Massachusetts Anti-Slavery Society urging the legislature to protect Black residents' rights on public transportation and repeal the state's anti-miscegenation laws.",
     "chapter": "chapter3_garret",
     "theme": "memory_return",
-    "figures": []
+    "figures": [],
+    "era": "indian_removal",
+    "secondaryThemes": []
   },
   {
     "id": "e169",
@@ -2085,7 +2507,9 @@
     "text": "Massachusetts legislative committee recommends passing an act regarding Mashpee governance.",
     "chapter": "dissertation-seed-timeline",
     "theme": "land_guardianship",
-    "figures": []
+    "figures": [],
+    "era": "indian_removal",
+    "secondaryThemes": []
   },
   {
     "id": "e170",
@@ -2098,7 +2522,9 @@
     "theme": "land_guardianship",
     "figures": [
       "Cynthia Attaquin"
-    ]
+    ],
+    "era": "indian_removal",
+    "secondaryThemes": []
   },
   {
     "id": "e171",
@@ -2111,7 +2537,9 @@
     "theme": "land_guardianship",
     "figures": [
       "Solomon Attaquin"
-    ]
+    ],
+    "era": "indian_removal",
+    "secondaryThemes": []
   },
   {
     "id": "e172",
@@ -2124,7 +2552,9 @@
     "theme": "land_guardianship",
     "figures": [
       "Solomon Attaquin"
-    ]
+    ],
+    "era": "indian_removal",
+    "secondaryThemes": []
   },
   {
     "id": "e173",
@@ -2135,7 +2565,9 @@
     "text": "In 1842, Mashpee divided its tribal lands into individual property allotments inalienable to anyone but Mashpee proprietors, seeking to prove the community's capacity for self-governance.",
     "chapter": "chapter4_meetinghouse",
     "theme": "selfgov_revolt",
-    "figures": []
+    "figures": [],
+    "era": "indian_removal",
+    "secondaryThemes": []
   },
   {
     "id": "e174",
@@ -2148,7 +2580,9 @@
     "theme": "land_guardianship",
     "figures": [
       "Barsa Jeshel"
-    ]
+    ],
+    "era": "indian_removal",
+    "secondaryThemes": []
   },
   {
     "id": "e175",
@@ -2159,7 +2593,9 @@
     "text": "Massachusetts came close to passing an act banning racial segregation in public transportation, and public and legislative pressure ultimately forced railroad companies to abandon the practice.",
     "chapter": "chapter3_garret",
     "theme": "fugitivity_maritime",
-    "figures": []
+    "figures": [],
+    "era": "indian_removal",
+    "secondaryThemes": []
   },
   {
     "id": "e176",
@@ -2170,7 +2606,9 @@
     "text": "Massachusetts Governor George N. Briggs, who served from 1844 to 1851, commissioned F. W. Bird, Whiting Griswold, and Cyrus Weekes to investigate the condition of the state's Indian tribes, producing what became known as the Briggs report.",
     "chapter": "chapter4_meetinghouse",
     "theme": "race_enfranchise",
-    "figures": []
+    "figures": [],
+    "era": "indian_removal",
+    "secondaryThemes": []
   },
   {
     "id": "e177",
@@ -2183,7 +2621,9 @@
     "theme": "land_guardianship",
     "figures": [
       "Beulah Vanderhoop"
-    ]
+    ],
+    "era": "indian_removal",
+    "secondaryThemes": []
   },
   {
     "id": "e178",
@@ -2197,7 +2637,9 @@
     "figures": [
       "Beulah Vanderhoop",
       "William Vanderhoop"
-    ]
+    ],
+    "era": "indian_removal",
+    "secondaryThemes": []
   },
   {
     "id": "e179",
@@ -2208,7 +2650,9 @@
     "text": "The Massachusetts governor gained the power to remove Native guardians in 1846.",
     "chapter": "chapter1_homestead",
     "theme": "land_guardianship",
-    "figures": []
+    "figures": [],
+    "era": "indian_removal",
+    "secondaryThemes": []
   },
   {
     "id": "e180",
@@ -2219,7 +2663,9 @@
     "text": "A petition is submitted to prevent the sale of lands held in common by the community to newcomers and non-Natives.",
     "chapter": "dissertation-seed-timeline",
     "theme": "land_guardianship",
-    "figures": []
+    "figures": [],
+    "era": "indian_removal",
+    "secondaryThemes": []
   },
   {
     "id": "e181",
@@ -2230,7 +2676,9 @@
     "text": "A government-commissioned report on Indian affairs in Massachusetts was produced in 1848.",
     "chapter": "chapter1_homestead",
     "theme": "land_guardianship",
-    "figures": []
+    "figures": [],
+    "era": "indian_removal",
+    "secondaryThemes": []
   },
   {
     "id": "e182",
@@ -2241,7 +2689,9 @@
     "text": "By 1848, an unnamed twenty-two-year-old Christiantown seaman told the Briggs commissioners he had grown discouraged by racial prejudice at sea and had taken to wandering the cemeteries of his fallen kin instead.",
     "chapter": "chapter4_meetinghouse",
     "theme": "land_guardianship",
-    "figures": []
+    "figures": [],
+    "era": "indian_removal",
+    "secondaryThemes": []
   },
   {
     "id": "e183",
@@ -2252,7 +2702,9 @@
     "text": "The California Gold Rush, occurring roughly between 1848 and 1855, drew thousands of settlers and prompted lobbyists to push 'Indian Codes' restricting Native movement and enabling exploitation of Indigenous labor.",
     "chapter": "chapter4_meetinghouse",
     "theme": "land_guardianship",
-    "figures": []
+    "figures": [],
+    "era": "indian_removal",
+    "secondaryThemes": []
   },
   {
     "id": "e184",
@@ -2263,7 +2715,9 @@
     "text": "The 1849 Briggs Report praised the 'wonderful improvement' in Mashpee since the 1834 act abolishing guardianship, while still describing the community in paternalistic terms.",
     "chapter": "chapter2_parsonage_schoolhouse",
     "theme": "race_enfranchise",
-    "figures": []
+    "figures": [],
+    "era": "indian_removal",
+    "secondaryThemes": []
   },
   {
     "id": "e185",
@@ -2276,7 +2730,9 @@
     "theme": "memory_return",
     "figures": [
       "James W.C. Pennington"
-    ]
+    ],
+    "era": "indian_removal",
+    "secondaryThemes": []
   },
   {
     "id": "e186",
@@ -2290,6 +2746,10 @@
     "figures": [
       "Blind Joe Amos",
       "Johann Gaspar Spurzheim"
+    ],
+    "era": "indian_removal",
+    "secondaryThemes": [
+      "religious_authority"
     ]
   },
   {
@@ -2301,7 +2761,9 @@
     "text": "By February 1849, the Report of the Commissioners Relating to the Condition of the Indians in Massachusetts (the Briggs report), authored by F. W. Bird, Whiting Griswold, and Cyrus Weekes, was submitted to the Massachusetts Legislature.",
     "chapter": "chapter4_meetinghouse",
     "theme": "race_enfranchise",
-    "figures": []
+    "figures": [],
+    "era": "indian_removal",
+    "secondaryThemes": []
   },
   {
     "id": "e188",
@@ -2312,7 +2774,9 @@
     "text": "In March 1849, the New York Herald reported that the Native American population of Massachusetts had dwindled to only 897 people, reflecting the broader narrative of the 'vanishing' Native American.",
     "chapter": "chapter2_parsonage_schoolhouse",
     "theme": "land_guardianship",
-    "figures": []
+    "figures": [],
+    "era": "indian_removal",
+    "secondaryThemes": []
   },
   {
     "id": "e189",
@@ -2323,7 +2787,11 @@
     "text": "A local history group recommended erecting a monument to missionary John Eliot bearing an inscription alleging the 'final extinction of Natick Indians.'",
     "chapter": "preface_intro",
     "theme": "land_guardianship",
-    "figures": []
+    "figures": [],
+    "era": "reservation_era",
+    "secondaryThemes": [
+      "religious_authority"
+    ]
   },
   {
     "id": "e190",
@@ -2334,7 +2802,9 @@
     "text": "After 1850, guardians of Native communities were required to submit their accounts to probate judges.",
     "chapter": "chapter1_homestead",
     "theme": "land_guardianship",
-    "figures": []
+    "figures": [],
+    "era": "reservation_era",
+    "secondaryThemes": []
   },
   {
     "id": "e191",
@@ -2345,7 +2815,9 @@
     "text": "The 1850 Fugitive Slave Act mandated that runaway slaves be returned to their enslavers even after reaching a free state like Massachusetts.",
     "chapter": "chapter3_garret",
     "theme": "fugitivity_maritime",
-    "figures": []
+    "figures": [],
+    "era": "reservation_era",
+    "secondaryThemes": []
   },
   {
     "id": "e192",
@@ -2356,7 +2828,9 @@
     "text": "California passed the 1850 Act for the Government and Protection of Indians, known as the Indian Indenture Act, making it easier for Whites to enslave Indigenous people and barring Native testimony against Whites.",
     "chapter": "chapter4_meetinghouse",
     "theme": "race_enfranchise",
-    "figures": []
+    "figures": [],
+    "era": "reservation_era",
+    "secondaryThemes": []
   },
   {
     "id": "e193",
@@ -2367,7 +2841,9 @@
     "text": "The Reservation Era, spanning roughly 1850 to 1887, confined many Native communities to reservations on fragments of their ancestral homelands while children were removed to Indian boarding schools.",
     "chapter": "chapter4_meetinghouse",
     "theme": "land_guardianship",
-    "figures": []
+    "figures": [],
+    "era": "reservation_era",
+    "secondaryThemes": []
   },
   {
     "id": "e194",
@@ -2380,6 +2856,10 @@
     "theme": "selfgov_revolt",
     "figures": [
       "Nancy Michael"
+    ],
+    "era": "reservation_era",
+    "secondaryThemes": [
+      "kinship_family"
     ]
   },
   {
@@ -2391,7 +2871,9 @@
     "text": "Congress passed the Indian Appropriations Act of 1851, later providing the legal foundation for the Indian Peace Commission that negotiated treaties with Plains tribes.",
     "chapter": "chapter4_meetinghouse",
     "theme": "land_guardianship",
-    "figures": []
+    "figures": [],
+    "era": "reservation_era",
+    "secondaryThemes": []
   },
   {
     "id": "e196",
@@ -2402,7 +2884,9 @@
     "text": "Sojourner Truth delivered her 'Ain't I a Woman' speech at the Ohio Women's Rights Convention in 1851, linking abolition to the fight for women's rights.",
     "chapter": "chapter4_meetinghouse",
     "theme": "land_guardianship",
-    "figures": []
+    "figures": [],
+    "era": "reservation_era",
+    "secondaryThemes": []
   },
   {
     "id": "e197",
@@ -2415,6 +2899,10 @@
     "theme": "land_guardianship",
     "figures": [
       "Nancy Michael"
+    ],
+    "era": "reservation_era",
+    "secondaryThemes": [
+      "kinship_family"
     ]
   },
   {
@@ -2428,6 +2916,10 @@
     "theme": "fugitivity_maritime",
     "figures": [
       "Nancy Michael"
+    ],
+    "era": "reservation_era",
+    "secondaryThemes": [
+      "kinship_family"
     ]
   },
   {
@@ -2439,7 +2931,9 @@
     "text": "A treasurer for Mashpee was appointed by the state in 1853.",
     "chapter": "chapter1_homestead",
     "theme": "land_guardianship",
-    "figures": []
+    "figures": [],
+    "era": "reservation_era",
+    "secondaryThemes": []
   },
   {
     "id": "e200",
@@ -2452,6 +2946,11 @@
     "theme": "fugitivity_maritime",
     "figures": [
       "James W.C. Pennington"
+    ],
+    "era": "reservation_era",
+    "secondaryThemes": [
+      "kinship_family",
+      "religious_authority"
     ]
   },
   {
@@ -2465,7 +2964,9 @@
     "theme": "land_guardianship",
     "figures": [
       "Edward Jarvis"
-    ]
+    ],
+    "era": "reservation_era",
+    "secondaryThemes": []
   },
   {
     "id": "e202",
@@ -2478,7 +2979,9 @@
     "theme": "fugitivity_maritime",
     "figures": [
       "Randall Burton"
-    ]
+    ],
+    "era": "reservation_era",
+    "secondaryThemes": []
   },
   {
     "id": "e203",
@@ -2491,6 +2994,10 @@
     "theme": "fugitivity_maritime",
     "figures": [
       "James W.C. Pennington"
+    ],
+    "era": "reservation_era",
+    "secondaryThemes": [
+      "kinship_family"
     ]
   },
   {
@@ -2504,7 +3011,9 @@
     "theme": "fugitivity_maritime",
     "figures": [
       "Randall Burton"
-    ]
+    ],
+    "era": "reservation_era",
+    "secondaryThemes": []
   },
   {
     "id": "e205",
@@ -2517,7 +3026,9 @@
     "theme": "race_enfranchise",
     "figures": [
       "John Milton Earle"
-    ]
+    ],
+    "era": "reservation_era",
+    "secondaryThemes": []
   },
   {
     "id": "e206",
@@ -2530,7 +3041,9 @@
     "theme": "fugitivity_maritime",
     "figures": [
       "Randall Burton"
-    ]
+    ],
+    "era": "reservation_era",
+    "secondaryThemes": []
   },
   {
     "id": "e207",
@@ -2543,7 +3056,9 @@
     "theme": "land_guardianship",
     "figures": [
       "Edward Jarvis"
-    ]
+    ],
+    "era": "reservation_era",
+    "secondaryThemes": []
   },
   {
     "id": "e208",
@@ -2556,7 +3071,9 @@
     "theme": "fugitivity_maritime",
     "figures": [
       "Beulah Vanderhoop"
-    ]
+    ],
+    "era": "reservation_era",
+    "secondaryThemes": []
   },
   {
     "id": "e209",
@@ -2567,7 +3084,9 @@
     "text": "News spread that two to three additional enslaved persons 'fresh from the South' had been taken to New Bedford by 'one of the colored residents of Chappaquiddick.'",
     "chapter": "chapter3_garret",
     "theme": "fugitivity_maritime",
-    "figures": []
+    "figures": [],
+    "era": "reservation_era",
+    "secondaryThemes": []
   },
   {
     "id": "e210",
@@ -2578,7 +3097,9 @@
     "text": "Mashpee's treasurer was nominated by the community itself in 1856.",
     "chapter": "chapter1_homestead",
     "theme": "land_guardianship",
-    "figures": []
+    "figures": [],
+    "era": "reservation_era",
+    "secondaryThemes": []
   },
   {
     "id": "e211",
@@ -2589,7 +3110,9 @@
     "text": "An 1858 map of Barnstable County depicted the Mashpee properties of S. Attaquin, J. Amos, Mrs. Jones, and B. Attaquin clustered along Main Street near Mashpee Pond.",
     "chapter": "chapter3_garret",
     "theme": "land_guardianship",
-    "figures": []
+    "figures": [],
+    "era": "reservation_era",
+    "secondaryThemes": []
   },
   {
     "id": "e212",
@@ -2600,7 +3123,9 @@
     "text": "An 1859 Massachusetts law granted conditional citizenship to Native individuals, contingent on further study.",
     "chapter": "chapter1_homestead",
     "theme": "race_enfranchise",
-    "figures": []
+    "figures": [],
+    "era": "reservation_era",
+    "secondaryThemes": []
   },
   {
     "id": "e213",
@@ -2613,7 +3138,9 @@
     "theme": "race_enfranchise",
     "figures": [
       "John Milton Earle"
-    ]
+    ],
+    "era": "reservation_era",
+    "secondaryThemes": []
   },
   {
     "id": "e214",
@@ -2626,7 +3153,9 @@
     "theme": "race_enfranchise",
     "figures": [
       "John Milton Earle"
-    ]
+    ],
+    "era": "civil_war",
+    "secondaryThemes": []
   },
   {
     "id": "e215",
@@ -2637,7 +3166,9 @@
     "text": "By the 1860s, many Native communities in Massachusetts found themselves struggling to survive without drawing on the resources of the American Republic, as pressure mounted toward the eventual Dawes Act.",
     "chapter": "preface_intro",
     "theme": "race_enfranchise",
-    "figures": []
+    "figures": [],
+    "era": "civil_war",
+    "secondaryThemes": []
   },
   {
     "id": "e216",
@@ -2652,6 +3183,10 @@
       "Solomon Attaquin",
       "Cynthia Attaquin",
       "John Conet"
+    ],
+    "era": "civil_war",
+    "secondaryThemes": [
+      "kinship_family"
     ]
   },
   {
@@ -2665,7 +3200,9 @@
     "theme": "land_guardianship",
     "figures": [
       "Nathaniel P. Banks"
-    ]
+    ],
+    "era": "civil_war",
+    "secondaryThemes": []
   },
   {
     "id": "e218",
@@ -2678,7 +3215,9 @@
     "theme": "race_enfranchise",
     "figures": [
       "John Milton Earle"
-    ]
+    ],
+    "era": "civil_war",
+    "secondaryThemes": []
   },
   {
     "id": "e219",
@@ -2691,7 +3230,9 @@
     "theme": "race_enfranchise",
     "figures": [
       "John Milton Earle"
-    ]
+    ],
+    "era": "civil_war",
+    "secondaryThemes": []
   },
   {
     "id": "e220",
@@ -2705,7 +3246,9 @@
     "figures": [
       "John Milton Earle",
       "Nathaniel P. Banks"
-    ]
+    ],
+    "era": "civil_war",
+    "secondaryThemes": []
   },
   {
     "id": "e221",
@@ -2716,7 +3259,9 @@
     "text": "By January 1861, a petition by the Christiantown Indians, led by Charlotte M. Belain, asked the state to restore the 'ancient privileges' of the Native people of that region, citing encroachment on their wood, meadowlands, and fishery.",
     "chapter": "chapter1_homestead",
     "theme": "selfgov_revolt",
-    "figures": []
+    "figures": [],
+    "era": "civil_war",
+    "secondaryThemes": []
   },
   {
     "id": "e222",
@@ -2727,7 +3272,9 @@
     "text": "In 1862, Massachusetts implemented most of Earle's recommendations, maintaining guardianship for four communities while restructuring Gay Head's governance to resemble Mashpee's.",
     "chapter": "chapter1_homestead",
     "theme": "race_enfranchise",
-    "figures": []
+    "figures": [],
+    "era": "civil_war",
+    "secondaryThemes": []
   },
   {
     "id": "e223",
@@ -2738,7 +3285,9 @@
     "text": "In 1862, Benjamin Davis complained to the state of Massachusetts that Indigenous people and other residents of color made up 85 percent of arrests, disproportionately filling the jails.",
     "chapter": "chapter2_parsonage_schoolhouse",
     "theme": "land_guardianship",
-    "figures": []
+    "figures": [],
+    "era": "civil_war",
+    "secondaryThemes": []
   },
   {
     "id": "e224",
@@ -2749,7 +3298,9 @@
     "text": "Mashpee's treasurer was elected directly by the community for the first time in 1863.",
     "chapter": "chapter1_homestead",
     "theme": "land_guardianship",
-    "figures": []
+    "figures": [],
+    "era": "civil_war",
+    "secondaryThemes": []
   },
   {
     "id": "e225",
@@ -2760,7 +3311,9 @@
     "text": "California repealed its 1850 Indian Indenture Act in 1863, though the damage of years of Indigenous enslavement and displacement had already been done.",
     "chapter": "chapter4_meetinghouse",
     "theme": "fugitivity_maritime",
-    "figures": []
+    "figures": [],
+    "era": "civil_war",
+    "secondaryThemes": []
   },
   {
     "id": "e226",
@@ -2771,7 +3324,9 @@
     "text": "US forces carried out the Sand Creek Massacre against Cheyenne and Arapaho people in 1864, part of the era's escalating violence against Plains Indians.",
     "chapter": "chapter4_meetinghouse",
     "theme": "land_guardianship",
-    "figures": []
+    "figures": [],
+    "era": "civil_war",
+    "secondaryThemes": []
   },
   {
     "id": "e227",
@@ -2782,7 +3337,9 @@
     "text": "Abraham Lincoln was assassinated in 1865, leaving the country to grapple with Reconstruction under the Johnson administration.",
     "chapter": "chapter4_meetinghouse",
     "theme": "race_enfranchise",
-    "figures": []
+    "figures": [],
+    "era": "civil_war",
+    "secondaryThemes": []
   },
   {
     "id": "e228",
@@ -2793,7 +3350,9 @@
     "text": "In 1865, Congress passed the Thirteenth Amendment abolishing slavery and the Fourteenth Amendment granting citizenship rights to the formerly enslaved.",
     "chapter": "chapter4_meetinghouse",
     "theme": "fugitivity_maritime",
-    "figures": []
+    "figures": [],
+    "era": "civil_war",
+    "secondaryThemes": []
   },
   {
     "id": "e229",
@@ -2804,7 +3363,9 @@
     "text": "The Civil Rights Act of 1866 declared all persons born in the United States to be citizens while explicitly excluding 'Indians not taxed' from that citizenship.",
     "chapter": "chapter3_garret",
     "theme": "race_enfranchise",
-    "figures": []
+    "figures": [],
+    "era": "reservation_era",
+    "secondaryThemes": []
   },
   {
     "id": "e230",
@@ -2815,7 +3376,9 @@
     "text": "By 1866, Black communities in the North and South had organized conventions demanding Black suffrage.",
     "chapter": "chapter4_meetinghouse",
     "theme": "land_guardianship",
-    "figures": []
+    "figures": [],
+    "era": "reservation_era",
+    "secondaryThemes": []
   },
   {
     "id": "e231",
@@ -2826,7 +3389,9 @@
     "text": "Congress passed the Reconstruction Act of 1867, setting terms for former Confederate states' readmission and leading to the establishment of the Freedmen's Bureau.",
     "chapter": "chapter4_meetinghouse",
     "theme": "race_enfranchise",
-    "figures": []
+    "figures": [],
+    "era": "reservation_era",
+    "secondaryThemes": []
   },
   {
     "id": "e232",
@@ -2837,7 +3402,9 @@
     "text": "Oglala chief Red Cloud's forceful resistance halted westward expansion and forced Congress to establish the Indian Peace Commission in 1867 to negotiate treaties and relegate tribes to reservations.",
     "chapter": "chapter4_meetinghouse",
     "theme": "land_guardianship",
-    "figures": []
+    "figures": [],
+    "era": "reservation_era",
+    "secondaryThemes": []
   },
   {
     "id": "e233",
@@ -2848,7 +3415,9 @@
     "text": "Mashpee's community debates incorporation as a town versus maintaining tribal governance.",
     "chapter": "dissertation-seed-timeline",
     "theme": "selfgov_revolt",
-    "figures": []
+    "figures": [],
+    "era": "reservation_era",
+    "secondaryThemes": []
   },
   {
     "id": "e234",
@@ -2859,7 +3428,11 @@
     "text": "Massachusetts formalized its Act to Enfranchise the Indians of the Commonwealth, prompting a heated community debate in the Mashpee meetinghouse over district status and legislative representation.",
     "chapter": "preface_intro",
     "theme": "selfgov_revolt",
-    "figures": []
+    "figures": [],
+    "era": "reservation_era",
+    "secondaryThemes": [
+      "religious_authority"
+    ]
   },
   {
     "id": "e235",
@@ -2870,7 +3443,9 @@
     "text": "By 1869, Massachusetts dissolved the Native guardianship system entirely, extending citizenship to all remaining Native individuals and shifting responsibility for indigent care to the Board of State Charities.",
     "chapter": "chapter1_homestead",
     "theme": "race_enfranchise",
-    "figures": []
+    "figures": [],
+    "era": "reservation_era",
+    "secondaryThemes": []
   },
   {
     "id": "e236",
@@ -2881,7 +3456,9 @@
     "text": "The Massachusetts Indian Enfranchisement Act of 1869 extended voting rights to Indigenous communities across the state, except Mashpee and Gay Head, while dispersing communal tribal lands among individual landholders.",
     "chapter": "chapter4_meetinghouse",
     "theme": "race_enfranchise",
-    "figures": []
+    "figures": [],
+    "era": "reservation_era",
+    "secondaryThemes": []
   },
   {
     "id": "e237",
@@ -2892,7 +3469,9 @@
     "text": "In 1869, the Massachusetts Legislature moved to make Mashpee Wampanoag tribal members state citizens, which also lifted restrictions against selling Mashpee land allotments to outsiders.",
     "chapter": "chapter4_meetinghouse",
     "theme": "race_enfranchise",
-    "figures": []
+    "figures": [],
+    "era": "reservation_era",
+    "secondaryThemes": []
   },
   {
     "id": "e238",
@@ -2905,7 +3484,9 @@
     "theme": "selfgov_revolt",
     "figures": [
       "William Claflin"
-    ]
+    ],
+    "era": "reservation_era",
+    "secondaryThemes": []
   },
   {
     "id": "e239",
@@ -2918,6 +3499,10 @@
     "theme": "selfgov_revolt",
     "figures": [
       "Rodney French"
+    ],
+    "era": "reservation_era",
+    "secondaryThemes": [
+      "religious_authority"
     ]
   },
   {
@@ -2929,7 +3514,11 @@
     "text": "On February 9, 1869, Mashpee resident Thomas Sewall testified at the meetinghouse that he deserved 'the privileges of a man,' petitioning for citizenship and land rights despite his African descent.",
     "chapter": "chapter4_meetinghouse",
     "theme": "selfgov_revolt",
-    "figures": []
+    "figures": [],
+    "era": "reservation_era",
+    "secondaryThemes": [
+      "religious_authority"
+    ]
   },
   {
     "id": "e241",
@@ -2940,7 +3529,9 @@
     "text": "On February 9, 1869, longtime Mashpee resident John D. Brown testified that Mashpee was 'a mixed township from all parts of the world,' pushing back on questions of whether Black residents could be considered Indian.",
     "chapter": "chapter4_meetinghouse",
     "theme": "selfgov_revolt",
-    "figures": []
+    "figures": [],
+    "era": "reservation_era",
+    "secondaryThemes": []
   },
   {
     "id": "e242",
@@ -2953,7 +3544,9 @@
     "theme": "selfgov_revolt",
     "figures": [
       "Matthias Amos"
-    ]
+    ],
+    "era": "reservation_era",
+    "secondaryThemes": []
   },
   {
     "id": "e243",
@@ -2967,7 +3560,9 @@
     "figures": [
       "Solomon Attaquin",
       "William Claflin"
-    ]
+    ],
+    "era": "reservation_era",
+    "secondaryThemes": []
   },
   {
     "id": "e244",
@@ -2980,7 +3575,9 @@
     "theme": "race_enfranchise",
     "figures": [
       "Rodney French"
-    ]
+    ],
+    "era": "reservation_era",
+    "secondaryThemes": []
   },
   {
     "id": "e245",
@@ -2993,6 +3590,10 @@
     "theme": "race_enfranchise",
     "figures": [
       "Rodney French"
+    ],
+    "era": "reservation_era",
+    "secondaryThemes": [
+      "religious_authority"
     ]
   },
   {
@@ -3004,7 +3605,9 @@
     "text": "In June 1869, John Anthony and Mrs. Serena Randolph voiced strong support for enfranchisement at the Gay Head meeting, with Anthony declaring himself equal to any other man.",
     "chapter": "chapter4_meetinghouse",
     "theme": "race_enfranchise",
-    "figures": []
+    "figures": [],
+    "era": "reservation_era",
+    "secondaryThemes": []
   },
   {
     "id": "e247",
@@ -3015,7 +3618,9 @@
     "text": "In 1870, Mashpee and Gay Head were incorporated as towns, marking the official end of state-appointed guardianship.",
     "chapter": "chapter1_homestead",
     "theme": "selfgov_revolt",
-    "figures": []
+    "figures": [],
+    "era": "reservation_era",
+    "secondaryThemes": []
   },
   {
     "id": "e248",
@@ -3026,7 +3631,9 @@
     "text": "In 1870, the Massachusetts Board of State Charities audited and closed the final accounts of the Indian guardians, concluding the guardianship era.",
     "chapter": "chapter1_homestead",
     "theme": "land_guardianship",
-    "figures": []
+    "figures": [],
+    "era": "reservation_era",
+    "secondaryThemes": []
   },
   {
     "id": "e249",
@@ -3039,7 +3646,9 @@
     "theme": "land_guardianship",
     "figures": [
       "William Claflin"
-    ]
+    ],
+    "era": "reservation_era",
+    "secondaryThemes": []
   },
   {
     "id": "e250",
@@ -3050,7 +3659,9 @@
     "text": "In 1870, the Massachusetts Legislature authorized the sale of remaining tribally held Mashpee land and formally abolished the Mashpee district, establishing the town of Mashpee.",
     "chapter": "chapter4_meetinghouse",
     "theme": "selfgov_revolt",
-    "figures": []
+    "figures": [],
+    "era": "reservation_era",
+    "secondaryThemes": []
   },
   {
     "id": "e251",
@@ -3061,7 +3672,9 @@
     "text": "On April 22, 1870, the Vineyard Gazette reported that a bill had been certified abolishing the district of Gay Head in favor of incorporating the town of Gay Head.",
     "chapter": "chapter4_meetinghouse",
     "theme": "selfgov_revolt",
-    "figures": []
+    "figures": [],
+    "era": "reservation_era",
+    "secondaryThemes": []
   },
   {
     "id": "e252",
@@ -3074,7 +3687,9 @@
     "theme": "land_guardianship",
     "figures": [
       "Mary Cleggett Vanderhoop"
-    ]
+    ],
+    "era": "reservation_era",
+    "secondaryThemes": []
   },
   {
     "id": "e253",
@@ -3085,7 +3700,9 @@
     "text": "US forces hanged several Modoc men in 1873 following the Modoc War, part of the continued violent suppression of Indigenous resistance.",
     "chapter": "chapter4_meetinghouse",
     "theme": "land_guardianship",
-    "figures": []
+    "figures": [],
+    "era": "reservation_era",
+    "secondaryThemes": []
   },
   {
     "id": "e254",
@@ -3096,7 +3713,9 @@
     "text": "Francis Amasa Walker articulated 'the Indian Question' in 1874, asking what should be done with Native people as obstacles to national progress once their resistance to westward expansion had ended.",
     "chapter": "chapter4_meetinghouse",
     "theme": "race_enfranchise",
-    "figures": []
+    "figures": [],
+    "era": "reservation_era",
+    "secondaryThemes": []
   },
   {
     "id": "e255",
@@ -3110,6 +3729,10 @@
     "figures": [
       "Solomon Attaquin",
       "Ezra Attaquin"
+    ],
+    "era": "reservation_era",
+    "secondaryThemes": [
+      "kinship_family"
     ]
   },
   {
@@ -3121,7 +3744,9 @@
     "text": "The Battle of Little Bighorn in 1876 is generally regarded as the last major battle of the Indian Wars, though conflict continued into the twentieth century.",
     "chapter": "chapter4_meetinghouse",
     "theme": "land_guardianship",
-    "figures": []
+    "figures": [],
+    "era": "reservation_era",
+    "secondaryThemes": []
   },
   {
     "id": "e257",
@@ -3134,7 +3759,9 @@
     "theme": "land_guardianship",
     "figures": [
       "Mary Cleggett Vanderhoop"
-    ]
+    ],
+    "era": "reservation_era",
+    "secondaryThemes": []
   },
   {
     "id": "e258",
@@ -3145,7 +3772,9 @@
     "text": "In 1877, the last federal troops withdrew from the South, marking the formal end of the Reconstruction Era.",
     "chapter": "chapter4_meetinghouse",
     "theme": "race_enfranchise",
-    "figures": []
+    "figures": [],
+    "era": "reservation_era",
+    "secondaryThemes": []
   },
   {
     "id": "e259",
@@ -3156,7 +3785,11 @@
     "text": "By 1880, Rebecca Cleggett had joined her husband William in working as a hairdresser, according to census records.",
     "chapter": "chapter4_meetinghouse",
     "theme": "race_enfranchise",
-    "figures": []
+    "figures": [],
+    "era": "reservation_era",
+    "secondaryThemes": [
+      "kinship_family"
+    ]
   },
   {
     "id": "e260",
@@ -3170,6 +3803,10 @@
     "figures": [
       "Mary Cleggett Vanderhoop",
       "Edwin DeVries Vanderhoop"
+    ],
+    "era": "reservation_era",
+    "secondaryThemes": [
+      "kinship_family"
     ]
   },
   {
@@ -3181,7 +3818,9 @@
     "text": "Geronimo and his Chiricahua Apache followers surrendered to US forces in 1886, marking one of the final conflicts of the so-called Indian wars.",
     "chapter": "chapter4_meetinghouse",
     "theme": "land_guardianship",
-    "figures": []
+    "figures": [],
+    "era": "reservation_era",
+    "secondaryThemes": []
   },
   {
     "id": "e262",
@@ -3192,7 +3831,9 @@
     "text": "Congress passed the Dawes Act in 1887, severing communal Indigenous land ownership in Indian Territory by allotting lands to individuals rather than tribes.",
     "chapter": "chapter4_meetinghouse",
     "theme": "race_enfranchise",
-    "figures": []
+    "figures": [],
+    "era": "reservation_era",
+    "secondaryThemes": []
   },
   {
     "id": "e263",
@@ -3205,7 +3846,9 @@
     "theme": "land_guardianship",
     "figures": [
       "Edwin DeVries Vanderhoop"
-    ]
+    ],
+    "era": "enfranchisement_revitalization",
+    "secondaryThemes": []
   },
   {
     "id": "e264",
@@ -3216,7 +3859,9 @@
     "text": "By 1889, land formerly held by the Cherokee, Creek, Chickasaw, Choctaw, and Seminole had been divided to establish reservations for numerous other tribes, including the Cheyenne, Arapaho, Kiowa, Comanche, and Apache.",
     "chapter": "chapter4_meetinghouse",
     "theme": "land_guardianship",
-    "figures": []
+    "figures": [],
+    "era": "enfranchisement_revitalization",
+    "secondaryThemes": []
   },
   {
     "id": "e265",
@@ -3227,7 +3872,9 @@
     "text": "By 1890, Gay Head and Mashpee remained among the last Native towns in Massachusetts still holding out against state enfranchisement.",
     "chapter": "preface_intro",
     "theme": "race_enfranchise",
-    "figures": []
+    "figures": [],
+    "era": "enfranchisement_revitalization",
+    "secondaryThemes": []
   },
   {
     "id": "e266",
@@ -3238,7 +3885,9 @@
     "text": "In his 1890 history of Barnstable County, Simeon L. Deyo documented that Mashpee men had served as soldiers during the Revolutionary War.",
     "chapter": "chapter2_parsonage_schoolhouse",
     "theme": "land_guardianship",
-    "figures": []
+    "figures": [],
+    "era": "enfranchisement_revitalization",
+    "secondaryThemes": []
   },
   {
     "id": "e267",
@@ -3249,7 +3898,9 @@
     "text": "By the 1890s, both Mashpee and Gay Head had been incorporated into Massachusetts, resulting in the division of their formerly communal tribal lands.",
     "chapter": "chapter3_garret",
     "theme": "selfgov_revolt",
-    "figures": []
+    "figures": [],
+    "era": "enfranchisement_revitalization",
+    "secondaryThemes": []
   },
   {
     "id": "e268",
@@ -3262,7 +3913,9 @@
     "theme": "race_enfranchise",
     "figures": [
       "John Milton Earle"
-    ]
+    ],
+    "era": "enfranchisement_revitalization",
+    "secondaryThemes": []
   },
   {
     "id": "e269",
@@ -3275,7 +3928,9 @@
     "theme": "land_guardianship",
     "figures": [
       "Solomon Attaquin"
-    ]
+    ],
+    "era": "enfranchisement_revitalization",
+    "secondaryThemes": []
   },
   {
     "id": "e270",
@@ -3288,6 +3943,10 @@
     "theme": "land_guardianship",
     "figures": [
       "Solomon Attaquin"
+    ],
+    "era": "enfranchisement_revitalization",
+    "secondaryThemes": [
+      "kinship_family"
     ]
   },
   {
@@ -3302,6 +3961,10 @@
     "figures": [
       "Beulah Vanderhoop",
       "Netta Vanderhoop"
+    ],
+    "era": "enfranchisement_revitalization",
+    "secondaryThemes": [
+      "kinship_family"
     ]
   },
   {
@@ -3315,6 +3978,10 @@
     "theme": "selfgov_revolt",
     "figures": [
       "Edwin DeVries Vanderhoop"
+    ],
+    "era": "enfranchisement_revitalization",
+    "secondaryThemes": [
+      "kinship_family"
     ]
   },
   {
@@ -3326,7 +3993,11 @@
     "text": "Daniel Tompkins published Cotton and Cotton Oil in 1901, drawing on racial science to characterize the Southern economy and 'negro character.'",
     "chapter": "chapter4_meetinghouse",
     "theme": "memory_return",
-    "figures": []
+    "figures": [
+      "Daniel Tompkins"
+    ],
+    "era": "enfranchisement_revitalization",
+    "secondaryThemes": []
   },
   {
     "id": "e274",
@@ -3339,7 +4010,9 @@
     "theme": "memory_return",
     "figures": [
       "Mary Cleggett Vanderhoop"
-    ]
+    ],
+    "era": "enfranchisement_revitalization",
+    "secondaryThemes": []
   },
   {
     "id": "e275",
@@ -3352,7 +4025,9 @@
     "theme": "memory_return",
     "figures": [
       "Mary Cleggett Vanderhoop"
-    ]
+    ],
+    "era": "enfranchisement_revitalization",
+    "secondaryThemes": []
   },
   {
     "id": "e276",
@@ -3366,6 +4041,10 @@
     "figures": [
       "Mary Cleggett Vanderhoop",
       "William Claflin"
+    ],
+    "era": "enfranchisement_revitalization",
+    "secondaryThemes": [
+      "kinship_family"
     ]
   },
   {
@@ -3379,7 +4058,9 @@
     "theme": "race_enfranchise",
     "figures": [
       "Alice Attaquin"
-    ]
+    ],
+    "era": "enfranchisement_revitalization",
+    "secondaryThemes": []
   },
   {
     "id": "e278",
@@ -3391,8 +4072,11 @@
     "chapter": "chapter4_meetinghouse",
     "theme": "race_enfranchise",
     "figures": [
-      "Alice Attaquin"
-    ]
+      "Alice Attaquin",
+      "Jim Thorpe"
+    ],
+    "era": "enfranchisement_revitalization",
+    "secondaryThemes": []
   },
   {
     "id": "e279",
@@ -3405,7 +4089,9 @@
     "theme": "memory_return",
     "figures": [
       "Mary Cleggett Vanderhoop"
-    ]
+    ],
+    "era": "enfranchisement_revitalization",
+    "secondaryThemes": []
   },
   {
     "id": "e280",
@@ -3418,7 +4104,9 @@
     "theme": "race_enfranchise",
     "figures": [
       "Solomon Attaquin"
-    ]
+    ],
+    "era": "enfranchisement_revitalization",
+    "secondaryThemes": []
   },
   {
     "id": "e281",
@@ -3431,7 +4119,9 @@
     "theme": "fugitivity_maritime",
     "figures": [
       "Alice Attaquin"
-    ]
+    ],
+    "era": "enfranchisement_revitalization",
+    "secondaryThemes": []
   },
   {
     "id": "e282",
@@ -3444,7 +4134,9 @@
     "theme": "race_enfranchise",
     "figures": [
       "Alice Attaquin"
-    ]
+    ],
+    "era": "enfranchisement_revitalization",
+    "secondaryThemes": []
   },
   {
     "id": "e283",
@@ -3457,7 +4149,9 @@
     "theme": "race_enfranchise",
     "figures": [
       "Alice Attaquin"
-    ]
+    ],
+    "era": "enfranchisement_revitalization",
+    "secondaryThemes": []
   },
   {
     "id": "e284",
@@ -3471,6 +4165,10 @@
     "figures": [
       "Beulah Vanderhoop",
       "Mary Cleggett Vanderhoop"
+    ],
+    "era": "enfranchisement_revitalization",
+    "secondaryThemes": [
+      "kinship_family"
     ]
   },
   {
@@ -3484,7 +4182,9 @@
     "theme": "race_enfranchise",
     "figures": [
       "Alice Attaquin"
-    ]
+    ],
+    "era": "enfranchisement_revitalization",
+    "secondaryThemes": []
   },
   {
     "id": "e286",
@@ -3495,7 +4195,9 @@
     "text": "The First Universal Races Congress convened in 1911 to discuss relations between 'white' and 'colored' peoples worldwide.",
     "chapter": "chapter4_meetinghouse",
     "theme": "race_enfranchise",
-    "figures": []
+    "figures": [],
+    "era": "enfranchisement_revitalization",
+    "secondaryThemes": []
   },
   {
     "id": "e287",
@@ -3506,7 +4208,11 @@
     "text": "Anthropologist Elsie Clews Parsons wrote in her notebook in 1919 that 'Negroes have always been on the island,' documenting Martha's Vineyard's long-standing racial diversity.",
     "chapter": "chapter1_homestead",
     "theme": "memory_return",
-    "figures": []
+    "figures": [
+      "Elsie Clews Parsons"
+    ],
+    "era": "enfranchisement_revitalization",
+    "secondaryThemes": []
   },
   {
     "id": "e288",
@@ -3519,6 +4225,10 @@
     "theme": "land_guardianship",
     "figures": [
       "Alice Attaquin"
+    ],
+    "era": "enfranchisement_revitalization",
+    "secondaryThemes": [
+      "kinship_family"
     ]
   },
   {
@@ -3533,7 +4243,9 @@
     "figures": [
       "Beulah Vanderhoop",
       "Netta Vanderhoop"
-    ]
+    ],
+    "era": "enfranchisement_revitalization",
+    "secondaryThemes": []
   },
   {
     "id": "e290",
@@ -3544,7 +4256,9 @@
     "text": "A 1929 article in the Holyoke Daily Transcript and Telegram declared Gay Head the only community in the country to dedicate a specific day to cranberry harvesting, noting that schools closed and entire families worked the bogs.",
     "chapter": "chapter3_garret",
     "theme": "fugitivity_maritime",
-    "figures": []
+    "figures": [],
+    "era": "enfranchisement_revitalization",
+    "secondaryThemes": []
   },
   {
     "id": "e291",
@@ -3555,7 +4269,12 @@
     "text": "Mary Vanderhoop, then in possession of a beachgrass pack basket woven by Bathsheba Occouch, noted that it represented the lost art of beachgrass weaving on Martha's Vineyard.",
     "chapter": "preface_intro",
     "theme": "land_guardianship",
-    "figures": []
+    "figures": [
+      "Bathsheba Occouch",
+      "Mary Cleggett Vanderhoop"
+    ],
+    "era": "enfranchisement_revitalization",
+    "secondaryThemes": []
   },
   {
     "id": "e292",
@@ -3568,6 +4287,10 @@
     "theme": "land_guardianship",
     "figures": [
       "Solomon Attaquin"
+    ],
+    "era": "enfranchisement_revitalization",
+    "secondaryThemes": [
+      "kinship_family"
     ]
   },
   {
@@ -3579,7 +4302,9 @@
     "text": "By the 1970s, the Mashpee sought legal representation to reclaim lands that had been sold without their consent, arguing the sales violated the Indian Trade and Nonintercourse Act.",
     "chapter": "conclusion",
     "theme": "land_guardianship",
-    "figures": []
+    "figures": [],
+    "era": "enfranchisement_revitalization",
+    "secondaryThemes": []
   },
   {
     "id": "e294",
@@ -3593,7 +4318,9 @@
     "figures": [
       "Cynthia Attaquin",
       "Allan van Gestel"
-    ]
+    ],
+    "era": "enfranchisement_revitalization",
+    "secondaryThemes": []
   },
   {
     "id": "e295",
@@ -3604,7 +4331,9 @@
     "text": "Mashpee Tribe v. New Seabury Corp. is dismissed by the Supreme Court on the basis that the tribe ceased to exist in 1869.",
     "chapter": "dissertation-seed-timeline",
     "theme": "memory_return",
-    "figures": []
+    "figures": [],
+    "era": "enfranchisement_revitalization",
+    "secondaryThemes": []
   },
   {
     "id": "e296",
@@ -3615,7 +4344,9 @@
     "text": "In 1977, the Mashpee Tribe's lawsuit against New Seabury Corporation, Mashpee v. New Seabury Corp., became the first litigation of the Indian Nonintercourse Act to go to a jury trial, lasting 40 days.",
     "chapter": "conclusion",
     "theme": "memory_return",
-    "figures": []
+    "figures": [],
+    "era": "enfranchisement_revitalization",
+    "secondaryThemes": []
   },
   {
     "id": "e297",
@@ -3628,6 +4359,10 @@
     "theme": "memory_return",
     "figures": [
       "Allan van Gestel"
+    ],
+    "era": "enfranchisement_revitalization",
+    "secondaryThemes": [
+      "religious_authority"
     ]
   },
   {
@@ -3639,7 +4374,13 @@
     "text": "During the 1977 trial, Mashpee resident Vernon Pocknett testified under examination by attorney Mr. Shubow that he was a Mashpee Wampanoag Indian descended from the Popmonet/Pocknett family, while opposing counsel used nineteenth-century census records labeling his ancestors as Black and Mulatto to challenge his claim to Indian ancestry.",
     "chapter": "conclusion",
     "theme": "race_enfranchise",
-    "figures": []
+    "figures": [
+      "Vernon Pocknett"
+    ],
+    "era": "enfranchisement_revitalization",
+    "secondaryThemes": [
+      "kinship_family"
+    ]
   },
   {
     "id": "e299",
@@ -3650,7 +4391,9 @@
     "text": "In early January 1978, the jury delivered its verdict in Mashpee v. New Seabury Corp., finding that the Mashpee had been recognized as a tribe in the 1830s and 1840s but did not meet the legal definition of a tribe at other critical junctures, including when the lawsuit was filed.",
     "chapter": "conclusion",
     "theme": "memory_return",
-    "figures": []
+    "figures": [],
+    "era": "enfranchisement_revitalization",
+    "secondaryThemes": []
   },
   {
     "id": "e300",
@@ -3661,7 +4404,9 @@
     "text": "Mashpee Tribe v. Watt.",
     "chapter": "dissertation-seed-timeline",
     "theme": "memory_return",
-    "figures": []
+    "figures": [],
+    "era": "enfranchisement_revitalization",
+    "secondaryThemes": []
   },
   {
     "id": "e301",
@@ -3672,7 +4417,9 @@
     "text": "Mashpee Tribe, et al., Plaintiffs, Appellants, v. Secretary of the Interior, et al.",
     "chapter": "dissertation-seed-timeline",
     "theme": "land_guardianship",
-    "figures": []
+    "figures": [],
+    "era": "enfranchisement_revitalization",
+    "secondaryThemes": []
   },
   {
     "id": "e302",
@@ -3683,7 +4430,14 @@
     "text": "In 2000, Charles Vanderhoop, Beulah's great-grandson, recounted for the Martha's Vineyard Museum his family's oral history that Beulah sheltered eight runaway slaves in a hidden cellar under their floor, and that after the Emancipation Proclamation some returned to the Vanderhoop home with eighteen others.",
     "chapter": "chapter3_garret",
     "theme": "memory_return",
-    "figures": []
+    "figures": [
+      "Charles Vanderhoop",
+      "Beulah Vanderhoop"
+    ],
+    "era": "enfranchisement_revitalization",
+    "secondaryThemes": [
+      "kinship_family"
+    ]
   },
   {
     "id": "e303",
@@ -3694,7 +4448,11 @@
     "text": "Helen Vanderhoop Manning, a Wampanoag elder and tribal historian, coauthored Moshup's Footsteps: The Wampanoag Nation, Gay Head/Aquinnah the People of First Light in 2001, documenting Gay Head's Cranberry Day tradition and community histories.",
     "chapter": "chapter3_garret",
     "theme": "memory_return",
-    "figures": []
+    "figures": [
+      "Helen Vanderhoop Manning"
+    ],
+    "era": "enfranchisement_revitalization",
+    "secondaryThemes": []
   },
   {
     "id": "e304",
@@ -3707,6 +4465,10 @@
     "theme": "land_guardianship",
     "figures": [
       "Beulah Vanderhoop"
+    ],
+    "era": "enfranchisement_revitalization",
+    "secondaryThemes": [
+      "kinship_family"
     ]
   },
   {
@@ -3720,7 +4482,9 @@
     "theme": "memory_return",
     "figures": [
       "Rebecca Amos"
-    ]
+    ],
+    "era": "enfranchisement_revitalization",
+    "secondaryThemes": []
   },
   {
     "id": "e306",
@@ -3733,7 +4497,9 @@
     "theme": "memory_return",
     "figures": [
       "Rebecca Amos"
-    ]
+    ],
+    "era": "enfranchisement_revitalization",
+    "secondaryThemes": []
   },
   {
     "id": "e307",
@@ -3745,7 +4511,27 @@
     "chapter": "conclusion",
     "theme": "memory_return",
     "figures": [
-      "Rebecca Amos"
+      "Rebecca Amos",
+      "Barney Zeitz"
+    ],
+    "era": "enfranchisement_revitalization",
+    "secondaryThemes": []
+  },
+  {
+    "id": "e308",
+    "year": null,
+    "endYear": null,
+    "displayDate": "Time immemorial",
+    "headline": "Wampanoag oral tradition credits the culture-hero Moshup with shaping the Gay Head…",
+    "text": "Wampanoag oral tradition credits the culture-hero Moshup, a giant who lived among the Wampanoag and traveled the Northeast coast with his father, with shaping the Gay Head Cliffs and other coastal landscapes of Noepe (Martha's Vineyard). The story frames both the dissertation's Preface and its Conclusion, and Moshup's Footsteps (Manning, 2001) takes its title from him.",
+    "chapter": "preface_intro",
+    "theme": "memory_return",
+    "figures": [
+      "Moshup"
+    ],
+    "era": null,
+    "secondaryThemes": [
+      "kinship_family"
     ]
   }
 ]

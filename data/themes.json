@@ -1,0 +1,46 @@
+{
+  "land_guardianship": {
+    "label": "Land & Guardianship",
+    "short": "Land/Guardianship",
+    "color": "#a16207",
+    "kind": "primary"
+  },
+  "selfgov_revolt": {
+    "label": "Self-Government & Revolt",
+    "short": "Self-Gov/Revolt",
+    "color": "#dc2626",
+    "kind": "primary"
+  },
+  "race_enfranchise": {
+    "label": "Race & Enfranchisement",
+    "short": "Race/Enfranchise",
+    "color": "#7c3aed",
+    "kind": "primary"
+  },
+  "fugitivity_maritime": {
+    "label": "Fugitivity & the Maritime Railroad",
+    "short": "Fugitivity/Maritime",
+    "color": "#0891b2",
+    "kind": "primary"
+  },
+  "memory_return": {
+    "label": "Memory & Return",
+    "short": "Memory/Return",
+    "color": "#0d9488",
+    "kind": "primary"
+  },
+  "kinship_family": {
+    "label": "Kinship & Family Networks",
+    "short": "Kinship/Family",
+    "color": "#be185d",
+    "kind": "secondary",
+    "note": "Added from manuscript comparison: the dissertation's central thesis frames family/kinship networks as the vehicle sustaining protest across generations, but this was not previously tracked as its own theme. Applied as a non-destructive 'secondaryThemes' tag on events (via keyword match) rather than overwriting each event's original primary theme."
+  },
+  "religious_authority": {
+    "label": "Religious Authority & Christian Institutions",
+    "short": "Religious Authority",
+    "color": "#4d7c0f",
+    "kind": "secondary",
+    "note": "Added from manuscript comparison: conflicts over the parsonage, meetinghouse, and denominational authority (Fish vs. Blind Joe Amos, Congregationalist vs. Baptist) run through chapters 2–4 but were folded into selfgov_revolt/land_guardianship. Applied as a non-destructive 'secondaryThemes' tag."
+  }
+}

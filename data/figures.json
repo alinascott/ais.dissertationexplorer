@@ -82,6 +82,50 @@
     ]
   },
   {
+    "id": "fig-beulah-vanderhoop",
+    "name": "Beulah Vanderhoop",
+    "count": 11,
+    "events": [
+      "e75",
+      "e80",
+      "e113",
+      "e177",
+      "e178",
+      "e208",
+      "e271",
+      "e284",
+      "e289",
+      "e304",
+      "e302"
+    ],
+    "coOccurs": [
+      {
+        "name": "William Vanderhoop",
+        "count": 2
+      },
+      {
+        "name": "Netta Vanderhoop",
+        "count": 2
+      },
+      {
+        "name": "Abraham Cooper",
+        "count": 1
+      },
+      {
+        "name": "Zachariah Howwaswee",
+        "count": 1
+      },
+      {
+        "name": "Mary Cleggett Vanderhoop",
+        "count": 1
+      },
+      {
+        "name": "Charles Vanderhoop",
+        "count": 1
+      }
+    ]
+  },
+  {
     "id": "fig-john-milton-earle",
     "name": "John Milton Earle",
     "count": 10,
@@ -105,48 +149,9 @@
     ]
   },
   {
-    "id": "fig-beulah-vanderhoop",
-    "name": "Beulah Vanderhoop",
-    "count": 10,
-    "events": [
-      "e75",
-      "e80",
-      "e113",
-      "e177",
-      "e178",
-      "e208",
-      "e271",
-      "e284",
-      "e289",
-      "e304"
-    ],
-    "coOccurs": [
-      {
-        "name": "William Vanderhoop",
-        "count": 2
-      },
-      {
-        "name": "Netta Vanderhoop",
-        "count": 2
-      },
-      {
-        "name": "Abraham Cooper",
-        "count": 1
-      },
-      {
-        "name": "Zachariah Howwaswee",
-        "count": 1
-      },
-      {
-        "name": "Mary Cleggett Vanderhoop",
-        "count": 1
-      }
-    ]
-  },
-  {
     "id": "fig-mary-cleggett-vanderhoop",
     "name": "Mary Cleggett Vanderhoop",
-    "count": 9,
+    "count": 10,
     "events": [
       "e0",
       "e252",
@@ -156,7 +161,8 @@
       "e275",
       "e276",
       "e279",
-      "e284"
+      "e284",
+      "e291"
     ],
     "coOccurs": [
       {
@@ -169,6 +175,10 @@
       },
       {
         "name": "Beulah Vanderhoop",
+        "count": 1
+      },
+      {
+        "name": "Bathsheba Occouch",
         "count": 1
       }
     ]
@@ -220,7 +230,12 @@
       "e285",
       "e288"
     ],
-    "coOccurs": []
+    "coOccurs": [
+      {
+        "name": "Jim Thorpe",
+        "count": 1
+      }
+    ]
   },
   {
     "id": "fig-rebecca-amos",
@@ -241,6 +256,10 @@
       },
       {
         "name": "Nancy Michael",
+        "count": 1
+      },
+      {
+        "name": "Barney Zeitz",
         "count": 1
       }
     ]
@@ -952,5 +971,107 @@
         "count": 1
       }
     ]
+  },
+  {
+    "id": "fig-bathsheba-occouch",
+    "name": "Bathsheba Occouch",
+    "events": [
+      "e46",
+      "e291"
+    ],
+    "coOccurs": [
+      {
+        "name": "Mary Cleggett Vanderhoop",
+        "count": 1
+      }
+    ],
+    "count": 2
+  },
+  {
+    "id": "fig-daniel-tompkins",
+    "name": "Daniel Tompkins",
+    "events": [
+      "e273"
+    ],
+    "coOccurs": [],
+    "count": 1
+  },
+  {
+    "id": "fig-jim-thorpe",
+    "name": "Jim Thorpe",
+    "events": [
+      "e278"
+    ],
+    "coOccurs": [
+      {
+        "name": "Alice Attaquin",
+        "count": 1
+      }
+    ],
+    "count": 1
+  },
+  {
+    "id": "fig-elsie-clews-parsons",
+    "name": "Elsie Clews Parsons",
+    "events": [
+      "e287"
+    ],
+    "coOccurs": [],
+    "count": 1
+  },
+  {
+    "id": "fig-vernon-pocknett",
+    "name": "Vernon Pocknett",
+    "events": [
+      "e298"
+    ],
+    "coOccurs": [],
+    "count": 1
+  },
+  {
+    "id": "fig-charles-vanderhoop",
+    "name": "Charles Vanderhoop",
+    "events": [
+      "e302"
+    ],
+    "coOccurs": [
+      {
+        "name": "Beulah Vanderhoop",
+        "count": 1
+      }
+    ],
+    "count": 1
+  },
+  {
+    "id": "fig-helen-vanderhoop-manning",
+    "name": "Helen Vanderhoop Manning",
+    "events": [
+      "e303"
+    ],
+    "coOccurs": [],
+    "count": 1
+  },
+  {
+    "id": "fig-barney-zeitz",
+    "name": "Barney Zeitz",
+    "events": [
+      "e307"
+    ],
+    "coOccurs": [
+      {
+        "name": "Rebecca Amos",
+        "count": 1
+      }
+    ],
+    "count": 1
+  },
+  {
+    "id": "fig-moshup",
+    "name": "Moshup",
+    "events": [
+      "e308"
+    ],
+    "coOccurs": [],
+    "count": 1
   }
 ]
