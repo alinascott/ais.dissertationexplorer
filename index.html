@@ -5,6 +5,8 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Murder by Inches — Dissertation Explorer</title>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/7.8.5/d3.min.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
 <style>
   :root{
     --ink:#1f2430; --muted:#6b7280; --bg:#f7f5f0; --card:#ffffff; --line:#e5e1d8;
@@ -104,6 +106,16 @@
 
   #loading-banner{ text-align:center; padding:14px 20px; background:#fff; color:var(--muted); font-size:.85rem; border-bottom:1px solid var(--line); }
   #loading-banner.error{ background:#fee2e2; color:#7f1d1d; text-align:left; max-width:720px; margin:20px auto; border-radius:10px; border:1px solid #fecaca; }
+
+  #event-map{ height:440px; border-radius:10px; z-index:0; }
+  .map-popup{ font-size:.82rem; min-width:200px; max-width:260px; }
+  .map-popup h4{ margin:0 0 6px; font-size:.86rem; }
+  .map-popup .mp-count{ color:var(--muted); font-size:.74rem; margin-bottom:8px; }
+  .map-popup .mp-ev{ padding:5px 0; border-top:1px dashed var(--line); cursor:pointer; line-height:1.35; }
+  .map-popup .mp-ev:first-of-type{ border-top:none; }
+  .map-popup .mp-ev:hover{ color:var(--fig-accent); }
+  .map-popup .mp-year{ color:var(--muted); font-weight:700; font-size:.72rem; margin-right:4px; }
+  .map-popup .mp-more{ color:var(--muted); font-size:.74rem; padding-top:4px; }
 </style>
 </head>
 <body>
@@ -163,6 +175,12 @@
     <svg id="chart" viewBox="0 0 1180 560"></svg>
   </div>
 
+  <div class="panel" id="map-wrap-panel">
+    <p class="section-title">Where It Happened</p>
+    <p class="section-sub">Marker size shows how many currently-visible events trace to that place (search, chapter, era and theme filters above apply here too). Locations are matched automatically from place names in each event's own text, so a few are approximate, statewide/federal rather than a single point, or missing when no place is named.</p>
+    <div id="event-map"></div>
+  </div>
+
   <div class="grid-three">
     <div class="panel">
       <p class="section-title">Selected Event</p>
@@ -190,6 +208,22 @@
 <div class="tooltip" id="tooltip"></div>
 
 <script>
+// ---------- shared map layer (persists across dataset switches) ----------
+// Leaflet's map can only be initialized once per container, but loadMain()/loadScott()
+// re-run renderTimelineWith() on every dataset switch, so the map instance and its
+// marker layer live up here instead of inside renderTimelineWith.
+let eventMap = null;
+let mapMarkersLayer = null;
+function ensureMap(){
+  if(eventMap) return;
+  eventMap = L.map('event-map').setView([41.55, -70.65], 9);
+  L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    maxZoom: 18,
+    attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+  }).addTo(eventMap);
+  mapMarkersLayer = L.layerGroup().addTo(eventMap);
+}
+
 async function init(){
   const dropdown = document.getElementById('dataset-select');
   dropdown.addEventListener('change', async (e) => {
@@ -199,14 +233,16 @@ async function init(){
 }
 
 async function loadMain(){
-  const [EVENTS, FIGURES, CHAPTER_META, ERAS, THEMES_RAW] = await Promise.all([
+  const [EVENTS, FIGURES, CHAPTER_META, ERAS, THEMES_RAW, LOCATIONS, EVENT_LOCATIONS] = await Promise.all([
     fetch('data/events.json').then(r => r.json()),
     fetch('data/figures.json').then(r => r.json()),
     fetch('data/chapters.json').then(r => r.json()),
     fetch('data/eras.json').then(r => r.json()),
     fetch('data/themes.json').then(r => r.json()),
+    fetch('data/locations.json').then(r => r.json()),
+    fetch('data/main-event-locations.json').then(r => r.json()),
   ]);
-  renderTimelineWith(EVENTS, FIGURES, CHAPTER_META, ERAS, THEMES_RAW);
+  renderTimelineWith(EVENTS, FIGURES, CHAPTER_META, ERAS, THEMES_RAW, LOCATIONS, EVENT_LOCATIONS);
 }
 
 async function loadScott(){
@@ -216,15 +252,17 @@ async function loadScott(){
   const CHAPTER_META = { scott_dissertation: { short: 'Scott', label: 'Scott Timeline', color: '#6366f1' } };
   const ERAS = await fetch('data/scott-eras.json').then(r => r.json());
   const THEMES_RAW = await fetch('data/scott-themes.json').then(r => r.json());
+  const LOCATIONS = await fetch('data/locations.json').then(r => r.json());
+  const EVENT_LOCATIONS = await fetch('data/scott-event-locations.json').then(r => r.json());
   const figCounts = {};
   EVENTS.forEach(e => { (e.figures || []).forEach(f => { figCounts[f] = (figCounts[f] || 0) + 1; }); });
   const FIGURES = Object.entries(figCounts)
     .map(([name, count]) => ({ name, count, events: EVENTS.filter(e => (e.figures || []).includes(name)).map(e => e.id), coOccurs: [] }))
     .sort((a,b) => b.count - a.count);
-  renderTimelineWith(EVENTS, FIGURES, CHAPTER_META, ERAS, THEMES_RAW);
+  renderTimelineWith(EVENTS, FIGURES, CHAPTER_META, ERAS, THEMES_RAW, LOCATIONS, EVENT_LOCATIONS);
 }
 
-function renderTimelineWith(EVENTS, FIGURES, CHAPTER_META, ERAS, THEMES_RAW){
+function renderTimelineWith(EVENTS, FIGURES, CHAPTER_META, ERAS, THEMES_RAW, LOCATIONS, EVENT_LOCATIONS){
   document.getElementById('event-count').textContent = EVENTS.length;
   document.getElementById('figure-count').textContent = FIGURES.length;
   document.getElementById('fig-sub').textContent = `${FIGURES.length} recurring people tie this timeline together. Click one to trace their thread.`;
@@ -424,9 +462,67 @@ function renderTimelineWith(EVENTS, FIGURES, CHAPTER_META, ERAS, THEMES_RAW){
     return false;
   }
 
+  function renderMap(visible){
+    ensureMap();
+    mapMarkersLayer.clearLayers();
+
+    // Group the currently-visible events by each place they're tagged with (an
+    // event can map to more than one place, e.g. an escape that names both where
+    // it started and where it ended). A location with no coordinates in
+    // LOCATIONS (an id in EVENT_LOCATIONS that doesn't exist there) is skipped
+    // rather than breaking the map.
+    const byLocation = new Map();
+    visible.forEach(ev => {
+      const locIds = EVENT_LOCATIONS[ev.id] || [];
+      locIds.forEach(locId => {
+        const loc = LOCATIONS[locId];
+        if(!loc) return;
+        if(!byLocation.has(locId)) byLocation.set(locId, { loc, events: [] });
+        byLocation.get(locId).events.push(ev);
+      });
+    });
+
+    byLocation.forEach(({ loc, events: evs }, locId) => {
+      const anyActive = evs.some(ev => !isDimmed(ev));
+      const count = evs.length;
+      const radius = 6 + Math.sqrt(count) * 3;
+      const marker = L.circleMarker([loc.lat, loc.lon], {
+        radius,
+        color: '#fff',
+        weight: 1.4,
+        fillColor: '#0f766e',
+        fillOpacity: anyActive ? 0.55 : 0.12,
+        opacity: anyActive ? 1 : 0.3
+      });
+
+      const sorted = [...evs].sort((a,b) => (a.year ?? 0) - (b.year ?? 0));
+      const shown = sorted.slice(0, 8);
+      const evHtml = shown.map(ev =>
+        `<div class="mp-ev" data-ev-id="${ev.id}"><span class="mp-year">${ev.displayDate || ev.year || ''}</span>${ev.headline}</div>`
+      ).join('');
+      const moreHtml = sorted.length > shown.length
+        ? `<div class="mp-more">+ ${sorted.length - shown.length} more here</div>` : '';
+      const html = `<div class="map-popup"><h4>${loc.label}</h4><div class="mp-count">${count} event${count===1?'':'s'} in view</div>${evHtml}${moreHtml}</div>`;
+      marker.bindPopup(html);
+      marker.on('popupopen', (e) => {
+        e.popup.getElement().querySelectorAll('.mp-ev').forEach(el => {
+          el.addEventListener('click', () => {
+            const ev = idMap.get(el.getAttribute('data-ev-id'));
+            if(ev) selectEvent(ev);
+          });
+        });
+      });
+      marker.addTo(mapMarkersLayer);
+    });
+  }
+
   function render(){
     renderEraBands();
     const visible = allEvents.filter(passesFilters);
+    // The map isn't limited to dated events the way the timeline dots are (a few
+    // events, like an undated origin story, still have a real place attached), so
+    // it filters the full EVENTS list rather than the year-only allEvents list.
+    renderMap(EVENTS.filter(passesFilters));
 
     const ranged = visible.filter(d=>d.endYear);
     const rbars = gDots.selectAll('.event-range').data(ranged, d=>d.id);
