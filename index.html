@@ -90,8 +90,8 @@
   }
   .tooltip b{ display:block; margin-bottom:2px; font-size:.82rem; }
 
-  .grid-three{ display:grid; grid-template-columns:1fr 1fr 0.9fr; gap:18px; align-items:start; }
-  @media (max-width: 1000px){ .grid-three{ grid-template-columns:1fr; } }
+  .grid-two{ display:grid; grid-template-columns:1.1fr 0.9fr; gap:18px; align-items:start; }
+  @media (max-width: 1000px){ .grid-two{ grid-template-columns:1fr; } }
 
   .section-title{ font-size:1rem; font-weight:700; margin:0 0 4px; }
   .section-sub{ font-size:.82rem; color:var(--muted); margin:0 0 12px; }
@@ -104,6 +104,32 @@
   #detail p{ margin:0; line-height:1.55; font-size:.9rem; color:#333; }
   #detail .fig-row{ margin-top:10px; padding-top:8px; border-top:1px dashed var(--line); display:flex; flex-wrap:wrap; gap:6px; }
   #detail .fig-chip{ font-size:.72rem; font-weight:700; padding:3px 9px; border-radius:999px; background:var(--bg); color:var(--fig-accent); cursor:pointer; border:1px solid var(--line); }
+
+  /* Selected Event now spans the full panel width, so its content runs in a
+     horizontal row (event details on the left, a rotating image gallery on the
+     right) instead of stacking everything in a narrow column. On narrow
+     screens it wraps. */
+  .detail-horizontal{ display:flex; gap:24px; align-items:flex-start; flex-wrap:wrap; }
+  .detail-main-col{ flex:1 1 360px; min-width:260px; }
+  .detail-gallery-col{ flex:1 1 260px; max-width:340px; min-width:220px; }
+  .detail-id{ color:var(--muted); font-size:.7rem; font-weight:600; float:right; }
+
+  /* Shared rotating image gallery: probes images/gallery/1.jpg, 2.jpg, ... (see
+     images/README.md) and, when any exist, shows them as a shuffled,
+     auto-advancing slideshow with manual arrows and dots. Independent of the
+     selected event/dataset — shows nothing extra when no images exist yet. */
+  .event-gallery{ position:relative; border-radius:10px; overflow:hidden; background:var(--bg); border:1px solid var(--line); min-height:60px; }
+  .event-gallery img{ width:100%; height:200px; object-fit:cover; display:block; background:var(--bg); }
+  .event-gallery-empty{ font-size:.78rem; color:var(--muted); padding:14px; text-align:center; }
+  .event-gallery-loading{ font-size:.78rem; color:var(--muted); padding:14px; text-align:center; }
+  .event-gallery-controls{ position:absolute; inset:0; display:flex; align-items:center; justify-content:space-between; padding:0 6px; opacity:0; transition:opacity .15s ease; pointer-events:none; }
+  .event-gallery:hover .event-gallery-controls{ opacity:1; pointer-events:auto; }
+  .event-gallery-btn{ background:rgba(0,0,0,.45); color:#fff; border:none; width:26px; height:26px; border-radius:50%; cursor:pointer; font-size:.9rem; line-height:1; }
+  .event-gallery-btn:hover{ background:rgba(0,0,0,.65); }
+  .event-gallery-dots{ position:absolute; bottom:7px; left:0; right:0; display:flex; justify-content:center; gap:4px; }
+  .event-gallery-dot{ width:6px; height:6px; border-radius:50%; background:rgba(255,255,255,.55); cursor:pointer; border:none; padding:0; }
+  .event-gallery-dot.active{ background:#fff; }
+  .event-gallery-count{ position:absolute; top:6px; right:8px; font-size:.66rem; color:#fff; background:rgba(0,0,0,.45); padding:1px 7px; border-radius:999px; }
 
   .fig-search{ width:100%; padding:7px 10px; border:1px solid var(--line); border-radius:8px; font-size:.83rem; margin-bottom:10px; font-family:inherit; }
   .fig-list{ max-height:420px; overflow-y:auto; }
@@ -202,19 +228,28 @@
     <svg id="chart" viewBox="0 0 1180 560"></svg>
   </div>
 
+  <div class="panel" id="selected-event-panel">
+    <div class="detail-horizontal">
+      <div class="detail-main-col">
+        <p class="section-title">Selected Event</p>
+        <p class="section-sub">Click any dot for full details.</p>
+        <div id="detail"><div class="placeholder">No event selected yet — click a dot above.</div></div>
+      </div>
+      <div class="detail-gallery-col">
+        <p class="section-title">Gallery</p>
+        <p class="section-sub">A rotating set of images (not yet tied to specific events) — see images/README.md for how to add more.</p>
+        <div class="event-gallery" id="event-gallery"><div class="event-gallery-loading">Looking for images…</div></div>
+      </div>
+    </div>
+  </div>
+
   <div class="panel" id="map-wrap-panel">
     <p class="section-title">Where It Happened</p>
     <p class="section-sub">Marker size shows how many currently-visible events trace to that place, and color shows the most common chapter among them (search, chapter, era and theme filters above apply here too). Click any dot, figure event, or map marker to sync the other two. Locations are matched automatically from place names in each event's own text, so a few are approximate, statewide/federal rather than a single point, or missing when no place is named.</p>
     <div id="event-map"></div>
   </div>
 
-  <div class="grid-three">
-    <div class="panel">
-      <p class="section-title">Selected Event</p>
-      <p class="section-sub">Click any dot for full details.</p>
-      <div id="detail"><div class="placeholder">No event selected yet — click a dot above.</div></div>
-    </div>
-
+  <div class="grid-two">
     <div class="panel">
       <p class="section-title">Notable Figures</p>
       <p class="section-sub" id="fig-sub">48 recurring people tie this timeline together. Click one to trace their thread.</p>
@@ -251,6 +286,82 @@ function ensureMap(){
   mapMarkersLayer = L.layerGroup().addTo(eventMap);
 }
 
+// ---------- shared rotating image gallery ----------
+// Not tied to the selected event (yet) — just a general rotating display of
+// whatever's in images/gallery/. Images aren't listed anywhere the page can read
+// (GitHub Pages doesn't expose a folder's contents to client-side JS), so this
+// probes images/gallery/1.jpg, then 2.jpg, and so on, stopping at the first
+// number that doesn't exist. Whatever it finds gets shuffled into a small
+// slideshow that keeps running regardless of which event or dataset is active.
+// See images/README.md for how to add images.
+function imageExists(url){
+  return new Promise(resolve => {
+    const img = new Image();
+    img.onload = () => resolve(true);
+    img.onerror = () => resolve(false);
+    img.src = url;
+  });
+}
+function shuffleArray(arr){
+  const a = [...arr];
+  for(let i = a.length - 1; i > 0; i--){
+    const j = Math.floor(Math.random() * (i + 1));
+    [a[i], a[j]] = [a[j], a[i]];
+  }
+  return a;
+}
+let galleryTimer = null;
+async function initSharedGallery(){
+  const MAX_IMAGES = 40;
+  const found = [];
+  for(let i = 1; i <= MAX_IMAGES; i++){
+    const ok = await imageExists(`images/gallery/${i}.jpg`);
+    if(!ok) break;
+    found.push(`images/gallery/${i}.jpg`);
+  }
+  const host = document.getElementById('event-gallery');
+  if(!host) return;
+  if(found.length === 0){
+    host.innerHTML = '<div class="event-gallery-empty">No images yet — see images/README.md to add some.</div>';
+    return;
+  }
+  const order = shuffleArray(found);
+  let idx = 0;
+  host.innerHTML = `
+    <img src="${order[0]}" alt="">
+    ${order.length > 1 ? `<div class="event-gallery-count">1 / ${order.length}</div>` : ''}
+    ${order.length > 1 ? `
+      <div class="event-gallery-controls">
+        <button class="event-gallery-btn" data-dir="-1" aria-label="Previous image">&#8249;</button>
+        <button class="event-gallery-btn" data-dir="1" aria-label="Next image">&#8250;</button>
+      </div>
+      <div class="event-gallery-dots">${order.map((_, i) => `<button class="event-gallery-dot${i === 0 ? ' active' : ''}" data-i="${i}" aria-label="Image ${i + 1}"></button>`).join('')}</div>
+    ` : ''}
+  `;
+  const imgEl = host.querySelector('img');
+  const countEl = host.querySelector('.event-gallery-count');
+  const dots = host.querySelectorAll('.event-gallery-dot');
+  function show(i){
+    idx = (i + order.length) % order.length;
+    imgEl.src = order[idx];
+    if(countEl) countEl.textContent = `${idx + 1} / ${order.length}`;
+    dots.forEach((d, j) => d.classList.toggle('active', j === idx));
+  }
+  function resetTimer(){
+    if(galleryTimer){ clearInterval(galleryTimer); galleryTimer = null; }
+    if(order.length > 1){
+      galleryTimer = setInterval(() => show(idx + 1), 4000);
+    }
+  }
+  host.querySelectorAll('.event-gallery-btn').forEach(btn => {
+    btn.addEventListener('click', () => { show(idx + Number(btn.dataset.dir)); resetTimer(); });
+  });
+  dots.forEach(d => {
+    d.addEventListener('click', () => { show(Number(d.dataset.i)); resetTimer(); });
+  });
+  resetTimer();
+}
+
 // Eras and Locations are long lists, so each lives behind its own dropdown button
 // instead of an always-open row of chips. The chips themselves are still rendered
 // and toggled exactly as before (inside the panel that drops down) — this just
@@ -283,6 +394,7 @@ async function init(){
     else { loadMain(); }
   });
   setupLegendDropdowns();
+  initSharedGallery();
   loadMain();
 }
 
@@ -348,6 +460,10 @@ async function loadVanderhoop(){
 }
 
 function renderTimelineWith(EVENTS, FIGURES, CHAPTER_META, ERAS, THEMES_RAW, LOCATIONS, EVENT_LOCATIONS){
+  // Switching datasets (Main / Vanderhoop) leaves any previously-selected event's
+  // detail panel stale otherwise. The shared image gallery is independent of the
+  // selected event/dataset, so it's left running as-is.
+  document.getElementById('detail').innerHTML = '<div class="placeholder">No event selected yet — click a dot above.</div>';
   document.getElementById('event-count').textContent = EVENTS.length;
   document.getElementById('figure-count').textContent = FIGURES.length;
   document.getElementById('fig-sub').textContent = `${FIGURES.length} recurring people tie this timeline together. Click one to trace their thread.`;
@@ -709,6 +825,7 @@ function renderTimelineWith(EVENTS, FIGURES, CHAPTER_META, ERAS, THEMES_RAW, LOC
     const eraHtml = eraMeta ? `<span class="badge" style="background:${eraMeta.color}">${eraMeta.label}</span>` : '';
     const figsHtml = d.figures.length ? `<div class="fig-row">${d.figures.map(f=>`<span class="fig-chip" data-fig="${f}">${f}</span>`).join('')}</div>` : '';
     d3.select('#detail').html(`
+      <span class="detail-id">ID: ${d.id}</span>
       <span class="badge" style="background:${chMeta.color}">${chMeta.short}</span>
       <span class="badge" style="background:${thMeta.hex}">${thMeta.label}</span>
       ${secondaryHtml}
