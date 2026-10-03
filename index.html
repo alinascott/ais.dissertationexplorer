@@ -248,7 +248,246 @@ async function loadScott(){
   
   renderTimelineWith(EVENTS, FIGURES, CHAPTER_META, ERAS, THEMES_RAW);
 }
+function renderTimelineWith(EVENTS, FIGURES, CHAPTER_META, ERAS, THEMES_RAW){
+  document.getElementById('event-count').textContent = EVENTS.length;
+  document.getElementById('figure-count').textContent = FIGURES.length;
+  document.getElementById('fig-sub').textContent = `${FIGURES.length} recurring people tie this timeline together. Click one to trace their thread.`;
+  document.getElementById('footer-note').textContent =
+    `Built from Dissertation_Timeline.xlsx — ${EVENTS.length} events, ${FIGURES.length} recurring named figures, organized by the dissertation's own chapter structure.`;
 
+  const THEME_META = {};
+  Object.entries(THEMES_RAW).forEach(([key, t]) => { THEME_META[key] = { label: t.label, hex: t.color, kind: t.kind || 'primary' }; });
+  const PRIMARY_THEME_KEYS = Object.keys(THEME_META).filter(k => THEME_META[k].kind === 'primary');
+  const SECONDARY_THEME_KEYS = Object.keys(THEME_META).filter(k => THEME_META[k].kind === 'secondary');
+
+  const ERA_META = {};
+  const ERA_ORDER = ERAS.map(e => e.id);
+  ERAS.forEach(e => { ERA_META[e.id] = e; });
+
+  const CHAPTER_ORDER = ["preface_intro","dissertation-seed-timeline","chapter1_homestead","chapter2_parsonage_schoolhouse","chapter3_garret","chapter4_meetinghouse","conclusion"];
+  const CHAPTER_COLOR_VAR = {
+    preface_intro: "var(--c-intro)", "dissertation-seed-timeline": "var(--c-overview)",
+    chapter1_homestead: "var(--c-ch1)", chapter2_parsonage_schoolhouse: "var(--c-ch2)",
+    chapter3_garret: "var(--c-ch3)", chapter4_meetinghouse: "var(--c-ch4)", conclusion: "var(--c-conclusion)"
+  };
+
+  const figMap = new Map(FIGURES.map(f => [f.name, f]));
+  const idMap = new Map(EVENTS.map(e => [e.id, e]));
+
+  let state = { hiddenChapters: new Set(), hiddenEras: new Set(), theme: null, figure: null, selected: null, search: "" };
+
+  // ---------- lane assignment (alternating up/down from a single baseline) ----------
+  function assignLanes(events, gap, maxLanes){
+    const sorted = [...events].sort((a,b)=>a.year-b.year);
+    const laneLast = new Array(maxLanes).fill(-Infinity);
+    sorted.forEach(e=>{
+      let chosen = 0;
+      for(let i=0;i<laneLast.length;i++){
+        if(e.year - laneLast[i] >= gap){ chosen = i; break; }
+        if(laneLast[i] < laneLast[chosen]) chosen = i;
+      }
+      e._lane = chosen;
+      laneLast[chosen] = e.year;
+    });
+    return sorted;
+  }
+  const MAX_LANES = 22;
+  const datedEvents = EVENTS.filter(e => typeof e.year === 'number');
+  const allEvents = assignLanes(datedEvents, 2, MAX_LANES);
+
+  // ---------- chapter legend ----------
+  const chapterLegend = d3.select('#chapter-legend');
+  chapterLegend.selectAll('*:not(.legend-label)').remove();
+  CHAPTER_ORDER.forEach(ch=>{
+    const meta = CHAPTER_META[ch];
+    chapterLegend.append('span').attr('class','chip').attr('data-chapter', ch)
+      .html(`<span class="dot" style="background:${meta.color}"></span>${meta.short}`)
+      .on('click', function(){ toggleChapter(ch, this); });
+  });
+
+  // ---------- era legend ----------
+  const eraLegend = d3.select('#era-legend');
+  eraLegend.selectAll('*:not(.legend-label)').remove();
+  ERA_ORDER.forEach(eraId=>{
+    const meta = ERA_META[eraId];
+    eraLegend.append('span').attr('class','chip era').attr('data-era', eraId)
+      .html(`<span class="dot" style="background:${meta.color}"></span>${meta.label}`)
+      .on('click', function(){ toggleEra(eraId, this); });
+  });
+
+  // ---------- theme legends (primary + secondary) ----------
+  const themeLegend = d3.select('#theme-legend');
+  themeLegend.selectAll('*:not(.legend-label)').remove();
+  PRIMARY_THEME_KEYS.forEach(key=>{
+    const meta = THEME_META[key];
+    themeLegend.append('span').attr('class','chip theme').attr('data-theme', key)
+      .html(`<span class="dot" style="background:${meta.hex}"></span>${meta.label}`)
+      .on('click', function(){ toggleTheme(key, this); });
+  });
+
+  const secondaryThemeLegend = d3.select('#secondary-theme-legend');
+  secondaryThemeLegend.selectAll('*:not(.legend-label)').remove();
+  SECONDARY_THEME_KEYS.forEach(key=>{
+    const meta = THEME_META[key];
+    secondaryThemeLegend.append('span').attr('class','chip theme secondary').attr('data-theme', key)
+      .html(`<span class="dot" style="background:${meta.hex}"></span>${meta.label}`)
+      .on('click', function(){ toggleTheme(key, this); });
+  });
+
+  function toggleChapter(ch, el){
+    if(state.hiddenChapters.has(ch)){ state.hiddenChapters.delete(ch); d3.select(el).classed('off', false); }
+    else { state.hiddenChapters.add(ch); d3.select(el).classed('off', true); }
+    render();
+  }
+  function toggleEra(eraId, el){
+    if(state.hiddenEras.has(eraId)){ state.hiddenEras.delete(eraId); d3.select(el).classed('off', false); }
+    else { state.hiddenEras.add(eraId); d3.select(el).classed('off', true); }
+    render();
+  }
+  function toggleTheme(key, el){
+    const isActive = state.theme === key;
+    d3.selectAll('.chip.theme').classed('active', false).style('color', null);
+    state.figure = null;
+    renderFiguresList();
+    if(isActive){ state.theme = null; }
+    else { state.theme = key; d3.select(el).classed('active', true).style('color', THEME_META[key].hex); }
+    render();
+  }
+
+  // ---------- chart setup ----------
+  const svg = d3.select('#chart');
+  const W = 1180, H = 560;
+  const margin = {top: 20, right: 30, bottom: 40, left: 30};
+  const baselineY = 300;
+  const LANE_H = 16;
+
+  const yearExtent = d3.extent(allEvents.flatMap(d=> d.endYear ? [d.year, d.endYear] : [d.year]));
+  const xScale0 = d3.scaleLinear().domain([yearExtent[0]-8, yearExtent[1]+8]).range([margin.left, W-margin.right]);
+  let xScale = xScale0;
+
+  // Clear old chart
+  svg.selectAll('*').remove();
+  const g = svg.append('g');
+  const gAxis = g.append('g').attr('class','axis');
+  const gEraBands = g.append('g');
+  const gTrack = g.append('g');
+  const gConnectors = g.append('g');
+  const gDots = g.append('g');
+
+  gTrack.append('line').attr('class','track-line')
+    .attr('x1', margin.left).attr('x2', W-margin.right).attr('y1', baselineY).attr('y2', baselineY);
+
+  const xAxis = d3.axisBottom(xScale).ticks(16).tickFormat(d3.format('d'));
+  gAxis.attr('transform', `translate(0,${H-margin.bottom})`).call(xAxis);
+
+  function renderEraBands(){
+    const domain = xScale.domain();
+    const bands = ERA_ORDER.map(id=>{
+      const meta = ERA_META[id];
+      const y0 = meta.yearStart == null ? domain[0] : Math.max(meta.yearStart, domain[0]);
+      const y1 = meta.yearEnd == null ? domain[1] : Math.min(meta.yearEnd, domain[1]);
+      return { id, meta, y0, y1 };
+    }).filter(b => b.y1 > b.y0 && !state.hiddenEras.has(b.id));
+
+    const rects = gEraBands.selectAll('rect.era-band').data(bands, d=>d.id);
+    rects.enter().append('rect').attr('class','era-band')
+      .merge(rects)
+      .attr('x', d=>xScale(d.y0)).attr('width', d=>Math.max(0, xScale(d.y1)-xScale(d.y0)))
+      .attr('y', margin.top).attr('height', H-margin.top-margin.bottom)
+      .attr('fill', d=>d.meta.color).attr('opacity', 0.07);
+    rects.exit().remove();
+
+    const labels = gEraBands.selectAll('text.era-band-label').data(bands, d=>d.id);
+    labels.enter().append('text').attr('class','era-band-label')
+      .merge(labels)
+      .attr('x', d=>xScale(d.y0)+4).attr('y', margin.top+10)
+      .text(d=> (xScale(d.y1)-xScale(d.y0) > 40) ? d.meta.label : '');
+    labels.exit().remove();
+  }
+
+  function yFor(d){
+    const lane = d._lane;
+    const dir = lane % 2 === 0 ? -1 : 1;
+    const step = Math.floor(lane/2) + 1;
+    return baselineY + dir * step * LANE_H;
+  }
+
+  const tooltip = d3.select('#tooltip');
+
+  function passesFilters(d){
+    if(state.hiddenChapters.has(d.chapter)) return false;
+    if(d.era && state.hiddenEras.has(d.era)) return false;
+    if(state.search){
+      const hay = (d.headline + ' ' + d.text).toLowerCase();
+      if(!hay.includes(state.search)) return false;
+    }
+    return true;
+  }
+  function isDimmed(d){
+    if(state.figure){
+      const fig = figMap.get(state.figure);
+      return !fig.events.includes(d.id);
+    }
+    if(state.theme){
+      const matchesPrimary = d.theme === state.theme;
+      const matchesSecondary = Array.isArray(d.secondaryThemes) && d.secondaryThemes.includes(state.theme);
+      return !(matchesPrimary || matchesSecondary);
+    }
+    return false;
+  }
+
+  function render(){
+    renderEraBands();
+    const visible = allEvents.filter(passesFilters);
+
+    const ranged = visible.filter(d=>d.endYear);
+    const rbars = gDots.selectAll('.event-range').data(ranged, d=>d.id);
+    rbars.enter().append('line').attr('class','event-range')
+      .merge(rbars)
+      .attr('x1', d=>xScale(d.year)).attr('x2', d=>xScale(d.endYear))
+      .attr('y1', d=>yFor(d)).attr('y2', d=>yFor(d))
+      .attr('stroke', d=>CHAPTER_COLOR_VAR[d.chapter]);
+    rbars.exit().remove();
+
+    const dots = gDots.selectAll('.event-dot').data(visible, d=>d.id);
+    dots.enter().append('circle').attr('class','event-dot')
+      .attr('r', 5.5)
+      .on('mousemove', (ev,d)=>{
+        tooltip.style('opacity',1)
+          .style('left', (ev.clientX+14)+'px').style('top', (ev.clientY+10)+'px')
+          .html(`<b>${d.headline}</b>${d.displayDate} · ${CHAPTER_META[d.chapter].short}`);
+      })
+      .on('mouseleave', ()=> tooltip.style('opacity',0))
+      .on('click', (ev,d)=> selectEvent(d))
+      .merge(dots)
+      .attr('cx', d=>xScale(d.year))
+      .attr('cy', d=>yFor(d))
+      .attr('fill', d=>CHAPTER_COLOR_VAR[d.chapter])
+      .classed('dim', isDimmed)
+      .attr('stroke', d => (state.selected===d) ? '#111' : '#fff')
+      .attr('stroke-width', d => (state.selected===d) ? 3 : 1.4);
+    dots.exit().remove();
+
+    gConnectors.selectAll('*').remove();
+    if(state.figure){
+      const fig = figMap.get(state.figure);
+      const figEvents = fig.events.map(id=>idMap.get(id)).filter(Boolean).filter(passesFilters).sort((a,b)=>a.year-b.year);
+      for(let i=0;i<figEvents.length-1;i++){
+        const a = figEvents[i], b = figEvents[i+1];
+        const x1=xScale(a.year), y1=yFor(a), x2=xScale(b.year), y2=yFor(b);
+        const midY = (y1+y2)/2;
+        gConnectors.append('path').attr('class','connector')
+          .attr('stroke', 'var(--fig-accent)')
+          .attr('d', `M${x1},${y1} C${x1},${midY} ${x2},${midY} ${x2},${y2}`);
+      }
+    }
+  }
+
+  function selectEvent(d){
+    state.selected = d;
+    render();
+    const chMeta = CHAPTER_META[d.chapter];
+    const thMeta = THEME_META[d.theme];
 init().catch(err => {
   const banner = document.getElementById('loading-banner');
   const msg = 'Could not load timeline data (' + err.message + '). If you opened this file '
