@@ -210,7 +210,9 @@ async function loadMain(){
 }
 
 async function loadScott(){
-  const EVENTS = await fetch('data/scott-events.json').then(r => r.json());
+  // NOTE: this file lives at the repo root (same folder as index.html), not in data/ —
+  // the other Scott files (scott-eras.json, scott-themes.json) do live in data/.
+  const EVENTS = await fetch('scott-events.json').then(r => r.json());
   const CHAPTER_META = { scott_dissertation: { short: 'Scott', label: 'Scott Timeline', color: '#6366f1' } };
   const ERAS = await fetch('data/scott-eras.json').then(r => r.json());
   const THEMES_RAW = await fetch('data/scott-themes.json').then(r => r.json());
@@ -237,12 +239,14 @@ function renderTimelineWith(EVENTS, FIGURES, CHAPTER_META, ERAS, THEMES_RAW){
   const ERA_ORDER = ERAS.map(e => e.id);
   ERAS.forEach(e => { ERA_META[e.id] = e; });
 
-  const CHAPTER_ORDER = ["preface_intro","dissertation-seed-timeline","chapter1_homestead","chapter2_parsonage_schoolhouse","chapter3_garret","chapter4_meetinghouse","conclusion"];
-  const CHAPTER_COLOR_VAR = {
-    preface_intro: "var(--c-intro)", "dissertation-seed-timeline": "var(--c-overview)",
-    chapter1_homestead: "var(--c-ch1)", chapter2_parsonage_schoolhouse: "var(--c-ch2)",
-    chapter3_garret: "var(--c-ch3)", chapter4_meetinghouse: "var(--c-ch4)", conclusion: "var(--c-conclusion)"
-  };
+  // Chapter order and colors are derived from whichever CHAPTER_META was passed in
+  // (7 keys for the main dataset, a single "scott_dissertation" key for the Scott
+  // dataset) instead of being hardcoded to the main dataset's keys — that hardcoding
+  // used to crash the Scott view (CHAPTER_META[ch] was undefined for every key it
+  // looped over). Likewise, chapter colors are read straight off CHAPTER_META.color
+  // (every chapters file already has one) instead of a separate CSS-variable map
+  // that only had entries for the main dataset's 7 chapters.
+  const CHAPTER_ORDER = Object.keys(CHAPTER_META);
 
   const figMap = new Map(FIGURES.map(f => [f.name, f]));
   const idMap = new Map(EVENTS.map(e => [e.id, e]));
@@ -365,11 +369,28 @@ function renderTimelineWith(EVENTS, FIGURES, CHAPTER_META, ERAS, THEMES_RAW){
     rects.exit().remove();
 
     const labels = gEraBands.selectAll('text.era-band-label').data(bands, d=>d.id);
-    labels.enter().append('text').attr('class','era-band-label')
+    const labelsMerged = labels.enter().append('text').attr('class','era-band-label')
       .merge(labels)
       .attr('x', d=>xScale(d.y0)+4).attr('y', margin.top+10)
       .text(d=> (xScale(d.y1)-xScale(d.y0) > 40) ? d.meta.label : '');
     labels.exit().remove();
+
+    // Era bands are drawn in chronological order, and when two eras sit close
+    // together (or one starts right where another ends) their labels used to
+    // render on top of each other and become illegible. Measure each label's
+    // actual rendered width and hide any that would overlap the previous
+    // visible one, instead of guessing at text width in advance.
+    let lastRight = -Infinity;
+    labelsMerged.each(function(){
+      const el = d3.select(this);
+      if(el.text() === '') return;
+      const box = this.getBBox();
+      if(box.width > 0 && box.x < lastRight){
+        el.text('');
+      } else {
+        lastRight = box.x + box.width;
+      }
+    });
   }
 
   function yFor(d){
@@ -413,7 +434,7 @@ function renderTimelineWith(EVENTS, FIGURES, CHAPTER_META, ERAS, THEMES_RAW){
       .merge(rbars)
       .attr('x1', d=>xScale(d.year)).attr('x2', d=>xScale(d.endYear))
       .attr('y1', d=>yFor(d)).attr('y2', d=>yFor(d))
-      .attr('stroke', d=>CHAPTER_COLOR_VAR[d.chapter]);
+      .attr('stroke', d=>CHAPTER_META[d.chapter].color);
     rbars.exit().remove();
 
     const dots = gDots.selectAll('.event-dot').data(visible, d=>d.id);
@@ -429,7 +450,7 @@ function renderTimelineWith(EVENTS, FIGURES, CHAPTER_META, ERAS, THEMES_RAW){
       .merge(dots)
       .attr('cx', d=>xScale(d.year))
       .attr('cy', d=>yFor(d))
-      .attr('fill', d=>CHAPTER_COLOR_VAR[d.chapter])
+      .attr('fill', d=>CHAPTER_META[d.chapter].color)
       .classed('dim', isDimmed)
       .attr('stroke', d => (state.selected===d) ? '#111' : '#fff')
       .attr('stroke-width', d => (state.selected===d) ? 3 : 1.4);
