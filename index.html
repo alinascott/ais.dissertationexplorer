@@ -53,6 +53,7 @@
   .chip.theme.active{ opacity:1; border-color:currentColor; }
   .chip.theme.secondary{ border-style:dashed; }
   .chip.era.off{ opacity:.3; }
+  .chip.location.off{ opacity:.3; }
 
   #chart-panel{ padding:8px 8px 4px; }
   #chart, #barchart{ display:block; width:100%; height:auto; }
@@ -142,6 +143,7 @@
         <select id="dataset-select">
           <option value="main">Murder by Inches (All Events)</option>
           <option value="scott">Scott Dissertation Timeline</option>
+          <option value="vanderhoop">Mary Cleggett &amp; the Vanderhoops of Aquinnah</option>
         </select>
       </div>
       <div class="search-box"><input id="search-input" type="text" placeholder="Search events…"></div>
@@ -173,6 +175,12 @@
     <div class="legend-block">
       <div class="legend" id="secondary-theme-legend">
         <span class="legend-label">Secondary themes, added from manuscript review (click to highlight)</span>
+      </div>
+    </div>
+
+    <div class="legend-block">
+      <div class="legend" id="location-legend">
+        <span class="legend-label">Locations (click to show/hide)</span>
       </div>
     </div>
   </div>
@@ -233,7 +241,9 @@ function ensureMap(){
 async function init(){
   const dropdown = document.getElementById('dataset-select');
   dropdown.addEventListener('change', async (e) => {
-    if(e.target.value === 'scott'){ loadScott(); } else { loadMain(); }
+    if(e.target.value === 'scott'){ loadScott(); }
+    else if(e.target.value === 'vanderhoop'){ loadVanderhoop(); }
+    else { loadMain(); }
   });
   loadMain();
 }
@@ -260,6 +270,37 @@ async function loadScott(){
   const THEMES_RAW = await fetch('data/scott-themes.json').then(r => r.json());
   const LOCATIONS = await fetch('data/locations.json').then(r => r.json());
   const EVENT_LOCATIONS = await fetch('data/scott-event-locations.json').then(r => r.json());
+  const figCounts = {};
+  EVENTS.forEach(e => { (e.figures || []).forEach(f => { figCounts[f] = (figCounts[f] || 0) + 1; }); });
+  const FIGURES = Object.entries(figCounts)
+    .map(([name, count]) => ({ name, count, events: EVENTS.filter(e => (e.figures || []).includes(name)).map(e => e.id), coOccurs: [] }))
+    .sort((a,b) => b.count - a.count);
+  renderTimelineWith(EVENTS, FIGURES, CHAPTER_META, ERAS, THEMES_RAW, LOCATIONS, EVENT_LOCATIONS);
+}
+
+// Mary Cleggett Vanderhoop & the Vanderhoops of Aquinnah (Gay Head): a slice of the
+// main dataset limited to events where at least one of these named family members
+// appears in the event's figures list. Other figures who co-occur in those same
+// events (e.g. people recorded alongside Mary Cleggett or Beulah Vanderhoop) still
+// show up in the figures panel, since they're part of the same events — but no
+// event is pulled in just for being set in Aquinnah/Gay Head generally.
+const VANDERHOOP_FIGURES = [
+  'Mary Cleggett Vanderhoop', 'Beulah Vanderhoop', 'William Vanderhoop',
+  'Edwin DeVries Vanderhoop', 'Netta Vanderhoop', 'Charles Vanderhoop',
+  'Helen Vanderhoop Manning'
+];
+async function loadVanderhoop(){
+  const [ALL_EVENTS, CHAPTER_META, ERAS, THEMES_RAW, LOCATIONS, ALL_EVENT_LOCATIONS] = await Promise.all([
+    fetch('data/events.json').then(r => r.json()),
+    fetch('data/chapters.json').then(r => r.json()),
+    fetch('data/eras.json').then(r => r.json()),
+    fetch('data/themes.json').then(r => r.json()),
+    fetch('data/locations.json').then(r => r.json()),
+    fetch('data/main-event-locations.json').then(r => r.json()),
+  ]);
+  const EVENTS = ALL_EVENTS.filter(e => (e.figures || []).some(f => VANDERHOOP_FIGURES.includes(f)));
+  const EVENT_LOCATIONS = {};
+  EVENTS.forEach(e => { EVENT_LOCATIONS[e.id] = ALL_EVENT_LOCATIONS[e.id] || []; });
   const figCounts = {};
   EVENTS.forEach(e => { (e.figures || []).forEach(f => { figCounts[f] = (figCounts[f] || 0) + 1; }); });
   const FIGURES = Object.entries(figCounts)
@@ -295,7 +336,7 @@ function renderTimelineWith(EVENTS, FIGURES, CHAPTER_META, ERAS, THEMES_RAW, LOC
   const figMap = new Map(FIGURES.map(f => [f.name, f]));
   const idMap = new Map(EVENTS.map(e => [e.id, e]));
 
-  let state = { hiddenChapters: new Set(), hiddenEras: new Set(), theme: null, figure: null, selected: null, search: "" };
+  let state = { hiddenChapters: new Set(), hiddenEras: new Set(), hiddenLocations: new Set(), theme: null, figure: null, selected: null, search: "" };
 
   function assignLanes(events, gap, maxLanes){
     const sorted = [...events].sort((a,b)=>a.year-b.year);
@@ -351,6 +392,21 @@ function renderTimelineWith(EVENTS, FIGURES, CHAPTER_META, ERAS, THEMES_RAW, LOC
       .on('click', function(){ toggleTheme(key, this); });
   });
 
+  // One chip per gazetteer location (not just Martha's Vineyard) so any place —
+  // Mashpee, Herring Pond, Boston, Suriname, etc. — can be isolated or hidden.
+  // An event with no matched location always passes this filter; an event
+  // tagged with locations is hidden only once every one of its locations is
+  // toggled off (see passesFilters below).
+  const LOCATION_ORDER = Object.keys(LOCATIONS);
+  const locationLegend = d3.select('#location-legend');
+  locationLegend.selectAll('*:not(.legend-label)').remove();
+  LOCATION_ORDER.forEach(locId=>{
+    const meta = LOCATIONS[locId];
+    locationLegend.append('span').attr('class','chip location').attr('data-location', locId)
+      .html(`<span class="dot" style="background:var(--muted)"></span>${meta.label}`)
+      .on('click', function(){ toggleLocation(locId, this); });
+  });
+
   function toggleChapter(ch, el){
     if(state.hiddenChapters.has(ch)){ state.hiddenChapters.delete(ch); d3.select(el).classed('off', false); }
     else { state.hiddenChapters.add(ch); d3.select(el).classed('off', true); }
@@ -359,6 +415,11 @@ function renderTimelineWith(EVENTS, FIGURES, CHAPTER_META, ERAS, THEMES_RAW, LOC
   function toggleEra(eraId, el){
     if(state.hiddenEras.has(eraId)){ state.hiddenEras.delete(eraId); d3.select(el).classed('off', false); }
     else { state.hiddenEras.add(eraId); d3.select(el).classed('off', true); }
+    render();
+  }
+  function toggleLocation(locId, el){
+    if(state.hiddenLocations.has(locId)){ state.hiddenLocations.delete(locId); d3.select(el).classed('off', false); }
+    else { state.hiddenLocations.add(locId); d3.select(el).classed('off', true); }
     render();
   }
   function toggleTheme(key, el){
@@ -449,6 +510,8 @@ function renderTimelineWith(EVENTS, FIGURES, CHAPTER_META, ERAS, THEMES_RAW, LOC
   function passesFilters(d){
     if(state.hiddenChapters.has(d.chapter)) return false;
     if(d.era && state.hiddenEras.has(d.era)) return false;
+    const locIds = EVENT_LOCATIONS[d.id] || [];
+    if(locIds.length && locIds.every(locId => state.hiddenLocations.has(locId))) return false;
     if(state.search){
       const hay = (d.headline + ' ' + d.text).toLowerCase();
       if(!hay.includes(state.search)) return false;
