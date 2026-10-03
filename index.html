@@ -121,6 +121,7 @@
   .map-popup .mp-ev:hover{ color:var(--fig-accent); }
   .map-popup .mp-year{ color:var(--muted); font-weight:700; font-size:.72rem; margin-right:4px; }
   .map-popup .mp-more{ color:var(--muted); font-size:.74rem; padding-top:4px; }
+  .map-popup .mp-ev.mp-ev-active{ color:var(--fig-accent); font-weight:700; }
 </style>
 </head>
 <body>
@@ -182,7 +183,7 @@
 
   <div class="panel" id="map-wrap-panel">
     <p class="section-title">Where It Happened</p>
-    <p class="section-sub">Marker size shows how many currently-visible events trace to that place (search, chapter, era and theme filters above apply here too). Locations are matched automatically from place names in each event's own text, so a few are approximate, statewide/federal rather than a single point, or missing when no place is named.</p>
+    <p class="section-sub">Marker size shows how many currently-visible events trace to that place, and color shows the most common chapter among them (search, chapter, era and theme filters above apply here too). Click any dot, figure event, or map marker to sync the other two. Locations are matched automatically from place names in each event's own text, so a few are approximate, statewide/federal rather than a single point, or missing when no place is named.</p>
     <div id="event-map"></div>
   </div>
 
@@ -467,9 +468,18 @@ function renderTimelineWith(EVENTS, FIGURES, CHAPTER_META, ERAS, THEMES_RAW, LOC
     return false;
   }
 
+  // Tracks the live marker for each location id (rebuilt on every renderMap call)
+  // so selectEvent() can pan the map to, and reopen the popup of, whichever place
+  // an event selected elsewhere on the page (a timeline dot, a figure's event
+  // list, or the map itself) belongs to. focusEventId carries which single event
+  // inside a multi-event popup should be highlighted once that popup opens.
+  let markerByLocation = new Map();
+  let focusEventId = null;
+
   function renderMap(visible){
     ensureMap();
     mapMarkersLayer.clearLayers();
+    markerByLocation.clear();
 
     // Group the currently-visible events by each place they're tagged with (an
     // event can map to more than one place, e.g. an escape that names both where
@@ -491,14 +501,24 @@ function renderTimelineWith(EVENTS, FIGURES, CHAPTER_META, ERAS, THEMES_RAW, LOC
       const anyActive = evs.some(ev => !isDimmed(ev));
       const count = evs.length;
       const radius = 6 + Math.sqrt(count) * 3;
+
+      // Color the marker by whichever chapter is most common among its events,
+      // the same way timeline dots are colored, so the map and timeline read as
+      // one consistent palette rather than the map using a single flat color.
+      const chapterCounts = {};
+      evs.forEach(ev => { chapterCounts[ev.chapter] = (chapterCounts[ev.chapter] || 0) + 1; });
+      const topChapter = Object.entries(chapterCounts).sort((a, b) => b[1] - a[1])[0][0];
+      const fillColor = (CHAPTER_META[topChapter] && CHAPTER_META[topChapter].color) || '#0f766e';
+
       const marker = L.circleMarker([loc.lat, loc.lon], {
         radius,
         color: '#fff',
         weight: 1.4,
-        fillColor: '#0f766e',
-        fillOpacity: anyActive ? 0.55 : 0.12,
+        fillColor,
+        fillOpacity: anyActive ? 0.65 : 0.12,
         opacity: anyActive ? 1 : 0.3
       });
+      markerByLocation.set(locId, marker);
 
       const sorted = [...evs].sort((a,b) => (a.year ?? 0) - (b.year ?? 0));
       const shown = sorted.slice(0, 8);
@@ -510,12 +530,18 @@ function renderTimelineWith(EVENTS, FIGURES, CHAPTER_META, ERAS, THEMES_RAW, LOC
       const html = `<div class="map-popup"><h4>${loc.label}</h4><div class="mp-count">${count} event${count===1?'':'s'} in view</div>${evHtml}${moreHtml}</div>`;
       marker.bindPopup(html);
       marker.on('popupopen', (e) => {
-        e.popup.getElement().querySelectorAll('.mp-ev').forEach(el => {
+        const root = e.popup.getElement();
+        root.querySelectorAll('.mp-ev').forEach(el => {
           el.addEventListener('click', () => {
             const ev = idMap.get(el.getAttribute('data-ev-id'));
             if(ev) selectEvent(ev);
           });
+          if(el.getAttribute('data-ev-id') === focusEventId){
+            el.classList.add('mp-ev-active');
+            el.scrollIntoView({ block: 'nearest' });
+          }
         });
+        focusEventId = null;
       });
       marker.addTo(mapMarkersLayer);
     });
@@ -594,6 +620,18 @@ function renderTimelineWith(EVENTS, FIGURES, CHAPTER_META, ERAS, THEMES_RAW, LOC
     d3.selectAll('#detail .fig-chip').on('click', function(){
       selectFigure(d3.select(this).attr('data-fig'));
     });
+
+    // Keep the map in sync with whatever event was just selected, however it was
+    // selected (a timeline dot, a figure's event list, or a map popup itself) —
+    // pan to its primary place and reopen that marker's popup with this event
+    // highlighted in the list.
+    const locIds = EVENT_LOCATIONS[d.id] || [];
+    const marker = locIds.length ? markerByLocation.get(locIds[0]) : null;
+    if(marker){
+      focusEventId = d.id;
+      eventMap.panTo(marker.getLatLng(), { animate: true });
+      marker.openPopup();
+    }
   }
 
   function focusYear(y){
