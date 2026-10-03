@@ -17,6 +17,11 @@
   }
   *{box-sizing:border-box;}
   body{ margin:0; font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif; background:var(--bg); color:var(--ink); }
+  /* NOTE: the old blanket `svg{ width:100%; height:auto; }` rule (removed below, now
+     scoped to just the two D3 chart SVGs) was also matching Leaflet's internal SVG
+     renderer for the map markers, collapsing it to 0x0 and throwing every marker's
+     on-screen position off by several hundred pixels while leaving the tile layer
+     (which isn't an <svg>) positioned correctly. */
   header{ padding:26px 32px 14px; max-width:1320px; margin:0 auto; }
   header h1{ margin:0 0 6px; font-size:1.55rem; letter-spacing:-0.01em; }
   header p{ margin:0; color:var(--muted); font-size:0.93rem; max-width:920px; line-height:1.5; }
@@ -50,7 +55,7 @@
   .chip.era.off{ opacity:.3; }
 
   #chart-panel{ padding:8px 8px 4px; }
-  svg{ display:block; width:100%; height:auto; }
+  #chart, #barchart{ display:block; width:100%; height:auto; }
   .axis text{ fill:var(--muted); font-size:11px; }
   .axis path, .axis line{ stroke:var(--line); }
   .track-line{ stroke:var(--line); stroke-width:2; }
