@@ -55,6 +55,24 @@
   .chip.era.off{ opacity:.3; }
   .chip.location.off{ opacity:.3; }
 
+  .legend-dropdown{ position:relative; display:inline-block; }
+  .legend-dropdown-toggle{
+    display:inline-flex; align-items:center; gap:6px; padding:7px 12px; border-radius:8px; font-size:.83rem;
+    font-weight:700; border:1px solid var(--line); cursor:pointer; background:#fff; color:var(--ink); font-family:inherit;
+  }
+  .legend-dropdown-toggle:hover{ background:var(--bg); }
+  .legend-dropdown-toggle .count-badge{
+    font-size:.68rem; font-weight:700; color:var(--muted); background:var(--bg); border-radius:999px; padding:1px 7px;
+  }
+  .legend-dropdown-caret{ font-size:.7rem; color:var(--muted); transition:transform .15s ease; }
+  .legend-dropdown.open .legend-dropdown-caret{ transform:rotate(180deg); }
+  .legend-dropdown-panel{
+    display:none; position:absolute; top:calc(100% + 6px); left:0; z-index:30; background:#fff;
+    border:1px solid var(--line); border-radius:12px; padding:12px; box-shadow:0 8px 24px rgba(0,0,0,.12);
+    flex-wrap:wrap; gap:7px; width:max-content; max-width:min(480px, 90vw); max-height:320px; overflow-y:auto;
+  }
+  .legend-dropdown.open .legend-dropdown-panel{ display:flex; }
+
   #chart-panel{ padding:8px 8px 4px; }
   #chart, #barchart{ display:block; width:100%; height:auto; }
   .axis text{ fill:var(--muted); font-size:11px; }
@@ -142,7 +160,6 @@
         <span class="dataset-label">View</span>
         <select id="dataset-select">
           <option value="main">Murder by Inches (All Events)</option>
-          <option value="scott">Scott Dissertation Timeline</option>
           <option value="vanderhoop">Mary Cleggett &amp; the Vanderhoops of Aquinnah</option>
         </select>
       </div>
@@ -161,8 +178,9 @@
     </div>
 
     <div class="legend-block">
-      <div class="legend" id="era-legend">
-        <span class="legend-label">Eras (click to show/hide)</span>
+      <div class="legend-dropdown" id="era-dropdown">
+        <button class="legend-dropdown-toggle" type="button">Eras (click to show/hide) <span class="legend-dropdown-caret">▾</span></button>
+        <div class="legend-dropdown-panel" id="era-legend"></div>
       </div>
     </div>
 
@@ -173,14 +191,9 @@
     </div>
 
     <div class="legend-block">
-      <div class="legend" id="secondary-theme-legend">
-        <span class="legend-label">Secondary themes, added from manuscript review (click to highlight)</span>
-      </div>
-    </div>
-
-    <div class="legend-block">
-      <div class="legend" id="location-legend">
-        <span class="legend-label">Locations (click to show/hide)</span>
+      <div class="legend-dropdown" id="location-dropdown">
+        <button class="legend-dropdown-toggle" type="button">Locations (click to show/hide) <span class="legend-dropdown-caret">▾</span></button>
+        <div class="legend-dropdown-panel" id="location-legend"></div>
       </div>
     </div>
   </div>
@@ -238,13 +251,38 @@ function ensureMap(){
   mapMarkersLayer = L.layerGroup().addTo(eventMap);
 }
 
+// Eras and Locations are long lists, so each lives behind its own dropdown button
+// instead of an always-open row of chips. The chips themselves are still rendered
+// and toggled exactly as before (inside the panel that drops down) — this just
+// wires the open/close chrome, once, independent of which dataset is loaded.
+// Clicking a chip inside an open panel never closes it (only the toggle button or
+// a click outside the dropdown does), so several places can be toggled in a row.
+function setupLegendDropdowns(){
+  document.querySelectorAll('.legend-dropdown').forEach(dd => {
+    const toggle = dd.querySelector('.legend-dropdown-toggle');
+    toggle.addEventListener('click', (e) => {
+      e.stopPropagation();
+      const willOpen = !dd.classList.contains('open');
+      document.querySelectorAll('.legend-dropdown.open').forEach(other => {
+        if(other !== dd) other.classList.remove('open');
+      });
+      dd.classList.toggle('open', willOpen);
+    });
+  });
+  document.addEventListener('click', (e) => {
+    document.querySelectorAll('.legend-dropdown.open').forEach(dd => {
+      if(!dd.contains(e.target)) dd.classList.remove('open');
+    });
+  });
+}
+
 async function init(){
   const dropdown = document.getElementById('dataset-select');
   dropdown.addEventListener('change', async (e) => {
-    if(e.target.value === 'scott'){ loadScott(); }
-    else if(e.target.value === 'vanderhoop'){ loadVanderhoop(); }
+    if(e.target.value === 'vanderhoop'){ loadVanderhoop(); }
     else { loadMain(); }
   });
+  setupLegendDropdowns();
   loadMain();
 }
 
@@ -374,6 +412,9 @@ function renderTimelineWith(EVENTS, FIGURES, CHAPTER_META, ERAS, THEMES_RAW, LOC
       .on('click', function(){ toggleEra(eraId, this); });
   });
 
+  // Primary and secondary themes now share one legend/section (secondary themes
+  // keep their dashed-border chip style so they still read as a distinct, later
+  // layer added from manuscript review, without needing a section of their own).
   const themeLegend = d3.select('#theme-legend');
   themeLegend.selectAll('*:not(.legend-label)').remove();
   PRIMARY_THEME_KEYS.forEach(key=>{
@@ -382,12 +423,9 @@ function renderTimelineWith(EVENTS, FIGURES, CHAPTER_META, ERAS, THEMES_RAW, LOC
       .html(`<span class="dot" style="background:${meta.hex}"></span>${meta.label}`)
       .on('click', function(){ toggleTheme(key, this); });
   });
-
-  const secondaryThemeLegend = d3.select('#secondary-theme-legend');
-  secondaryThemeLegend.selectAll('*:not(.legend-label)').remove();
   SECONDARY_THEME_KEYS.forEach(key=>{
     const meta = THEME_META[key];
-    secondaryThemeLegend.append('span').attr('class','chip theme secondary').attr('data-theme', key)
+    themeLegend.append('span').attr('class','chip theme secondary').attr('data-theme', key)
       .html(`<span class="dot" style="background:${meta.hex}"></span>${meta.label}`)
       .on('click', function(){ toggleTheme(key, this); });
   });
