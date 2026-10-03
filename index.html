@@ -207,86 +207,46 @@
 
 <script>
 async function init(){
-  const datasetSelect = document.getElementById('dataset-select');
+  const dropdown = document.getElementById('dataset-select');
 
-  // Metadata for Scott dataset
-  const SCOTT_META = {
-    chapters: { scott_dissertation: { short: 'Scott', label: 'Scott Dissertation Timeline', color: '#6366f1' } },
-    eras: await fetch('data/scott-eras.json').then(r => r.json()),
-    themes: await fetch('data/scott-themes.json').then(r => r.json())
-  };
-
-  async function loadDataset(dataset){
-    if(dataset === 'scott'){
-      await loadScottDataset(SCOTT_META);
+  dropdown.addEventListener('change', async (e) => {
+    if(e.target.value === 'scott'){
+      loadScott();
     } else {
-      await loadMainDataset();
+      loadMain();
     }
-  }
-
-  async function loadMainDataset(){
-    const [EVENTS, FIGURES, CHAPTER_META, ERAS, THEMES_RAW] = await Promise.all([
-      fetch('data/events.json').then(r => r.json()),
-      fetch('data/figures.json').then(r => r.json()),
-      fetch('data/chapters.json').then(r => r.json()),
-      fetch('data/eras.json').then(r => r.json()),
-      fetch('data/themes.json').then(r => r.json()),
-    ]);
-    document.getElementById('page-title').textContent = 'Murder by Inches — Dissertation Explorer';
-    document.getElementById('page-desc').textContent = `All ${EVENTS.length} dated actions extracted from the dissertation, organized by the book's own four spaces of protest (plus intro and conclusion), filterable by cross-cutting theme and by era, and connected through the ${FIGURES.length} recurring named figures who tie the timeline together.`;
-    renderTimelineWith(EVENTS, FIGURES, CHAPTER_META, ERAS, THEMES_RAW);
-  }
-
-  async function loadScottDataset(scottMeta){
-    const EVENTS = await fetch('data/scott-events.json').then(r => r.json());
-    
-    // Derive figures from events
-    const figCounts = {};
-    EVENTS.forEach(e => {
-      (e.figures || []).forEach(f => {
-        figCounts[f] = (figCounts[f] || 0) + 1;
-      });
-    });
-    const FIGURES = Object.entries(figCounts)
-      .map(([name, count]) => ({ 
-        name, 
-        count, 
-        events: EVENTS.filter(e => (e.figures || []).includes(name)).map(e => e.id),
-        coOccurs: [] 
-      }))
-      .sort((a,b) => b.count - a.count);
-    
-    // Compute co-occurrences
-    FIGURES.forEach(fig => {
-      const figEventIds = fig.events;
-      const coOccurMap = {};
-      figEventIds.forEach(eventId => {
-        const event = EVENTS.find(e => e.id === eventId);
-        (event.figures || []).forEach(f => {
-          if(f !== fig.name) coOccurMap[f] = (coOccurMap[f] || 0) + 1;
-        });
-      });
-      fig.coOccurs = Object.entries(coOccurMap)
-        .map(([name, count]) => ({ name, count }))
-        .sort((a,b) => b.count - a.count)
-        .slice(0, 5);
-    });
-
-    document.getElementById('page-title').textContent = 'Scott Dissertation Timeline';
-    document.getElementById('page-desc').textContent = `${EVENTS.length} dated events (1779–1989) from "Murder by Inches," organized by historical era and theme, showing Wampanoag networks of petitioning and resistance across two centuries. ${FIGURES.length} recurring figures are traced throughout.`;
-    
-    renderTimelineWith(EVENTS, FIGURES, scottMeta.chapters, scottMeta.eras, scottMeta.themes);
-  }
-
-  datasetSelect.addEventListener('change', (e) => {
-    document.getElementById('loading-banner').style.display = 'block';
-    loadDataset(e.target.value).then(() => {
-      document.getElementById('loading-banner').style.display = 'none';
-    });
   });
 
-  // Initial load
-  await loadDataset('main');
+  loadMain();
+}
+
+async function loadMain(){
+  const [EVENTS, FIGURES, CHAPTER_META, ERAS, THEMES_RAW] = await Promise.all([
+    fetch('data/events.json').then(r => r.json()),
+    fetch('data/figures.json').then(r => r.json()),
+    fetch('data/chapters.json').then(r => r.json()),
+    fetch('data/eras.json').then(r => r.json()),
+    fetch('data/themes.json').then(r => r.json()),
+  ]);
+  
+  renderTimelineWith(EVENTS, FIGURES, CHAPTER_META, ERAS, THEMES_RAW);
+}
+
+async function loadScott(){
+  const EVENTS = await fetch('data/scott-events.json').then(r => r.json());
+  const CHAPTER_META = { scott_dissertation: { short: 'Scott', label: 'Scott Timeline', color: '#6366f1' } };
+  const ERAS = await fetch('data/scott-eras.json').then(r => r.json());
+  const THEMES_RAW = await fetch('data/scott-themes.json').then(r => r.json());
+  
+  const figCounts = {};
+  EVENTS.forEach(e => {
+    (e.figures || []).forEach(f => { figCounts[f] = (figCounts[f] || 0) + 1; });
+  });
+  const FIGURES = Object.entries(figCounts)
+    .map(([name, count]) => ({ name, count, events: EVENTS.filter(e => (e.figures || []).includes(name)).map(e => e.id), coOccurs: [] }))
+    .sort((a,b) => b.count - a.count);
+  
+  renderTimelineWith(EVENTS, FIGURES, CHAPTER_META, ERAS, THEMES_RAW);
 }
 
 init().catch(err => {
