@@ -118,7 +118,14 @@
 
   <div class="panel">
     <div class="controls-row">
-      <div class="search-box"><input id="search-input" type="text" placeholder="Search events (e.g. petition, meetinghouse, Attaquin)…"></div>
+  <div style="display:flex; gap:12px; align-items:center; flex-wrap:wrap;">
+    <span class="dataset-label">View</span>
+    <select id="dataset-select" style="padding:8px 12px; border:1px solid var(--line); border-radius:8px; font-size:0.87rem; font-family:inherit; background:var(--bg); color:var(--ink); cursor:pointer;">
+      <option value="main">Murder by Inches (All Events)</option>
+      <option value="scott">Scott Dissertation Timeline</option>
+    </select>
+  </div>
+  <div class="search-box"><input id="search-input" type="text" placeholder="Search events…"></div>
       <div class="zoom-controls">
         <button id="zoom-in" title="Zoom in">+</button>
         <button id="zoom-out" title="Zoom out">−</button>
