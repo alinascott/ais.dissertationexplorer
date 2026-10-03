@@ -1,0 +1,8 @@
+[
+  { "id": "early_american_republic", "label": "Early American Republic", "yearStart": 1779, "yearEnd": 1819, "color": "#94a3b8" },
+  { "id": "indian_removal_era", "label": "Indian Removal Era", "yearStart": 1823, "yearEnd": 1847, "color": "#f97316" },
+  { "id": "reservation_era", "label": "Reservation Era", "yearStart": 1850, "yearEnd": 1870, "color": "#ec4899" },
+  { "id": "civil_war_era", "label": "Civil War Era", "yearStart": 1860, "yearEnd": 1870, "color": "#a855f7" },
+  { "id": "post_enfranchisement", "label": "Post-Enfranchisement", "yearStart": 1882, "yearEnd": 1921, "color": "#06b6d4" },
+  { "id": "modern_federal_recognition", "label": "Modern Federal Recognition", "yearStart": 1977, "yearEnd": 1989, "color": "#10b981" }
+]
