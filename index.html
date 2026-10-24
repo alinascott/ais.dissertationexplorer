@@ -40,6 +40,45 @@
   header h1{ margin:0 0 4px; font-size:2.3rem; line-height:1.15; }
   header p{ margin:0 auto; color:var(--muted); font-size:0.93rem; max-width:920px; line-height:1.5; }
   .wrap{ max-width:1320px; margin:0 auto; padding:0 32px 48px; }
+
+  /* Section tabs: manila icon cards that "join the folder". Inactive cards are
+     manila with a colored icon badge; the open card takes the folder's color and
+     overlaps the folder's colored top edge so the two read as one piece. The bar
+     sticks to the top while scrolling and shrinks to labels only once stuck. */
+  :root{ --folder:#fbf8f2; --manila:#efe9df; }
+  .section-tabs-bar{ position:sticky; top:0; z-index:40; background:var(--bg); padding-top:18px; }
+  .section-tabs{ max-width:1320px; margin:0 auto; padding:0 32px; display:flex; gap:8px; align-items:flex-end; }
+  .section-tab{
+    flex:1 1 0; min-width:150px; display:flex; flex-direction:column; align-items:center; gap:7px;
+    padding:12px 10px 11px; border:1px solid var(--line); border-bottom:none; border-radius:14px 14px 0 0;
+    background:var(--manila); color:var(--muted); font:inherit; font-size:.88rem; font-weight:700; cursor:pointer;
+    position:relative; transition:background .15s ease, padding .15s ease;
+  }
+  .section-tab:hover{ background:#f4efe6; color:var(--ink); }
+  .section-tab:focus-visible{ outline:2px solid var(--c); outline-offset:2px; }
+  .section-tab .st-badge{ width:38px; height:38px; border-radius:50%; display:flex; align-items:center; justify-content:center; background:var(--c); color:#fff; flex:none; }
+  .section-tab[aria-selected="true"]{ background:var(--folder); color:var(--ink); padding-top:17px; margin-bottom:-3px; padding-bottom:14px; z-index:2; }
+  .section-tabs-bar.stuck{ padding-top:8px; box-shadow:0 6px 12px -8px rgba(59,47,42,.25); }
+  .section-tabs-bar.stuck .section-tab{ flex-direction:row; justify-content:center; padding:8px 10px 7px; gap:8px; white-space:nowrap; font-size:.82rem; }
+  /* While the bar is pinned, the fixed portfolio button would sit on top of the
+     last tab: wide screens keep room for it beside the tabs; narrower ones fade it
+     out until the page is scrolled back to the top. */
+  @media (min-width: 1100px){ .section-tabs-bar.stuck .section-tabs{ padding-right:290px; } }
+  @media (max-width: 1099px){ body:has(.section-tabs-bar.stuck) .portfolio-link{ opacity:0; pointer-events:none; } }
+  .portfolio-link{ transition:opacity .2s ease, background .15s ease; }
+  .section-tabs-bar.stuck .section-tab[aria-selected="true"]{ padding-top:10px; padding-bottom:10px; }
+  .section-tabs-bar.stuck .st-badge{ width:22px; height:22px; }
+  .section-tabs-bar.stuck .st-badge svg{ width:13px; height:13px; }
+  .tab-folder{ background:var(--folder); border:1px solid var(--line); border-top:3px solid var(--sec-color, #34504c); border-radius:0 0 16px 16px; padding:18px 18px 4px; position:relative; z-index:1; margin-bottom:24px; }
+  .tab-panel[hidden]{ display:none; }
+  .tab-panel-intro{ font-size:.85rem; color:var(--muted); margin:0 2px 14px; }
+  @media (max-width: 800px){
+    .section-tabs{ overflow-x:auto; padding:0 16px; scrollbar-width:none; }
+    .section-tabs::-webkit-scrollbar{ display:none; }
+    .section-tab{ min-width:136px; font-size:.8rem; }
+    .wrap{ padding:0 12px 40px; }
+    .tab-folder{ padding:12px 10px 2px; }
+  }
   .panel{ background:var(--card); border:1px solid var(--line); border-radius:14px; padding:16px 20px; margin-bottom:18px; box-shadow:0 1px 2px rgba(0,0,0,.03); }
   .controls-row{ display:flex; flex-wrap:wrap; gap:16px; align-items:center; justify-content:space-between; }
   .search-box{ flex:1; min-width:220px; max-width:360px; }
@@ -222,6 +261,8 @@
   .fig-row-item .cnt{ color:var(--muted); font-size:.75rem; font-weight:700; background:var(--bg); border-radius:999px; padding:1px 8px; }
   .fig-row-item.active .cnt{ background:#fce7f3; color:var(--fig-accent); }
 
+  .fig-to-timeline{ font:inherit; font-size:.8rem; font-weight:700; padding:6px 12px; border-radius:8px; border:1px solid var(--line); background:#fff; color:var(--ink); cursor:pointer; margin:0 0 12px; }
+  .fig-to-timeline:hover{ background:var(--bg); }
   .fig-detail-back{ background:none; border:none; color:var(--muted); cursor:pointer; font-size:.8rem; font-weight:700; padding:0 0 10px; }
   .fig-detail-back:hover{ color:var(--ink); }
   .fig-detail h3{ margin:0 0 4px; font-size:1.05rem; color:var(--fig-accent); }
@@ -283,7 +324,7 @@
 
 <figure class="hero-banner">
   <img src="images/header.webp" alt="Handwritten manuscript from the 1834 Mashpee petition: &ldquo;We have made these requests believing the white man are knowing to our oppression in the general, &amp; that if such laws are still inforced upon us, it is still murdering us by inches &amp; we do not know why the people of this commonwealth wants to cruelize us any longer, for we are sure that our fathers fought, bleed&hellip;&rdquo;">
-  <figcaption>From the <a href="#petition-panel">1834 petition of the Mashpee Indians</a> to the Massachusetts General Court</figcaption>
+  <figcaption>From the <a href="#mashpee-petition">1834 petition of the Mashpee Indians</a> to the Massachusetts General Court</figcaption>
 </figure>
 
 <header>
@@ -292,8 +333,32 @@
   <p>All <span id="event-count">308</span> dated actions extracted from the dissertation, organized by the book's own four spaces of protest (plus intro and conclusion), filterable by cross-cutting theme and by era, and connected through the <span id="figure-count">48</span> recurring named figures who tie the timeline together. Click a figure to trace every appearance and see who else they show up alongside.</p>
 </header>
 
-<div class="wrap">
+<div id="tabs-sentinel" aria-hidden="true"></div>
+<nav class="section-tabs-bar" id="section-tabs-bar" aria-label="Explorer sections">
+  <div class="section-tabs" role="tablist">
+    <button type="button" class="section-tab" role="tab" id="tab-timeline-explorer" aria-controls="panel-timeline-explorer" data-section="timeline-explorer" style="--c:#34504c">
+      <span class="st-badge" aria-hidden="true"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12h18"/><circle cx="6" cy="12" r="2.2"/><circle cx="12" cy="12" r="2.2"/><circle cx="18" cy="12" r="2.2"/><path d="M6 5v3M12 16v3M18 5v3"/></svg></span>
+      <span class="st-label">Timeline Explorer</span>
+    </button>
+    <button type="button" class="section-tab" role="tab" id="tab-chapter-synthesis" aria-controls="panel-chapter-synthesis" data-section="chapter-synthesis" style="--c:#a16207">
+      <span class="st-badge" aria-hidden="true"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 19a9 9 0 0 1 9 0a9 9 0 0 1 9 0"/><path d="M3 6a9 9 0 0 1 9 0a9 9 0 0 1 9 0"/><path d="M3 6v13M12 6v13M21 6v13"/></svg></span>
+      <span class="st-label">Chapter Synthesis</span>
+    </button>
+    <button type="button" class="section-tab" role="tab" id="tab-key-figures" aria-controls="panel-key-figures" data-section="key-figures" style="--c:#db2777">
+      <span class="st-badge" aria-hidden="true"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="7" r="4"/><path d="M3 21v-2a4 4 0 0 1 4-4h4a4 4 0 0 1 4 4v2"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/><path d="M21 21v-2a4 4 0 0 0-3-3.85"/></svg></span>
+      <span class="st-label">Key Figures</span>
+    </button>
+    <button type="button" class="section-tab" role="tab" id="tab-mashpee-petition" aria-controls="panel-mashpee-petition" data-section="mashpee-petition" style="--c:#7a6a60">
+      <span class="st-badge" aria-hidden="true"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M14 3v4a1 1 0 0 0 1 1h4"/><path d="M17 21H7a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h7l5 5v11a2 2 0 0 1-2 2z"/><path d="M9 9h1M9 13h6M9 17h6"/></svg></span>
+      <span class="st-label">1834 Mashpee Petition</span>
+    </button>
+  </div>
+</nav>
 
+<div class="wrap">
+<div class="tab-folder" id="tab-folder">
+
+<section class="tab-panel" id="panel-timeline-explorer" role="tabpanel" aria-labelledby="tab-timeline-explorer" data-section="timeline-explorer">
   <div class="panel">
     <div class="controls-row">
       <div style="display:flex; gap:12px; align-items:center; flex-wrap:wrap;">
@@ -362,24 +427,32 @@
     <p class="section-sub">Marker size shows how many currently-visible events trace to that place, and color shows the most common chapter among them (search, chapter, era and theme filters above apply here too). Click any dot, figure event, or map marker to sync the other two. Locations are matched automatically from place names in each event's own text, so a few are approximate, statewide/federal rather than a single point, or missing when no place is named.</p>
     <div id="event-map"></div>
   </div>
+</section>
 
+<section class="tab-panel" id="panel-chapter-synthesis" role="tabpanel" aria-labelledby="tab-chapter-synthesis" data-section="chapter-synthesis" hidden>
   <div class="panel" id="synthesis-panel">
     <p class="section-title">Chapter Synthesis</p>
     <p class="section-sub">The argument of each part of the dissertation at a glance. Pink names are recurring figures (click to trace them on the timeline); bold places open on the map.</p>
     <div id="synthesis"></div>
   </div>
+</section>
 
-  <div class="panel">
-    <p class="section-title">Notable Figures</p>
+<section class="tab-panel" id="panel-key-figures" role="tabpanel" aria-labelledby="tab-key-figures" data-section="key-figures" hidden>
+  <div class="panel" id="figures-wrap-panel">
+    <p class="section-title">Key Figures</p>
     <p class="section-sub" id="fig-sub">48 recurring people tie this timeline together. Click one to trace their thread.</p>
     <div id="figures-panel"></div>
   </div>
+</section>
 
+<section class="tab-panel" id="panel-mashpee-petition" role="tabpanel" aria-labelledby="tab-mashpee-petition" data-section="mashpee-petition" hidden>
   <div class="panel" id="petition-panel">
     <p class="section-title">The 1834 Mashpee Petition and Its Signers</p>
     <div id="petition"></div>
   </div>
+</section>
 
+</div>
 </div>
 
 <footer id="footer-note">Built from Dissertation_Timeline.xlsx — 308 events, 48 recurring named figures, organized by the dissertation's own chapter structure.</footer>
@@ -436,6 +509,72 @@ function setupLegendDropdowns(){
     });
   });
 }
+
+// ---------- section tabs ----------
+// Each tab has its own address (#timeline-explorer, #chapter-synthesis,
+// #key-figures, #mashpee-petition), so sections can be linked to directly and
+// the back button moves between them. None of these ids match an element on
+// the page, so following one never makes the browser jump on its own.
+// onSectionShown is set by renderTimelineWith: the map and timeline need to be
+// redrawn when their tab opens, since hidden elements have no size.
+const SECTION_IDS = ['timeline-explorer', 'chapter-synthesis', 'key-figures', 'mashpee-petition'];
+let onSectionShown = null;
+function currentSectionFromHash(){
+  const id = location.hash.slice(1);
+  return SECTION_IDS.includes(id) ? id : SECTION_IDS[0];
+}
+function showSection(id, opts = {}){
+  if(!SECTION_IDS.includes(id)) id = SECTION_IDS[0];
+  let color = null;
+  document.querySelectorAll('.section-tab').forEach(t => {
+    const on = t.dataset.section === id;
+    t.setAttribute('aria-selected', on ? 'true' : 'false');
+    t.tabIndex = on ? 0 : -1;
+    if(on) color = t.style.getPropertyValue('--c');
+  });
+  document.querySelectorAll('.tab-panel').forEach(p => { p.hidden = p.dataset.section !== id; });
+  document.getElementById('tab-folder').style.setProperty('--sec-color', color);
+  if(opts.updateHash !== false && currentSectionFromHash() !== id){
+    history.pushState(null, '', id === SECTION_IDS[0] && !location.hash ? location.pathname : '#' + id);
+  }
+  if(onSectionShown) onSectionShown(id);
+}
+// Switch tabs, then bring a particular element on the new tab into view.
+function goToSection(id, targetId, block = 'start'){
+  showSection(id);
+  const el = document.getElementById(targetId);
+  if(el) requestAnimationFrame(() => el.scrollIntoView({ behavior: 'smooth', block }));
+}
+function scrollToTabs(){
+  const top = document.getElementById('tabs-sentinel').getBoundingClientRect().top + window.scrollY;
+  if(window.scrollY > top) window.scrollTo({ top });
+}
+function setupSectionTabs(){
+  const tabs = [...document.querySelectorAll('.section-tab')];
+  tabs.forEach(t => t.addEventListener('click', () => { showSection(t.dataset.section); scrollToTabs(); }));
+  // Arrow keys / Home / End move between tabs, as in a standard tablist.
+  document.querySelector('.section-tabs').addEventListener('keydown', ev => {
+    const i = tabs.findIndex(t => t.getAttribute('aria-selected') === 'true');
+    let j = null;
+    if(ev.key === 'ArrowRight') j = (i + 1) % tabs.length;
+    else if(ev.key === 'ArrowLeft') j = (i - 1 + tabs.length) % tabs.length;
+    else if(ev.key === 'Home') j = 0;
+    else if(ev.key === 'End') j = tabs.length - 1;
+    if(j === null) return;
+    ev.preventDefault();
+    showSection(tabs[j].dataset.section);
+    tabs[j].focus();
+  });
+  const onNav = () => { showSection(currentSectionFromHash(), { updateHash: false }); if(location.hash) scrollToTabs(); };
+  window.addEventListener('popstate', onNav);
+  window.addEventListener('hashchange', onNav);
+  // Compact the bar once it's stuck to the top of the window.
+  const bar = document.getElementById('section-tabs-bar');
+  new IntersectionObserver(([entry]) => bar.classList.toggle('stuck', !entry.isIntersecting))
+    .observe(document.getElementById('tabs-sentinel'));
+  showSection(currentSectionFromHash(), { updateHash: false });
+}
+setupSectionTabs();
 
 async function init(){
   const dropdown = document.getElementById('dataset-select');
@@ -1199,6 +1338,9 @@ function renderTimelineWith(EVENTS, FIGURES, CHAPTER_META, ERAS, THEMES_RAW, LOC
     const detail = host.append('div').attr('class','fig-detail');
     detail.append('h3').text(fig.name);
     detail.append('div').attr('class','fd-count').text(`Appears in ${fig.count} events`);
+    detail.append('button').attr('type','button').attr('class','fig-to-timeline')
+      .text('See their thread on the timeline')
+      .on('click', ()=> goToSection('timeline-explorer', 'chart-panel'));
 
     if(fig.coOccurs.length){
       detail.append('div').style('font-size','.75rem').style('font-weight','700').style('color','var(--muted)').style('margin-bottom','6px').text('Frequently appears with');
@@ -1214,7 +1356,10 @@ function renderTimelineWith(EVENTS, FIGURES, CHAPTER_META, ERAS, THEMES_RAW, LOC
     evList.append('div').style('font-size','.72rem').style('text-transform','uppercase').style('letter-spacing','.05em')
       .style('color','var(--muted)').style('font-weight','700').style('margin-bottom','6px').text('Timeline');
     fig.events.map(id=>idMap.get(id)).filter(Boolean).sort((a,b)=>(a.year??0)-(b.year??0)).forEach(ev=>{
-      const row = evList.append('div').attr('class','ev-row').on('click', ()=> { stopStroll(); selectEvent(ev); });
+      const row = evList.append('div').attr('class','ev-row').on('click', ()=> {
+        stopStroll(); selectEvent(ev);
+        goToSection('timeline-explorer', 'selected-event-panel', 'center');
+      });
       row.append('span').attr('class','ev-year').text(ev.displayDate);
       row.append('span').text(ev.headline);
     });
@@ -1222,6 +1367,14 @@ function renderTimelineWith(EVENTS, FIGURES, CHAPTER_META, ERAS, THEMES_RAW, LOC
 
   renderFiguresList();
 
+
+  // Timeline and map are drawn while possibly hidden (page opened on another
+  // tab); redraw both whenever Timeline Explorer is shown.
+  onSectionShown = (id) => {
+    if(id !== 'timeline-explorer') return;
+    if(eventMap) eventMap.invalidateSize();
+    render();
+  };
 
   // ---------- Chapter Synthesis ----------
   // Names in the synthesis are written for readers, not as figure ids, so a few
@@ -1250,7 +1403,7 @@ function renderTimelineWith(EVENTS, FIGURES, CHAPTER_META, ERAS, THEMES_RAW, LOC
     state.hiddenChapters = new Set(CHAPTER_ORDER.filter(c => c !== ch));
     d3.selectAll('#chapter-legend .chip').classed('off', function(){ return state.hiddenChapters.has(this.dataset.chapter); });
     render();
-    document.getElementById('chart-panel').scrollIntoView({ behavior: 'smooth', block: 'start' });
+    goToSection('timeline-explorer', 'chart-panel');
   }
   function showAllChapters(){
     state.hiddenChapters = new Set();
@@ -1325,11 +1478,11 @@ function renderTimelineWith(EVENTS, FIGURES, CHAPTER_META, ERAS, THEMES_RAW, LOC
     });
     host.querySelectorAll('[data-fig]').forEach(btn => btn.addEventListener('click', () => {
       selectFigure(btn.dataset.fig);
-      document.getElementById('chart-panel').scrollIntoView({ behavior: 'smooth', block: 'start' });
+      goToSection('timeline-explorer', 'chart-panel');
     }));
     host.querySelectorAll('[data-loc]').forEach(btn => btn.addEventListener('click', () => {
       const locId = btn.dataset.loc, loc = LOCATIONS[locId];
-      document.getElementById('map-wrap-panel').scrollIntoView({ behavior: 'smooth', block: 'center' });
+      goToSection('timeline-explorer', 'map-wrap-panel', 'center');
       const marker = markerByLocation.get(locId);
       if(marker){ eventMap.panTo(marker.getLatLng(), { animate: true }); marker.openPopup(); }
       else eventMap.setView([loc.lat, loc.lon], Math.max(eventMap.getZoom(), 10));
@@ -1447,12 +1600,12 @@ function renderTimelineWith(EVENTS, FIGURES, CHAPTER_META, ERAS, THEMES_RAW, LOC
       const ev = idMap.get(el.dataset.ev);
       if(!ev) return;
       stopStroll(); selectEvent(ev);
-      document.getElementById('selected-event-panel').scrollIntoView({ behavior: 'smooth', block: 'center' });
+      goToSection('timeline-explorer', 'selected-event-panel', 'center');
     }));
     const trace = host.querySelector('[data-trace]');
     if(trace) trace.addEventListener('click', () => {
       selectFigure(trace.dataset.trace);
-      document.getElementById('chart-panel').scrollIntoView({ behavior: 'smooth', block: 'start' });
+      goToSection('timeline-explorer', 'chart-panel');
     });
     const close = host.querySelector('[data-close]');
     if(close) close.addEventListener('click', () => { petitionState.active = null; renderPetition(); });
