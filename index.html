@@ -1701,11 +1701,22 @@ function renderTimelineWith(EVENTS, FIGURES, CHAPTER_META, ERAS, THEMES_RAW, LOC
       </div>`;
     }).join('');
 
-    // Manuscript scans: each opens in the image viewer at full size.
+    // Manuscript scans: each opens in the image viewer at full size. The images
+    // load lazily, so their pixel sizes are given up front (data file first, then
+    // these known sizes) to reserve their space and keep the text beside them
+    // from shifting when they arrive.
     const pages = PETITION.pages || {};
+    const SCAN_SIZES = {
+      'images/petition-1834-page1.jpg': [1562, 2000],
+      'images/petition-1834-page11.jpg': [1456, 2000]
+    };
+    const sizeAttrs = pg => {
+      const [w, h] = pg.width && pg.height ? [pg.width, pg.height] : (SCAN_SIZES[pg.src] || []);
+      return w && h ? ` width="${w}" height="${h}"` : '';
+    };
     const scanHtml = pg => !pg ? '' : `<figure class="pet-scan">
         <button type="button" data-scan="${esc(pg.src)}" data-alt="${esc(pg.alt)}" data-cap="${esc(pg.label + ' of the petition, ' + PETITION.date)}" aria-label="Enlarge ${esc(pg.label)}">
-          <img src="${esc(pg.src)}" alt="${esc(pg.alt)}" loading="lazy">
+          <img src="${esc(pg.src)}" alt="${esc(pg.alt)}"${sizeAttrs(pg)} loading="lazy">
         </button>
         <figcaption><b>${esc(pg.label)}</b> · click to enlarge. ${esc(pg.caption.replace(/^Page \d+: (.)/, (_, c) => c.toUpperCase()))}${PETITION.imageCredit ? ` ${esc(PETITION.imageCredit)}` : ''}</figcaption>
       </figure>`;
