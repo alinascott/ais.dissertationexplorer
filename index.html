@@ -28,10 +28,17 @@
      on-screen position off by several hundred pixels while leaving the tile layer
      (which isn't an <svg>) positioned correctly. */
   header{ padding:26px 32px 14px; max-width:1320px; margin:0 auto; }
-  header .header-image{ display:block; width:100%; height:auto; border-radius:14px; border:1px solid var(--line); margin-bottom:18px; }
+  header{ text-align:center; }
+  /* Full-bleed banner: the manuscript runs edge to edge above the header, cropped
+     to a band (centered on the "murdering us by inches" line) so it doesn't push
+     the page content too far down on wide screens. */
+  .hero-banner{ margin:0; border-bottom:1px solid var(--line); }
+  .hero-banner img{ display:block; width:100%; height:clamp(170px, 30vw, 440px); object-fit:cover; object-position:center 48%; }
+  .hero-banner figcaption{ max-width:1320px; margin:0 auto; padding:6px 32px 0; text-align:right; font-size:.72rem; color:var(--muted); font-style:italic; }
+  .hero-banner figcaption a{ color:inherit; }
   header .byline{ margin:0 0 10px; color:var(--ink); font-size:.95rem; font-style:italic; }
   header h1{ margin:0 0 4px; font-size:2.3rem; line-height:1.15; }
-  header p{ margin:0; color:var(--muted); font-size:0.93rem; max-width:920px; line-height:1.5; }
+  header p{ margin:0 auto; color:var(--muted); font-size:0.93rem; max-width:920px; line-height:1.5; }
   .wrap{ max-width:1320px; margin:0 auto; padding:0 32px 48px; }
   .panel{ background:var(--card); border:1px solid var(--line); border-radius:14px; padding:16px 20px; margin-bottom:18px; box-shadow:0 1px 2px rgba(0,0,0,.03); }
   .controls-row{ display:flex; flex-wrap:wrap; gap:16px; align-items:center; justify-content:space-between; }
@@ -81,10 +88,25 @@
   .legend-dropdown.open .legend-dropdown-panel{ display:flex; }
 
   #chart-panel{ padding:8px 8px 4px; }
-  #chart, #barchart{ display:block; width:100%; height:auto; }
+  #chart{ display:block; width:100%; height:auto; }
   .axis text{ fill:var(--muted); font-size:11px; }
   .axis path, .axis line{ stroke:var(--line); }
-  .track-line{ stroke:var(--line); stroke-width:2; }
+  .lane-bg{ fill:var(--bg); }
+  .lane-sep{ stroke:var(--line); stroke-width:1; }
+  .lane-label{ cursor:pointer; }
+  .lane-label text{ font-size:12.5px; font-weight:700; fill:var(--ink); }
+  .lane-label .lane-count{ font-size:10.5px; font-weight:400; fill:var(--muted); }
+  .lane-label.off{ opacity:.35; }
+  .lane-label:hover text:first-of-type{ text-decoration:underline; }
+  .axis-gap{ fill:url(#gap-hatch); pointer-events:all; }
+  #overview{ display:block; width:100%; height:auto; margin-bottom:2px; }
+  .ov-hint-row{ display:flex; align-items:flex-start; justify-content:space-between; gap:12px; margin:2px 6px 4px; }
+  .ov-hint{ font-size:.76rem; color:var(--muted); margin:0; }
+  .reset-view-btn{ flex:none; display:inline-flex; align-items:center; gap:5px; padding:4px 10px; border-radius:8px; border:1px solid var(--line); background:#fff; color:var(--ink); font:inherit; font-size:.76rem; font-weight:700; cursor:pointer; }
+  .reset-view-btn:hover{ background:var(--bg); }
+  .ov-brush .selection{ fill:var(--ink); fill-opacity:.08; stroke:var(--ink); stroke-opacity:.55; }
+  .ov-brush .overlay{ cursor:crosshair; }
+  .ov-tick{ font-size:10px; fill:var(--muted); }
   .era-band{ pointer-events:none; }
   .era-band-label{ font-size:9px; fill:var(--muted); pointer-events:none; text-transform:uppercase; letter-spacing:.04em; }
   .event-dot{ cursor:pointer; stroke:#fff; stroke-width:1.4px; transition:opacity .15s ease; }
@@ -97,8 +119,6 @@
   }
   .tooltip b{ display:block; margin-bottom:2px; font-size:.82rem; }
 
-  .grid-two{ display:grid; grid-template-columns:1.1fr 0.9fr; gap:18px; align-items:start; }
-  @media (max-width: 1000px){ .grid-two{ grid-template-columns:1fr; } }
 
   h1,h2,h3,h4,.section-title{ font-family:var(--font-head); font-weight:400 !important; letter-spacing:0; }
   .leaflet-container{ font-family:var(--font-body); }
@@ -118,8 +138,81 @@
   .detail-main-col{ flex:1 1 360px; min-width:260px; }
   .detail-id{ color:var(--muted); font-size:.7rem; font-weight:600; float:right; }
 
+  /* Chapter Synthesis: one section at a time behind a row of tabs. Each tab and
+     the claim's accent bar take that section's chapter color. */
+  .syn-tabs{ display:flex; flex-wrap:wrap; gap:6px; margin:4px 0 16px; border-bottom:1px solid var(--line); padding-bottom:10px; }
+  .syn-tab{ display:inline-flex; align-items:center; gap:7px; padding:6px 12px; border-radius:999px; border:1px solid var(--line); background:#fff; color:var(--ink); font:inherit; font-size:.82rem; font-weight:700; cursor:pointer; }
+  .syn-tab .dot{ width:9px; height:9px; border-radius:50%; flex:none; }
+  .syn-tab:hover{ background:var(--bg); }
+  .syn-tab[aria-selected="true"]{ background:var(--syn-color); border-color:var(--syn-color); color:#fff; }
+  .syn-tab[aria-selected="true"] .dot{ background:#fff !important; }
+  .syn-head{ display:flex; align-items:flex-start; justify-content:space-between; gap:16px; flex-wrap:wrap; margin-bottom:6px; }
+  .syn-head h3{ margin:0; font-size:1.35rem; }
+  .syn-claim{ margin:10px 0 18px; padding:4px 0 4px 16px; border-left:4px solid var(--syn-color); font-size:1.12rem; line-height:1.5; font-style:italic; color:var(--ink); max-width:980px; }
+  .syn-label{ font-size:.7rem; text-transform:uppercase; letter-spacing:.06em; color:var(--muted); font-weight:700; margin:0 0 6px; }
+  .syn-grid{ display:grid; grid-template-columns:1.15fr 1fr; gap:22px 32px; }
+  @media (max-width: 800px){ .syn-grid{ grid-template-columns:1fr; } }
+  .syn-block{ margin-bottom:16px; }
+  .syn-block p{ margin:0; line-height:1.55; font-size:.92rem; }
+  .syn-block ul{ margin:0; padding-left:18px; line-height:1.55; font-size:.9rem; }
+  .syn-chips{ display:flex; flex-wrap:wrap; gap:6px; }
+  .syn-chip{ font:inherit; font-size:.78rem; padding:3px 10px; border-radius:999px; border:1px solid var(--line); background:var(--bg); color:var(--ink); }
+  button.syn-chip{ cursor:pointer; font-weight:700; }
+  button.syn-chip.actor{ color:var(--fig-accent); }
+  button.syn-chip:hover{ border-color:currentColor; }
+  .syn-actions{ display:flex; flex-wrap:wrap; gap:8px; margin-top:4px; padding-top:14px; border-top:1px dashed var(--line); }
+  .syn-actions button{ font:inherit; font-size:.8rem; font-weight:700; padding:6px 12px; border-radius:8px; border:1px solid var(--line); background:#fff; color:var(--ink); cursor:pointer; }
+  .syn-actions button:hover{ background:var(--bg); }
+  .syn-note{ font-size:.74rem; color:var(--muted); margin:8px 0 0; }
+
+  /* 1834 petition: signers as wrapped name chips in four groups. Names that also
+     appear in the dissertation are pink and clickable; uncertain matches get a
+     dashed outline. */
+  .pet-source{ font-size:.78rem; color:var(--muted); margin:0 0 14px; }
+  .pet-source a{ color:inherit; }
+  .pet-quote{ margin:0 0 16px; padding:6px 0 6px 16px; border-left:4px solid #34504c; font-style:italic; font-size:1.02rem; line-height:1.55; max-width:980px; }
+  .pet-quote cite{ display:block; margin-top:6px; font-style:normal; font-size:.76rem; color:var(--muted); }
+  .pet-summary{ font-size:.88rem; line-height:1.55; margin:0 0 16px; max-width:980px; }
+  .pet-tools{ display:flex; flex-wrap:wrap; align-items:center; gap:10px 18px; padding:10px 0; border-top:1px dashed var(--line); border-bottom:1px dashed var(--line); margin-bottom:14px; }
+  .pet-tools input[type=text]{ padding:7px 10px; border:1px solid var(--line); border-radius:8px; font:inherit; font-size:.83rem; min-width:220px; background:var(--bg); color:var(--ink); }
+  .pet-tools label{ font-size:.82rem; display:inline-flex; align-items:center; gap:6px; cursor:pointer; }
+  .pet-legend{ display:flex; flex-wrap:wrap; gap:6px 14px; font-size:.74rem; color:var(--muted); margin-left:auto; }
+  .pet-legend .sw{ display:inline-block; vertical-align:-2px; width:12px; height:12px; border-radius:999px; margin-right:4px; border:1px solid var(--line); background:var(--bg); }
+  .pet-legend .sw.match{ background:#fdf2f8; border-color:var(--fig-accent); }
+  .pet-legend .sw.possible{ border:1px dashed var(--fig-accent); }
+  .pet-detail{ background:var(--bg); border:1px solid var(--line); border-radius:12px; padding:12px 16px; margin-bottom:14px; }
+  .pet-detail h4{ margin:0 0 2px; font-size:1.05rem; color:var(--fig-accent); }
+  .pet-detail .pd-meta{ font-size:.76rem; color:var(--muted); margin-bottom:8px; }
+  .pet-detail .pd-ev{ padding:6px 0; border-top:1px dashed var(--line); cursor:pointer; font-size:.84rem; line-height:1.4; }
+  .pet-detail .pd-ev:hover{ color:var(--fig-accent); }
+  .pet-detail .pd-year{ color:var(--muted); font-weight:700; font-size:.74rem; margin-right:6px; }
+  .pet-detail .pd-actions{ display:flex; gap:8px; margin-top:10px; flex-wrap:wrap; }
+  .pet-detail button{ font:inherit; font-size:.78rem; font-weight:700; padding:5px 11px; border-radius:8px; border:1px solid var(--line); background:#fff; color:var(--ink); cursor:pointer; }
+  .pet-group{ margin-bottom:16px; }
+  .pet-group h4{ margin:0 0 2px; font-size:1rem; }
+  .pet-group h4 .pg-count{ font-family:var(--font-body); font-size:.74rem; font-weight:700; color:var(--muted); margin-left:6px; }
+  .pet-group .pg-intro{ font-size:.8rem; font-style:italic; color:var(--muted); margin:2px 0 8px; max-width:980px; line-height:1.5; }
+  .pet-names{ display:flex; flex-wrap:wrap; gap:5px; margin-top:6px; }
+  .pet-name{ font:inherit; font-size:.78rem; padding:3px 9px; border-radius:999px; border:1px solid var(--line); background:#fff; color:var(--ink); line-height:1.35; }
+  .pet-name .mk{ color:var(--muted); font-size:.68rem; margin-left:3px; }
+  .pet-name sup, .pet-text sup{ font-size:.62rem; color:var(--muted); margin-left:1px; }
+  button.pet-name{ cursor:pointer; font-weight:700; color:var(--fig-accent); background:#fdf2f8; border-color:var(--fig-accent); }
+  button.pet-name.possible{ background:#fff; border-style:dashed; }
+  button.pet-name.active{ background:var(--fig-accent); color:#fff; }
+  button.pet-name.active .mk, button.pet-name.active sup{ color:#fff; }
+  .pet-empty{ font-size:.8rem; color:var(--muted); }
+  .pet-full{ margin-top:6px; border-top:1px dashed var(--line); padding-top:12px; }
+  .pet-full summary{ cursor:pointer; font-weight:700; font-size:.88rem; }
+  .pet-text{ max-width:820px; margin-top:12px; }
+  .pet-text p{ font-size:.9rem; line-height:1.65; margin:0 0 12px; }
+  .pet-text h5{ font-family:var(--font-head); font-weight:400; font-size:1.05rem; margin:18px 0 8px; }
+  .pet-text sup a{ color:inherit; text-decoration:none; }
+  .pet-notes{ font-size:.78rem; color:var(--muted); line-height:1.5; padding-left:20px; }
+  .pet-notes li:target{ color:var(--ink); background:#fdf2f8; }
+  .pet-action{ font-size:.78rem; color:var(--muted); line-height:1.5; }
+
   .fig-search{ width:100%; padding:7px 10px; border:1px solid var(--line); border-radius:8px; font-size:.83rem; margin-bottom:10px; font-family:inherit; }
-  .fig-list{ max-height:420px; overflow-y:auto; }
+  .fig-list{ max-height:420px; overflow-y:auto; display:grid; grid-template-columns:repeat(auto-fill, minmax(240px, 1fr)); column-gap:12px; align-content:start; }
   .fig-row-item{
     display:flex; align-items:center; justify-content:space-between; gap:8px; padding:7px 9px; border-radius:8px;
     cursor:pointer; font-size:.83rem;
@@ -154,28 +247,46 @@
   .map-popup .mp-year{ color:var(--muted); font-weight:700; font-size:.72rem; margin-right:4px; }
   .map-popup .mp-more{ color:var(--muted); font-size:.74rem; padding-top:4px; }
   .map-popup .mp-ev.mp-ev-active{ color:var(--fig-accent); font-weight:700; }
+  .map-popup .mp-list{ max-height:210px; overflow-y:auto; padding-right:4px; }
+  .map-popup .mp-stroll{ display:flex; align-items:center; gap:6px; margin:0 0 8px; padding:6px 0; border-top:1px solid var(--line); border-bottom:1px solid var(--line); }
+  .map-popup .mp-stroll button{ border:1px solid var(--line); background:#fff; color:var(--ink); border-radius:6px; height:24px; min-width:26px; padding:0 7px; font:inherit; font-size:.76rem; font-weight:700; cursor:pointer; }
+  .map-popup .mp-stroll button:hover{ background:var(--bg); }
+  .map-popup .mp-stroll .mp-play{ margin-left:auto; }
+  .map-popup .mp-stroll .mp-play.playing{ background:var(--ink); color:#fff; border-color:var(--ink); }
+  /* Portfolio link: a small pill fixed to the top-right corner, set in the same
+     small-caps Lato style as the page's section labels. The header gets extra top
+     room so the pill never covers the banner image on load. */
+  .portfolio-link{
+    position:fixed; top:12px; right:16px; z-index:9999;
+    background:#34504c; color:#f4ede3; text-decoration:none;
+    font-family:var(--font-body); font-size:.7rem; font-weight:700; text-transform:uppercase; letter-spacing:.08em;
+    padding:7px 14px; border-radius:999px; box-shadow:0 2px 8px rgba(52,80,76,.28);
+    transition:background .15s ease;
+  }
+  .portfolio-link:hover, .portfolio-link:focus-visible{ background:#284240; }
+  .map-popup .mp-pos{ font-size:.74rem; color:var(--muted); min-width:44px; text-align:center; }
 </style>
 </head>
 <body>
 <script>
 (function(){
     if (window.self !== window.top) return;
-  var bar = document.createElement('div');
-  bar.innerHTML = '<a href="https://alinascott.github.io/portfolio/" style="color:inherit;text-decoration:none;">← Alina Scott, PhD — Portfolio</a>';
-  bar.style.cssText = [
-    'position:sticky', 'top:0', 'z-index:9999',
-    'background:#1A1D20', 'color:#FAF9F6',
-    'font-family:"Lato",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif',
-    'font-size:13px', 'font-weight:600', 'padding:8px 16px',
-    'box-shadow:0 2px 6px rgba(0,0,0,.15)'
-  ].join(';');
-  document.body.insertBefore(bar, document.body.firstChild);
+  var link = document.createElement('a');
+  link.className = 'portfolio-link';
+  link.href = 'https://alinascott.github.io/portfolio/';
+  link.textContent = 'Alina Scott, PhD — Portfolio';
+  document.body.insertBefore(link, document.body.firstChild);
+  document.body.classList.add('has-portfolio-link');
 })();
 </script>
 <div id="loading-banner">Loading timeline data…</div>
 
+<figure class="hero-banner">
+  <img src="images/header.webp" alt="Handwritten manuscript from the 1834 Mashpee petition: &ldquo;We have made these requests believing the white man are knowing to our oppression in the general, &amp; that if such laws are still inforced upon us, it is still murdering us by inches &amp; we do not know why the people of this commonwealth wants to cruelize us any longer, for we are sure that our fathers fought, bleed&hellip;&rdquo;">
+  <figcaption>From the <a href="#petition-panel">1834 petition of the Mashpee Indians</a> to the Massachusetts General Court</figcaption>
+</figure>
+
 <header>
-  <img class="header-image" src="images/header.webp" alt="Handwritten manuscript excerpt: &ldquo;…if such laws are still inforced upon us, it is still murdering us by inches&rdquo;">
   <h1>&ldquo;Murdering Us By Inches&rdquo; Concept Explorer</h1>
   <p class="byline">by Alina Scott, PhD</p>
   <p>All <span id="event-count">308</span> dated actions extracted from the dissertation, organized by the book's own four spaces of protest (plus intro and conclusion), filterable by cross-cutting theme and by era, and connected through the <span id="figure-count">48</span> recurring named figures who tie the timeline together. Click a figure to trace every appearance and see who else they show up alongside.</p>
@@ -228,6 +339,11 @@
   </div>
 
   <div class="panel" id="chart-panel">
+    <div class="ov-hint-row">
+      <p class="ov-hint">Drag across the strip to zoom into a period, drag the shaded window to move it, or click outside it to zoom back out. Busy decades get more room than quiet ones; hatched areas are long stretches with no events.</p>
+      <button class="reset-view-btn" id="reset-view" type="button" title="Zoom all the way out and clear the selected event">⟲ Reset view</button>
+    </div>
+    <svg id="overview" viewBox="0 0 1180 62"></svg>
     <svg id="chart" viewBox="0 0 1180 560"></svg>
   </div>
 
@@ -247,18 +363,21 @@
     <div id="event-map"></div>
   </div>
 
-  <div class="grid-two">
-    <div class="panel">
-      <p class="section-title">Notable Figures</p>
-      <p class="section-sub" id="fig-sub">48 recurring people tie this timeline together. Click one to trace their thread.</p>
-      <div id="figures-panel"></div>
-    </div>
+  <div class="panel" id="synthesis-panel">
+    <p class="section-title">Chapter Synthesis</p>
+    <p class="section-sub">The argument of each part of the dissertation at a glance. Pink names are recurring figures (click to trace them on the timeline); bold places open on the map.</p>
+    <div id="synthesis"></div>
+  </div>
 
-    <div class="panel">
-      <p class="section-title">Events per Space</p>
-      <p class="section-sub">How the dated actions distribute across the dissertation's structure.</p>
-      <svg id="barchart" viewBox="0 0 380 340"></svg>
-    </div>
+  <div class="panel">
+    <p class="section-title">Notable Figures</p>
+    <p class="section-sub" id="fig-sub">48 recurring people tie this timeline together. Click one to trace their thread.</p>
+    <div id="figures-panel"></div>
+  </div>
+
+  <div class="panel" id="petition-panel">
+    <p class="section-title">The 1834 Mashpee Petition and Its Signers</p>
+    <div id="petition"></div>
   </div>
 
 </div>
@@ -274,6 +393,15 @@
 // marker layer live up here instead of inside renderTimelineWith.
 let eventMap = null;
 let mapMarkersLayer = null;
+// The map stroll's autoplay timer lives up here too, so a dataset switch can stop
+// a stroll that was started inside the previous renderTimelineWith().
+let strollTimer = null;
+// Chapter Synthesis data (data/chapter-synthesis.json) is static across datasets,
+// so it's fetched once; the open tab is remembered across dataset switches.
+let SYNTHESIS = null;
+let synthesisTab = 0;
+// 1834 petition (data/petition-1834.json): fetched once, like the synthesis.
+let PETITION = null;
 function ensureMap(){
   if(eventMap) return;
   eventMap = L.map('event-map').setView([41.55, -70.65], 9);
@@ -381,6 +509,7 @@ async function loadVanderhoop(){
 }
 
 function renderTimelineWith(EVENTS, FIGURES, CHAPTER_META, ERAS, THEMES_RAW, LOCATIONS, EVENT_LOCATIONS){
+  clearInterval(strollTimer); strollTimer = null;
   // Switching datasets (Main / Vanderhoop) leaves any previously-selected event's
   // detail panel stale otherwise.
   document.getElementById('detail').innerHTML = '<div class="placeholder">No event selected yet — click a dot above.</div>';
@@ -412,23 +541,8 @@ function renderTimelineWith(EVENTS, FIGURES, CHAPTER_META, ERAS, THEMES_RAW, LOC
 
   let state = { hiddenChapters: new Set(), hiddenEras: new Set(), hiddenLocations: new Set(), theme: null, figure: null, selected: null, search: "" };
 
-  function assignLanes(events, gap, maxLanes){
-    const sorted = [...events].sort((a,b)=>a.year-b.year);
-    const laneLast = new Array(maxLanes).fill(-Infinity);
-    sorted.forEach(e=>{
-      let chosen = 0;
-      for(let i=0;i<laneLast.length;i++){
-        if(e.year - laneLast[i] >= gap){ chosen = i; break; }
-        if(laneLast[i] < laneLast[chosen]) chosen = i;
-      }
-      e._lane = chosen;
-      laneLast[chosen] = e.year;
-    });
-    return sorted;
-  }
-  const MAX_LANES = 22;
   const datedEvents = EVENTS.filter(e => typeof e.year === 'number');
-  const allEvents = assignLanes(datedEvents, 2, MAX_LANES);
+  const allEvents = [...datedEvents].sort((a,b)=>a.year-b.year);
 
   const chapterLegend = d3.select('#chapter-legend');
   chapterLegend.selectAll('*:not(.legend-label)').remove();
@@ -485,6 +599,7 @@ function renderTimelineWith(EVENTS, FIGURES, CHAPTER_META, ERAS, THEMES_RAW, LOC
     if(state.hiddenChapters.has(ch)){ state.hiddenChapters.delete(ch); d3.select(el).classed('off', false); }
     else { state.hiddenChapters.add(ch); d3.select(el).classed('off', true); }
     render();
+    renderSynthesis();
   }
   function toggleEra(eraId, el){
     if(state.hiddenEras.has(eraId)){ state.hiddenEras.delete(eraId); d3.select(el).classed('off', false); }
@@ -507,35 +622,157 @@ function renderTimelineWith(EVENTS, FIGURES, CHAPTER_META, ERAS, THEMES_RAW, LOC
   }
 
   const svg = d3.select('#chart');
-  const W = 1180, H = 560;
-  const margin = {top: 20, right: 30, bottom: 40, left: 30};
-  const baselineY = 300;
-  const LANE_H = 16;
+  const W = 1180;
+  const margin = {top: 26, right: 24, bottom: 34, left: 200};
+  const DOT_R = 7, SUB_H = 16, LANE_PAD = 10, DOT_GAP = 15;
+  const PLOT_L = margin.left, PLOT_R = W - margin.right;
 
+  // Stretched time axis: the span is cut into 25-year bins and each bin gets
+  // width in proportion to how many events fall in it (square-rooted so the
+  // busiest decades don't swallow everything), with empty bins squeezed to a
+  // sliver. A multi-point d3.scaleLinear interpolates piecewise between bin
+  // edges, so zoom's rescaleX and invert keep working as usual.
   const yearExtent = d3.extent(allEvents.flatMap(d=> d.endYear ? [d.year, d.endYear] : [d.year]));
-  const xScale0 = d3.scaleLinear().domain([yearExtent[0]-8, yearExtent[1]+8]).range([margin.left, W-margin.right]);
+  const BIN = 25;
+  const binStart = Math.floor((yearExtent[0]-5)/BIN)*BIN;
+  const binEnd = Math.ceil((yearExtent[1]+5)/BIN)*BIN;
+  const binCounts = new Map();
+  allEvents.forEach(d => { const b = Math.floor(d.year/BIN)*BIN; binCounts.set(b, (binCounts.get(b)||0)+1); });
+  const xDomain = [binStart], binWeights = [], emptyRuns = [];
+  for(let b = binStart; b < binEnd; b += BIN){
+    const c = binCounts.get(b) || 0;
+    binWeights.push(c ? 1 + Math.sqrt(c) : 0.12);
+    xDomain.push(b + BIN);
+    if(!c){
+      const last = emptyRuns[emptyRuns.length-1];
+      if(last && last.y1 === b) last.y1 = b + BIN; else emptyRuns.push({ y0: b, y1: b + BIN });
+    }
+  }
+  const totalWeight = d3.sum(binWeights);
+  let accWeight = 0;
+  const xRange = [PLOT_L];
+  binWeights.forEach(w => { accWeight += w; xRange.push(PLOT_L + accWeight/totalWeight*(PLOT_R-PLOT_L)); });
+  const xScale0 = d3.scaleLinear().domain(xDomain).range(xRange);
   let xScale = xScale0;
+  // Only runs of 50+ empty years are worth flagging as compressed gaps.
+  const GAPS = emptyRuns.filter(r => r.y1 - r.y0 >= 50);
+
+  // One row ("lane") per space of protest, in the dissertation's own order, so a
+  // dot's height now says which chapter it belongs to. Within a lane, events too
+  // close together (at the unzoomed scale) stack into sub-rows that fan out from
+  // the lane's middle line: 0, +1, -1, +2, -2, ...
+  const LANE_KEYS = CHAPTER_ORDER.filter(ch => allEvents.some(e => e.chapter === ch));
+  const MAX_SUB = LANE_KEYS.length > 1 ? 7 : 18;
+  const subOffset = k => (k % 2 ? (k+1)/2 : -k/2);
+  const laneInfo = new Map();
+  let laneY = margin.top;
+  LANE_KEYS.forEach(ch => {
+    const subLast = [];
+    allEvents.filter(e => e.chapter === ch).forEach(e => {
+      const x = xScale0(e.year);
+      let sub = subLast.findIndex(lx => x - lx >= DOT_GAP);
+      if(sub === -1){
+        if(subLast.length < MAX_SUB){ sub = subLast.length; subLast.push(-Infinity); }
+        else sub = subLast.indexOf(d3.min(subLast));
+      }
+      e._sub = sub;
+      subLast[sub] = Math.max(x, e.endYear ? xScale0(e.endYear) : x);
+    });
+    const n = Math.max(2, subLast.length);
+    const offsets = d3.range(n).map(subOffset);
+    const minOff = d3.min(offsets);
+    const h = n*SUB_H + LANE_PAD*2;
+    laneInfo.set(ch, { y0: laneY, h, minOff, count: allEvents.filter(e => e.chapter === ch).length });
+    laneY += h;
+  });
+  const LANES_BOTTOM = laneY;
+  const H = LANES_BOTTOM + margin.bottom;
 
   svg.selectAll('*').remove();
+  svg.attr('viewBox', `0 0 ${W} ${H}`);
+  const defs = svg.append('defs');
+  defs.append('clipPath').attr('id','plot-clip').append('rect')
+    .attr('x', PLOT_L - DOT_R - 2).attr('y', 0).attr('width', PLOT_R - PLOT_L + 2*DOT_R + 4).attr('height', H);
+  const hatch = defs.append('pattern').attr('id','gap-hatch').attr('patternUnits','userSpaceOnUse')
+    .attr('width', 6).attr('height', 6).attr('patternTransform','rotate(45)');
+  hatch.append('rect').attr('width', 6).attr('height', 6).attr('fill', 'var(--bg)');
+  hatch.append('line').attr('x1', 0).attr('y1', 0).attr('x2', 0).attr('y2', 6).attr('stroke', 'var(--line)').attr('stroke-width', 2);
+
   const g = svg.append('g');
+  const gLanes = g.append('g');
   const gAxis = g.append('g').attr('class','axis');
-  const gEraBands = g.append('g');
-  const gTrack = g.append('g');
-  const gConnectors = g.append('g');
-  const gDots = g.append('g');
+  const gPlot = g.append('g').attr('clip-path','url(#plot-clip)');
+  const gGaps = gPlot.append('g');
+  const gEraBands = gPlot.append('g');
+  const gConnectors = gPlot.append('g');
+  const gDots = gPlot.append('g');
 
-  gTrack.append('line').attr('class','track-line')
-    .attr('x1', margin.left).attr('x2', W-margin.right).attr('y1', baselineY).attr('y2', baselineY);
+  LANE_KEYS.forEach((ch, i) => {
+    const L = laneInfo.get(ch);
+    if(i % 2 === 0){
+      gLanes.append('rect').attr('class','lane-bg')
+        .attr('x', 0).attr('y', L.y0).attr('width', W).attr('height', L.h);
+    }
+    if(i > 0){
+      gLanes.append('line').attr('class','lane-sep')
+        .attr('x1', 0).attr('x2', W).attr('y1', L.y0).attr('y2', L.y0);
+    }
+    const meta = CHAPTER_META[ch];
+    // Clicking a lane's label toggles that chapter, same as its legend chip.
+    const lbl = gLanes.append('g').attr('class','lane-label').datum(ch)
+      .attr('transform', `translate(12,${L.y0 + L.h/2})`)
+      .on('click', () => {
+        const chip = document.querySelector(`#chapter-legend .chip[data-chapter="${ch}"]`);
+        toggleChapter(ch, chip);
+      });
+    lbl.append('circle').attr('cx', 5).attr('cy', -4).attr('r', 5).attr('fill', meta.color);
+    lbl.append('text').attr('x', 16).attr('y', 0).text(meta.short);
+    lbl.append('text').attr('class','lane-count').attr('x', 16).attr('y', 13).text(`${L.count} event${L.count===1?'':'s'}`);
+  });
 
-  const xAxis = d3.axisBottom(xScale).ticks(16).tickFormat(d3.format('d'));
-  gAxis.attr('transform', `translate(0,${H-margin.bottom})`).call(xAxis);
+  // Ticks are picked greedily, roundest years first (centuries, then 50s, 25s,
+  // decades, 5s, single years), keeping each only if it's far enough from the
+  // ones already placed. That keeps labels evenly spaced on screen even though
+  // the axis is stretched unevenly, and lets finer ticks appear as you zoom in.
+  // Years inside a compressed gap are skipped; only its edges get labels.
+  function niceTicks(scale, minGap){
+    const dom = scale.domain();
+    const lo = Math.ceil(dom[0]), hi = Math.floor(dom[dom.length-1]);
+    const picked = [];
+    [100, 50, 25, 10, 5, 1].forEach(step => {
+      if(step === 1 && hi - lo > 30) return;
+      for(let y = Math.ceil(lo/step)*step; y <= hi; y += step){
+        if(GAPS.some(gp => y > gp.y0 && y < gp.y1)) continue;
+        const x = scale(y);
+        if(picked.every(p => Math.abs(scale(p) - x) >= minGap)) picked.push(y);
+      }
+    });
+    return picked.sort((a,b)=>a-b);
+  }
+  const xAxis = d3.axisBottom(xScale0).tickFormat(d3.format('d')).tickSizeOuter(0);
+  gAxis.attr('transform', `translate(0,${LANES_BOTTOM})`);
+  function updateAxis(){
+    gAxis.call(xAxis.scale(xScale).tickValues(niceTicks(xScale, 60)));
+  }
+  updateAxis();
+
+  function renderGaps(){
+    const rects = gGaps.selectAll('rect.axis-gap').data(GAPS);
+    rects.enter().append('rect').attr('class','axis-gap')
+      .append('title');
+    gGaps.selectAll('rect.axis-gap')
+      .attr('x', d=>xScale(d.y0)).attr('width', d=>Math.max(0, xScale(d.y1)-xScale(d.y0)))
+      .attr('y', margin.top).attr('height', LANES_BOTTOM-margin.top)
+      .select('title').text(d=>`${d.y0}–${d.y1}: no events (compressed)`);
+  }
 
   function renderEraBands(){
     const domain = xScale.domain();
+    const dLo = domain[0], dHi = domain[domain.length-1];
     const bands = ERA_ORDER.map(id=>{
       const meta = ERA_META[id];
-      const y0 = meta.yearStart == null ? domain[0] : Math.max(meta.yearStart, domain[0]);
-      const y1 = meta.yearEnd == null ? domain[1] : Math.min(meta.yearEnd, domain[1]);
+      const y0 = meta.yearStart == null ? dLo : Math.max(meta.yearStart, dLo);
+      const y1 = meta.yearEnd == null ? dHi : Math.min(meta.yearEnd, dHi);
       return { id, meta, y0, y1 };
     }).filter(b => b.y1 > b.y0 && !state.hiddenEras.has(b.id));
 
@@ -543,14 +780,14 @@ function renderTimelineWith(EVENTS, FIGURES, CHAPTER_META, ERAS, THEMES_RAW, LOC
     rects.enter().append('rect').attr('class','era-band')
       .merge(rects)
       .attr('x', d=>xScale(d.y0)).attr('width', d=>Math.max(0, xScale(d.y1)-xScale(d.y0)))
-      .attr('y', margin.top).attr('height', H-margin.top-margin.bottom)
+      .attr('y', margin.top).attr('height', LANES_BOTTOM-margin.top)
       .attr('fill', d=>d.meta.color).attr('opacity', 0.07);
     rects.exit().remove();
 
     const labels = gEraBands.selectAll('text.era-band-label').data(bands, d=>d.id);
     const labelsMerged = labels.enter().append('text').attr('class','era-band-label')
       .merge(labels)
-      .attr('x', d=>xScale(d.y0)+4).attr('y', margin.top+10)
+      .attr('x', d=>xScale(d.y0)+4).attr('y', margin.top-9)
       .text(d=> (xScale(d.y1)-xScale(d.y0) > 40) ? d.meta.label : '');
     labels.exit().remove();
 
@@ -573,10 +810,8 @@ function renderTimelineWith(EVENTS, FIGURES, CHAPTER_META, ERAS, THEMES_RAW, LOC
   }
 
   function yFor(d){
-    const lane = d._lane;
-    const dir = lane % 2 === 0 ? -1 : 1;
-    const step = Math.floor(lane/2) + 1;
-    return baselineY + dir * step * LANE_H;
+    const L = laneInfo.get(d.chapter);
+    return L.y0 + LANE_PAD + (subOffset(d._sub) - L.minOff + 0.5) * SUB_H;
   }
 
   const tooltip = d3.select('#tooltip');
@@ -613,10 +848,63 @@ function renderTimelineWith(EVENTS, FIGURES, CHAPTER_META, ERAS, THEMES_RAW, LOC
   let markerByLocation = new Map();
   let focusEventId = null;
 
+  // Map "stroll": when a place has several events, the popup gets prev/next
+  // buttons and a Stroll (autoplay) toggle that step through that place's events
+  // in date order, selecting each one in turn (which updates the timeline, the
+  // Selected Event panel, and the popup's highlighted row). The stroll lives out
+  // here because every selection re-renders the map and rebuilds the popup.
+  const STROLL_MS = 3500;
+  let stroll = null;            // { locId } while autoplaying
+  let mapRebuilding = false;    // popups close during a rebuild; that's not the user
+  let strollLists = new Map();  // locId -> that place's visible events, in date order
+  function stopStroll(){
+    clearInterval(strollTimer); strollTimer = null;
+    stroll = null;
+  }
+  function strollStep(locId, dir){
+    const list = strollLists.get(locId) || [];
+    if(!list.length) return false;
+    const i = list.indexOf(state.selected);
+    const next = i === -1 ? (dir > 0 ? 0 : list.length-1) : i + dir;
+    if(next < 0 || next >= list.length) return false;
+    selectEvent(list[next], { locId });
+    return true;
+  }
+  function startStroll(locId){
+    stopStroll();
+    const list = strollLists.get(locId) || [];
+    // Starting from the last event (or nothing) begins again at the first.
+    if(list.indexOf(state.selected) >= list.length-1) state.selected = null;
+    strollStep(locId, 1);
+    stroll = { locId };
+    strollTimer = setInterval(() => {
+      if(!strollStep(locId, 1)) { stopStroll(); refreshStrollUI(locId); }
+    }, STROLL_MS);
+    refreshStrollUI(locId);
+  }
+  function refreshStrollUI(locId){
+    const marker = markerByLocation.get(locId);
+    const root = marker && marker.getPopup() && marker.getPopup().getElement();
+    if(!root) return;
+    const list = strollLists.get(locId) || [];
+    const pos = root.querySelector('.mp-pos');
+    const i = list.indexOf(state.selected);
+    if(pos) pos.textContent = `${i === -1 ? '–' : i+1} / ${list.length}`;
+    const play = root.querySelector('.mp-play');
+    if(play){
+      const on = !!(stroll && stroll.locId === locId);
+      play.classList.toggle('playing', on);
+      play.textContent = on ? '❚❚ Pause' : '▶ Stroll';
+    }
+  }
+
   function renderMap(visible){
     ensureMap();
+    mapRebuilding = true;
     mapMarkersLayer.clearLayers();
+    mapRebuilding = false;
     markerByLocation.clear();
+    strollLists = new Map();
 
     // Group the currently-visible events by each place they're tagged with (an
     // event can map to more than one place, e.g. an escape that names both where
@@ -658,20 +946,38 @@ function renderTimelineWith(EVENTS, FIGURES, CHAPTER_META, ERAS, THEMES_RAW, LOC
       markerByLocation.set(locId, marker);
 
       const sorted = [...evs].sort((a,b) => (a.year ?? 0) - (b.year ?? 0));
-      const shown = sorted.slice(0, 8);
-      const evHtml = shown.map(ev =>
+      strollLists.set(locId, sorted);
+      // Every event is listed (in a scrolling list) so the stroll can reach all of them.
+      const evHtml = sorted.map(ev =>
         `<div class="mp-ev" data-ev-id="${ev.id}"><span class="mp-year">${ev.displayDate || ev.year || ''}</span>${ev.headline}</div>`
       ).join('');
-      const moreHtml = sorted.length > shown.length
-        ? `<div class="mp-more">+ ${sorted.length - shown.length} more here</div>` : '';
-      const html = `<div class="map-popup"><h4>${loc.label}</h4><div class="mp-count">${count} event${count===1?'':'s'} in view</div>${evHtml}${moreHtml}</div>`;
-      marker.bindPopup(html);
+      const strollHtml = count > 1 ? `
+        <div class="mp-stroll">
+          <button type="button" data-step="-1" aria-label="Previous event">‹</button>
+          <span class="mp-pos"></span>
+          <button type="button" data-step="1" aria-label="Next event">›</button>
+          <button type="button" class="mp-play"></button>
+        </div>` : '';
+      const html = `<div class="map-popup"><h4>${loc.label}</h4><div class="mp-count">${count} event${count===1?'':'s'} in view</div>${strollHtml}<div class="mp-list">${evHtml}</div></div>`;
+      marker.bindPopup(html, { maxWidth: 280 });
+      marker.on('popupclose', () => {
+        if(!mapRebuilding && stroll && stroll.locId === locId) stopStroll();
+      });
       marker.on('popupopen', (e) => {
         const root = e.popup.getElement();
+        root.querySelectorAll('.mp-stroll [data-step]').forEach(btn => {
+          btn.addEventListener('click', () => { stopStroll(); strollStep(locId, Number(btn.dataset.step)); refreshStrollUI(locId); });
+        });
+        const play = root.querySelector('.mp-play');
+        if(play) play.addEventListener('click', () => {
+          if(stroll && stroll.locId === locId){ stopStroll(); refreshStrollUI(locId); }
+          else startStroll(locId);
+        });
+        refreshStrollUI(locId);
         root.querySelectorAll('.mp-ev').forEach(el => {
           el.addEventListener('click', () => {
             const ev = idMap.get(el.getAttribute('data-ev-id'));
-            if(ev) selectEvent(ev);
+            if(ev){ stopStroll(); selectEvent(ev, { locId }); }
           });
           if(el.getAttribute('data-ev-id') === focusEventId){
             el.classList.add('mp-ev-active');
@@ -685,7 +991,9 @@ function renderTimelineWith(EVENTS, FIGURES, CHAPTER_META, ERAS, THEMES_RAW, LOC
   }
 
   function render(){
+    renderGaps();
     renderEraBands();
+    gLanes.selectAll('.lane-label').classed('off', ch => state.hiddenChapters.has(ch));
     const visible = allEvents.filter(passesFilters);
     // The map isn't limited to dated events the way the timeline dots are (a few
     // events, like an undated origin story, still have a real place attached), so
@@ -703,14 +1011,14 @@ function renderTimelineWith(EVENTS, FIGURES, CHAPTER_META, ERAS, THEMES_RAW, LOC
 
     const dots = gDots.selectAll('.event-dot').data(visible, d=>d.id);
     dots.enter().append('circle').attr('class','event-dot')
-      .attr('r', 5.5)
+      .attr('r', DOT_R)
       .on('mousemove', (ev,d)=>{
         tooltip.style('opacity',1)
           .style('left', (ev.clientX+14)+'px').style('top', (ev.clientY+10)+'px')
           .html(`<b>${d.headline}</b>${d.displayDate} · ${CHAPTER_META[d.chapter].short}`);
       })
       .on('mouseleave', ()=> tooltip.style('opacity',0))
-      .on('click', (ev,d)=> selectEvent(d))
+      .on('click', (ev,d)=> { stopStroll(); selectEvent(d); })
       .merge(dots)
       .attr('cx', d=>xScale(d.year))
       .attr('cy', d=>yFor(d))
@@ -735,7 +1043,10 @@ function renderTimelineWith(EVENTS, FIGURES, CHAPTER_META, ERAS, THEMES_RAW, LOC
     }
   }
 
-  function selectEvent(d){
+  // opts.locId: when the selection comes from a particular map marker (a popup
+  // row or a stroll step), keep that marker's popup open instead of jumping to
+  // the event's first-listed place.
+  function selectEvent(d, opts = {}){
     state.selected = d;
     render();
     const chMeta = CHAPTER_META[d.chapter];
@@ -764,7 +1075,8 @@ function renderTimelineWith(EVENTS, FIGURES, CHAPTER_META, ERAS, THEMES_RAW, LOC
     // pan to its primary place and reopen that marker's popup with this event
     // highlighted in the list.
     const locIds = EVENT_LOCATIONS[d.id] || [];
-    const marker = locIds.length ? markerByLocation.get(locIds[0]) : null;
+    const locId = (opts.locId && locIds.includes(opts.locId)) ? opts.locId : locIds[0];
+    const marker = locId ? markerByLocation.get(locId) : null;
     if(marker){
       focusEventId = d.id;
       eventMap.panTo(marker.getLatLng(), { animate: true });
@@ -775,23 +1087,81 @@ function renderTimelineWith(EVENTS, FIGURES, CHAPTER_META, ERAS, THEMES_RAW, LOC
   function focusYear(y){
     const k = 4;
     const cx = xScale0(y);
-    const tx = W/2 - k*cx;
+    const tx = (PLOT_L + PLOT_R)/2 - k*cx;
     svg.transition().duration(600).call(zoomBehavior.transform, d3.zoomIdentity.translate(tx,0).scale(k));
+  }
+
+  // Overview strip: every event as a tiny dot (one mini-row per lane) across the
+  // whole unzoomed span, with a brush window that mirrors the main chart's zoom.
+  // Brushing drives the zoom; zooming (wheel, drag, +/- buttons) moves the brush.
+  // `brushing` stops the two from feeding back into each other.
+  const OH = 62, OV_TOP = 4, OV_BOTTOM = 42;
+  const ov = d3.select('#overview').attr('viewBox', `0 0 ${W} ${OH}`);
+  ov.selectAll('*').remove();
+  ov.append('rect').attr('x', PLOT_L).attr('y', OV_TOP).attr('width', PLOT_R-PLOT_L).attr('height', OV_BOTTOM-OV_TOP)
+    .attr('rx', 6).attr('fill', 'var(--bg)').attr('stroke', 'var(--line)');
+  ov.append('g').selectAll('rect').data(GAPS).enter().append('rect')
+    .attr('x', d=>xScale0(d.y0)).attr('width', d=>xScale0(d.y1)-xScale0(d.y0))
+    .attr('y', OV_TOP+1).attr('height', OV_BOTTOM-OV_TOP-2).attr('fill', 'url(#gap-hatch)');
+  const ovRow = d3.scaleBand().domain(LANE_KEYS).range([OV_TOP+4, OV_BOTTOM-4]);
+  ov.append('g').selectAll('circle').data(allEvents).enter().append('circle')
+    .attr('cx', d=>xScale0(d.year)).attr('cy', d=>ovRow(d.chapter) + ovRow.bandwidth()/2)
+    .attr('r', 2.4).attr('fill', d=>CHAPTER_META[d.chapter].color).attr('opacity', .85);
+  ov.append('g').selectAll('text').data(niceTicks(xScale0, 70)).enter().append('text')
+    .attr('class','ov-tick').attr('x', d=>xScale0(d)).attr('y', OH-6).attr('text-anchor','middle').text(d=>d);
+  ov.append('text').attr('class','ov-tick').attr('x', PLOT_L-10).attr('y', (OV_TOP+OV_BOTTOM)/2+4)
+    .attr('text-anchor','end').text('Full span');
+
+  let brushing = false;
+  const brush = d3.brushX()
+    .extent([[PLOT_L, OV_TOP], [PLOT_R, OV_BOTTOM]])
+    .on('brush end', (ev) => {
+      if(!ev.sourceEvent) return;
+      const s = ev.selection;
+      if(!s){
+        if(ev.type === 'end') svg.transition().duration(400).call(zoomBehavior.transform, d3.zoomIdentity);
+        return;
+      }
+      const k = (PLOT_R-PLOT_L) / Math.max(1, s[1]-s[0]);
+      brushing = true;
+      svg.call(zoomBehavior.transform, d3.zoomIdentity.translate(PLOT_L - k*s[0], 0).scale(k));
+      brushing = false;
+      // The zoom may have clamped (max zoom / edges); snap the window to match.
+      if(ev.type === 'end') syncBrush(d3.zoomTransform(svg.node()));
+    });
+  const gBrush = ov.append('g').attr('class','ov-brush').call(brush);
+  function syncBrush(t){
+    if(t.k === 1 && Math.abs(t.x) < 0.5) gBrush.call(brush.move, null);
+    else gBrush.call(brush.move, [t.invertX(PLOT_L), t.invertX(PLOT_R)]);
   }
 
   const zoomBehavior = d3.zoom()
     .scaleExtent([1, 20])
-    .translateExtent([[margin.left-40,0],[W-margin.right+40,H]])
+    .extent([[PLOT_L, 0], [PLOT_R, H]])
+    .translateExtent([[PLOT_L, 0], [PLOT_R, H]])
     .on('zoom', (ev)=>{
       xScale = ev.transform.rescaleX(xScale0);
-      gAxis.call(xAxis.scale(xScale));
+      updateAxis();
       render();
+      if(!brushing) syncBrush(ev.transform);
     });
   svg.call(zoomBehavior);
 
   d3.select('#zoom-in').on('click', ()=> svg.transition().call(zoomBehavior.scaleBy, 1.5));
   d3.select('#zoom-out').on('click', ()=> svg.transition().call(zoomBehavior.scaleBy, 0.67));
-  d3.select('#zoom-reset').on('click', ()=> svg.transition().call(zoomBehavior.transform, d3.zoomIdentity));
+  // Reset view: back to the full, unzoomed span with no event selected (and any
+  // map stroll stopped / popup closed, since those follow the selection).
+  function resetView(){
+    stopStroll();
+    state.selected = null;
+    tooltip.style('opacity', 0);
+    document.getElementById('detail').innerHTML = '<div class="placeholder">No event selected yet — click a dot above.</div>';
+    if(eventMap) eventMap.closePopup();
+    render();
+    svg.transition().duration(500).call(zoomBehavior.transform, d3.zoomIdentity);
+  }
+  d3.select('#zoom-reset').on('click', resetView);
+  d3.select('#reset-view').on('click', resetView);
 
   d3.select('#search-input').on('input', function(){
     state.search = this.value.trim().toLowerCase();
@@ -844,7 +1214,7 @@ function renderTimelineWith(EVENTS, FIGURES, CHAPTER_META, ERAS, THEMES_RAW, LOC
     evList.append('div').style('font-size','.72rem').style('text-transform','uppercase').style('letter-spacing','.05em')
       .style('color','var(--muted)').style('font-weight','700').style('margin-bottom','6px').text('Timeline');
     fig.events.map(id=>idMap.get(id)).filter(Boolean).sort((a,b)=>(a.year??0)-(b.year??0)).forEach(ev=>{
-      const row = evList.append('div').attr('class','ev-row').on('click', ()=> selectEvent(ev));
+      const row = evList.append('div').attr('class','ev-row').on('click', ()=> { stopStroll(); selectEvent(ev); });
       row.append('span').attr('class','ev-year').text(ev.displayDate);
       row.append('span').text(ev.headline);
     });
@@ -852,31 +1222,244 @@ function renderTimelineWith(EVENTS, FIGURES, CHAPTER_META, ERAS, THEMES_RAW, LOC
 
   renderFiguresList();
 
-  function renderBarChart(){
-    const bw = 380, bh = 340;
-    const bmargin = {top:10,right:16,bottom:110,left:34};
-    const counts = CHAPTER_ORDER.map(ch=>({ ch, label: CHAPTER_META[ch].short, count: EVENTS.filter(e=>e.chapter===ch).length, color: CHAPTER_META[ch].color }));
-    const bsvg = d3.select('#barchart');
-    bsvg.selectAll('*').remove();
-    const x0 = d3.scaleBand().domain(CHAPTER_ORDER).range([bmargin.left, bw-bmargin.right]).padding(0.25);
-    const y = d3.scaleLinear().domain([0, d3.max(counts,d=>d.count)+5]).range([bh-bmargin.bottom, bmargin.top]);
 
-    bsvg.selectAll('.bar').data(counts).enter().append('rect').attr('class','bar')
-      .attr('x', d=>x0(d.ch)).attr('width', x0.bandwidth())
-      .attr('y', d=>y(d.count)).attr('height', d=>y(0)-y(d.count))
-      .attr('fill', d=>d.color).attr('rx',3);
-
-    bsvg.selectAll('.barlabel').data(counts).enter().append('text').attr('class','barlabel')
-      .attr('x', d=>x0(d.ch)+x0.bandwidth()/2).attr('y', d=>y(d.count)-6)
-      .attr('text-anchor','middle').style('font-size','11px').style('font-weight','700').style('fill','var(--ink)')
-      .text(d=>d.count);
-
-    bsvg.append('g').attr('transform',`translate(0,${bh-bmargin.bottom})`)
-      .call(d3.axisBottom(x0).tickFormat(ch=>CHAPTER_META[ch].short))
-      .selectAll('text').attr('transform','rotate(-40)').style('text-anchor','end').style('font-size','9.5px').style('fill','var(--muted)');
-    bsvg.selectAll('.domain, .tick line').style('stroke','var(--line)');
+  // ---------- Chapter Synthesis ----------
+  // Names in the synthesis are written for readers, not as figure ids, so a few
+  // short forms are mapped to the figure they mean, and "X and Y Surname" is
+  // split into one chip per person. Anyone without a figure entry stays plain text.
+  const ACTOR_ALIASES = {
+    'Apess': 'William Apess',
+    'Desire Attaquin': 'Desire Mingo Attaquin',
+    'Mary Vanderhoop': 'Mary Cleggett Vanderhoop'
+  };
+  function splitActors(name){
+    const m = name.match(/^(\S+) and (\S+) (.+)$/);
+    return m ? [`${m[1]} ${m[3]}`, `${m[2]} ${m[3]}`] : [name];
   }
-  renderBarChart();
+  // A place matches the first location whose label starts with any of its
+  // slash-separated names ("Gay Head/Aquinnah" -> "Aquinnah (Gay Head)"), falling
+  // back to a label that merely contains one ("Holmes Hole" -> Tisbury).
+  function placeToLocId(place){
+    const parts = place.split('/').map(t => t.trim().toLowerCase());
+    const entries = Object.entries(LOCATIONS);
+    const hit = entries.find(([, l]) => parts.some(t => l.label.toLowerCase().startsWith(t)))
+      || entries.find(([, l]) => parts.some(t => l.label.toLowerCase().includes(t)));
+    return hit ? hit[0] : null;
+  }
+  function showChapterOnly(ch){
+    state.hiddenChapters = new Set(CHAPTER_ORDER.filter(c => c !== ch));
+    d3.selectAll('#chapter-legend .chip').classed('off', function(){ return state.hiddenChapters.has(this.dataset.chapter); });
+    render();
+    document.getElementById('chart-panel').scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }
+  function showAllChapters(){
+    state.hiddenChapters = new Set();
+    d3.selectAll('#chapter-legend .chip').classed('off', false);
+    render();
+  }
+  function renderSynthesis(){
+    const host = document.getElementById('synthesis');
+    if(!SYNTHESIS || !host) return;
+    const esc = t => String(t).replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+    const colorOf = row => (CHAPTER_META[row.chapter] && CHAPTER_META[row.chapter].color) || 'var(--muted)';
+    synthesisTab = Math.min(synthesisTab, SYNTHESIS.length - 1);
+    const row = SYNTHESIS[synthesisTab];
+    const color = colorOf(row);
+    host.style.setProperty('--syn-color', color);
+
+    const tabs = SYNTHESIS.map((r, i) => `
+      <button type="button" class="syn-tab" role="tab" data-i="${i}" aria-selected="${i === synthesisTab}"
+        style="--syn-color:${colorOf(r)}"><span class="dot" style="background:${colorOf(r)}"></span>${esc(r.section.replace(/^Chapter (\d) — /, 'Ch.$1 '))}</button>`).join('');
+
+    const actorChips = row.actors.flatMap(splitActors).map(a => {
+      const fig = figMap.has(a) ? a : (ACTOR_ALIASES[a] && figMap.has(ACTOR_ALIASES[a]) ? ACTOR_ALIASES[a] : null);
+      return fig
+        ? `<button type="button" class="syn-chip actor" data-fig="${esc(fig)}" title="Trace ${esc(fig)} on the timeline">${esc(a)}</button>`
+        : `<span class="syn-chip">${esc(a)}</span>`;
+    }).join('');
+    const placeChips = row.places.map(pl => {
+      const locId = placeToLocId(pl);
+      return locId
+        ? `<button type="button" class="syn-chip" data-loc="${locId}" title="Show ${esc(LOCATIONS[locId].label)} on the map">${esc(pl)}</button>`
+        : `<span class="syn-chip">${esc(pl)}</span>`;
+    }).join('');
+    const themeChips = row.themes.map(t => `<span class="syn-chip">${esc(t.charAt(0).toUpperCase() + t.slice(1))}</span>`).join('');
+    const hasLane = CHAPTER_ORDER.includes(row.chapter) && allEvents.some(e => e.chapter === row.chapter);
+    const isolated = state.hiddenChapters.size > 0;
+
+    host.innerHTML = `
+      <div class="syn-tabs" role="tablist" aria-label="Dissertation sections">${tabs}</div>
+      <div role="tabpanel">
+        <div class="syn-head">
+          <h3>${esc(row.section)}</h3>
+        </div>
+        <blockquote class="syn-claim">${esc(row.claim)}</blockquote>
+        <div class="syn-grid">
+          <div>
+            <div class="syn-block"><p class="syn-label">Central argument</p><p>${esc(row.argument)}</p></div>
+            <div class="syn-block"><p class="syn-label">Principal evidence offered</p><ul>${row.evidence.map(e => `<li>${esc(e)}</li>`).join('')}</ul></div>
+          </div>
+          <div>
+            <div class="syn-block"><p class="syn-label">Key historical actors</p><div class="syn-chips">${actorChips}</div></div>
+            <div class="syn-block"><p class="syn-label">Core towns / places</p><div class="syn-chips">${placeChips}</div></div>
+            <div class="syn-block"><p class="syn-label">Primary themes</p><div class="syn-chips">${themeChips}</div></div>
+          </div>
+        </div>
+        <div class="syn-actions">
+          ${hasLane ? `<button type="button" data-act="only">Show only ${esc(CHAPTER_META[row.chapter].short)} on the timeline</button>` : ''}
+          ${isolated ? `<button type="button" data-act="all">Show all chapters</button>` : ''}
+        </div>
+        ${row.chapter === 'preface_intro' ? '<p class="syn-note">The Preface and Introduction share the timeline\'s Intro row.</p>' : ''}
+      </div>`;
+
+    host.querySelectorAll('.syn-tab').forEach(btn => btn.addEventListener('click', () => {
+      synthesisTab = Number(btn.dataset.i); renderSynthesis();
+      host.querySelector(`.syn-tab[data-i="${synthesisTab}"]`).focus();
+    }));
+    // Arrow keys move between tabs, as in a standard tablist.
+    host.querySelector('.syn-tabs').addEventListener('keydown', ev => {
+      if(ev.key !== 'ArrowRight' && ev.key !== 'ArrowLeft') return;
+      synthesisTab = (synthesisTab + (ev.key === 'ArrowRight' ? 1 : -1) + SYNTHESIS.length) % SYNTHESIS.length;
+      renderSynthesis();
+      host.querySelector(`.syn-tab[data-i="${synthesisTab}"]`).focus();
+    });
+    host.querySelectorAll('[data-fig]').forEach(btn => btn.addEventListener('click', () => {
+      selectFigure(btn.dataset.fig);
+      document.getElementById('chart-panel').scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }));
+    host.querySelectorAll('[data-loc]').forEach(btn => btn.addEventListener('click', () => {
+      const locId = btn.dataset.loc, loc = LOCATIONS[locId];
+      document.getElementById('map-wrap-panel').scrollIntoView({ behavior: 'smooth', block: 'center' });
+      const marker = markerByLocation.get(locId);
+      if(marker){ eventMap.panTo(marker.getLatLng(), { animate: true }); marker.openPopup(); }
+      else eventMap.setView([loc.lat, loc.lon], Math.max(eventMap.getZoom(), 10));
+    }));
+    const only = host.querySelector('[data-act="only"]');
+    if(only) only.addEventListener('click', () => { showChapterOnly(row.chapter); renderSynthesis(); });
+    const all = host.querySelector('[data-act="all"]');
+    if(all) all.addEventListener('click', () => { showAllChapters(); renderSynthesis(); });
+  }
+  (SYNTHESIS ? Promise.resolve(SYNTHESIS) : fetch('data/chapter-synthesis.json').then(r => r.json()))
+    .then(data => { SYNTHESIS = data; renderSynthesis(); })
+    .catch(() => { document.getElementById('synthesis').textContent = 'Chapter synthesis could not be loaded.'; });
+
+  // ---------- 1834 petition signers ----------
+  // Links between signers and the dissertation are curated in the data file
+  // (PETITION.links), each marked "match" (same name) or "possible". A link's
+  // events are its figure's events plus any listed event ids, limited to
+  // whatever is in the current dataset.
+  const petitionState = { query: '', onlyLinked: false, active: null };
+  function signerEvents(link){
+    const ids = new Set(link.events || []);
+    if(link.figure && figMap.has(link.figure)) figMap.get(link.figure).events.forEach(id => ids.add(id));
+    return [...ids].map(id => idMap.get(id)).filter(Boolean).sort((a,b) => (a.year ?? 0) - (b.year ?? 0));
+  }
+  function renderPetition(){
+    const host = document.getElementById('petition');
+    if(!PETITION || !host) return;
+    const esc = t => String(t).replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+    const noteRef = n => `<sup><a href="#pet-note-${n}" title="${esc(PETITION.notes[n-1])}">${n}</a></sup>`;
+    const withNotes = t => esc(t).replace(/\{(\d+)\}/g, (_, n) => noteRef(Number(n)));
+    const links = PETITION.links || {};
+    const total = PETITION.groups.reduce((n, g) => n + g.signers.length, 0);
+    const linkedCount = PETITION.groups.reduce((n, g) => n + g.signers.filter(s => links[s.name]).length, 0);
+    const key = PETITION.text.find(b => b.text.includes('murdering us by inches'));
+
+    const groupsHtml = PETITION.groups.map(g => {
+      const names = g.signers.filter(s => {
+        if(petitionState.onlyLinked && !links[s.name]) return false;
+        return !petitionState.query || s.name.toLowerCase().includes(petitionState.query);
+      }).map(s => {
+        const mk = s.mark ? '<span class="mk" title="Signed with a mark">(mark)</span>' : '';
+        const nt = s.note ? noteRef(s.note) : '';
+        const link = links[s.name];
+        if(!link) return `<span class="pet-name">${esc(s.name)}${mk}${nt}</span>`;
+        const n = signerEvents(link).length;
+        return `<button type="button" class="pet-name ${link.confidence}${petitionState.active === s.name ? ' active' : ''}" data-signer="${esc(s.name)}"
+          title="${link.confidence === 'possible' ? 'Possible match — ' : ''}${n} event${n===1?'':'s'} in the dissertation">${esc(s.name)}${mk}${nt}</button>`;
+      }).join('');
+      return `<div class="pet-group">
+        <h4>${esc(g.label)}<span class="pg-count">${g.signers.length} names</span></h4>
+        ${g.intro ? `<p class="pg-intro">“${withNotes(g.intro)}”</p>` : ''}
+        <div class="pet-names">${names || '<span class="pet-empty">No matching names.</span>'}</div>
+      </div>`;
+    }).join('');
+
+    let detailHtml = '';
+    if(petitionState.active && links[petitionState.active]){
+      const link = links[petitionState.active];
+      const evs = signerEvents(link);
+      const figName = link.figure && figMap.has(link.figure) ? link.figure : null;
+      detailHtml = `<div class="pet-detail">
+        <h4>${esc(petitionState.active)}</h4>
+        <div class="pd-meta">${link.confidence === 'possible' ? 'Possible match' : 'In the dissertation'}${figName && figName !== petitionState.active ? ` as ${esc(figName)}` : ''}
+          · ${evs.length} event${evs.length===1?'':'s'}${link.note ? ` · ${esc(link.note)}` : ''}</div>
+        ${evs.map(e => `<div class="pd-ev" data-ev="${e.id}"><span class="pd-year">${esc(e.displayDate || e.year)}</span>${esc(e.headline)}</div>`).join('') || '<div class="pet-empty">None of this person’s events are in the current view.</div>'}
+        <div class="pd-actions">
+          ${figName ? `<button type="button" data-trace="${esc(figName)}">Trace on the timeline</button>` : ''}
+          <button type="button" data-close>Close</button>
+        </div>
+      </div>`;
+    }
+
+    host.innerHTML = `
+      <p class="pet-source">Source: ${esc(PETITION.citation)}, <a href="${esc(PETITION.url)}" target="_blank" rel="noopener">nativenortheastportal.com</a>. The handwritten passage in the banner at the top of this page is from this petition.</p>
+      ${key ? `<blockquote class="pet-quote">${esc(key.text.slice(0, key.text.indexOf('murdering us by inches.') + 'murdering us by inches.'.length))}<cite>— ${esc(PETITION.title)}, ${esc(PETITION.date)}</cite></blockquote>` : ''}
+      <p class="pet-summary">${esc(PETITION.summary)}</p>
+      <div class="pet-tools">
+        <input type="text" id="pet-search" placeholder="Find a signer…" value="${esc(petitionState.query)}" aria-label="Find a signer">
+        <label><input type="checkbox" id="pet-only" ${petitionState.onlyLinked ? 'checked' : ''}> Only names in the dissertation (${linkedCount})</label>
+        <span class="pet-legend">
+          <span><span class="sw match"></span>In the dissertation</span>
+          <span><span class="sw possible"></span>Possible match</span>
+          <span>(mark) signed with a mark</span>
+        </span>
+      </div>
+      ${detailHtml}
+      ${groupsHtml}
+      <p class="pet-action">${total} names transcribed. ${esc(PETITION.listNote)} ${esc(PETITION.total)}.</p>
+      <details class="pet-full">
+        <summary>Read the full petition</summary>
+        <div class="pet-text">
+          ${PETITION.text.map(b => b.type === 'heading' ? `<h5>${withNotes(b.text)}</h5>` : `<p>${withNotes(b.text)}</p>`).join('')}
+          <h5>Legislative action</h5>
+          ${PETITION.action.map(a => `<p class="pet-action">${esc(a)}</p>`).join('')}
+          <h5>Notes</h5>
+          <ol class="pet-notes">${PETITION.notes.map((n, i) => `<li id="pet-note-${i+1}">${esc(n)}</li>`).join('')}</ol>
+          <p class="pet-action">Notes are from the Native Northeast Portal’s annotated transcription.</p>
+        </div>
+      </details>`;
+
+    const search = host.querySelector('#pet-search');
+    search.addEventListener('input', () => {
+      petitionState.query = search.value.trim().toLowerCase();
+      const pos = search.selectionStart;
+      renderPetition();
+      const again = document.getElementById('pet-search');
+      again.focus(); again.setSelectionRange(pos, pos);
+    });
+    host.querySelector('#pet-only').addEventListener('change', ev => { petitionState.onlyLinked = ev.target.checked; renderPetition(); });
+    host.querySelectorAll('[data-signer]').forEach(btn => btn.addEventListener('click', () => {
+      petitionState.active = petitionState.active === btn.dataset.signer ? null : btn.dataset.signer;
+      renderPetition();
+    }));
+    host.querySelectorAll('.pd-ev').forEach(el => el.addEventListener('click', () => {
+      const ev = idMap.get(el.dataset.ev);
+      if(!ev) return;
+      stopStroll(); selectEvent(ev);
+      document.getElementById('selected-event-panel').scrollIntoView({ behavior: 'smooth', block: 'center' });
+    }));
+    const trace = host.querySelector('[data-trace]');
+    if(trace) trace.addEventListener('click', () => {
+      selectFigure(trace.dataset.trace);
+      document.getElementById('chart-panel').scrollIntoView({ behavior: 'smooth', block: 'start' });
+    });
+    const close = host.querySelector('[data-close]');
+    if(close) close.addEventListener('click', () => { petitionState.active = null; renderPetition(); });
+  }
+  (PETITION ? Promise.resolve(PETITION) : fetch('data/petition-1834.json').then(r => r.json()))
+    .then(data => { PETITION = data; renderPetition(); })
+    .catch(() => { document.getElementById('petition').textContent = 'The 1834 petition could not be loaded.'; });
 
   render();
   const banner = document.getElementById('loading-banner');
