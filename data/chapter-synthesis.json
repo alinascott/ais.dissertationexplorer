@@ -1,0 +1,68 @@
+[
+  {
+    "section": "Preface",
+    "chapter": "preface_intro",
+    "argument": "Kinship and artifacts preserve Wampanoag historical knowledge beyond official documentation.",
+    "evidence": ["Occouch basket and Vanderhoop family provenance", "local oral histories", "petition-network methodology"],
+    "actors": ["Bathsheba Occouch", "Beulah Vanderhoop", "Mary Cleggett Vanderhoop"],
+    "places": ["Gay Head/Aquinnah"],
+    "themes": ["Material culture", "family history", "community history"],
+    "claim": "A family-centered and Indigenous-centered archive reveals continuities of sovereignty hidden by state records.",
+    "claimIds": "A001–A002"
+  },
+  {
+    "section": "Introduction",
+    "chapter": "preface_intro",
+    "argument": "Petitions show local political theorizing and the incremental workings of settler colonialism.",
+    "evidence": ["1831 women’s antiremoval names", "Mashpee memorial", "regional petition corpus", "critical census terminology"],
+    "actors": ["Native women petitioners", "Nathan Pocknet"],
+    "places": ["Mashpee", "Gay Head/Aquinnah", "Christiantown"],
+    "themes": ["Petitioning", "slow settler colonialism", "mixed-race identity", "archival method"],
+    "claim": "Murder by Inches rethinks the Native Northeast through families negotiating the slow erosion of land and power.",
+    "claimIds": "A003–A007"
+  },
+  {
+    "section": "Chapter 1 — The Homestead",
+    "chapter": "chapter1_homestead",
+    "argument": "Women’s elder-care petitions expose the tension between immediate household survival and communal land rights.",
+    "evidence": ["1811–24 land petitions / counterpetitions", "Nancy Michael settlement case", "1807–11 guardianship debate", "1861 Belain petition"],
+    "actors": ["Sarah Francis", "Hannah Capen", "Elizabeth Occouch", "George Peters", "Nancy Michael", "Desire Attaquin"],
+    "places": ["Gay Head/Aquinnah", "Christiantown", "Tisbury", "Edgartown", "Mashpee", "Herring Pond"],
+    "themes": ["Age", "elderly women", "race", "property", "welfare", "state governance"],
+    "claim": "I show how older Native women’s claims for subsistence became flashpoints in battles over sovereignty and care.",
+    "claimIds": "A008–A024"
+  },
+  {
+    "section": "Chapter 2 — The Parsonage & Schoolhouse",
+    "chapter": "chapter2_parsonage_schoolhouse",
+    "argument": "The “revolt” was a decades-long governance movement, not solely William Apess’s intervention or a one-time event.",
+    "evidence": ["Parsonage deed / Fish ministry", "rival Mashpee petitions", "1834 act", "1837 ship", "1839 church/school appeals", "public rebuttals"],
+    "actors": ["Blind Joe Amos", "Ebenezer and Solomon Attaquin", "Apess", "Nathan Pocknet"],
+    "places": ["Mashpee", "Herring Pond", "Popponesset"],
+    "themes": ["Religion", "education", "self-governance", "family political networks", "Indigenous enterprise"],
+    "claim": "Reframing the Mashpee Revolt as local community organizing reveals enduring Indigenous institution building.",
+    "claimIds": "A025–A040"
+  },
+  {
+    "section": "Chapter 3 — The Garret",
+    "chapter": "chapter3_garret",
+    "argument": "Women used petitions, resource governance, and household refuge to shape interracial freedom movements.",
+    "evidence": ["1845 cranberry petition", "1842 women’s railroad petition", "mixed-race property records", "Randall Burton reporting", "Vanderhoop oral histories"],
+    "actors": ["Beulah and William Vanderhoop", "Cynthia Attaquin", "Mary Vanderhoop", "Abigail Wampis"],
+    "places": ["Gay Head/Aquinnah", "Mashpee", "Christiantown", "Herring Pond", "Holmes Hole", "New Bedford"],
+    "themes": ["Womanhood", "Afro-Indigeneity", "abolition", "fugitivity", "mobility", "environmental stewardship"],
+    "claim": "By following Native women across petitions and coastal households, I show how family networks linked sovereignty to abolition.",
+    "claimIds": "A041–A060"
+  },
+  {
+    "section": "Chapter 4 — The Meetinghouse",
+    "chapter": "chapter4_meetinghouse",
+    "argument": "Citizenship and privatization created competing stakes for multiracial towns while state classification denied Indigenous continuity.",
+    "evidence": ["Briggs/Earle surveys", "1869 testimony", "law/incorporation", "Mary Vanderhoop’s 1904 rebuttal", "1977–78 land trial and testimonies"],
+    "actors": ["John D. Brown", "Thomas Sewall", "Solomon Attaquin", "Mary Vanderhoop", "Hazel Oakley", "Vernon Pocknett"],
+    "places": ["Mashpee", "Gay Head/Aquinnah", "Christiantown", "Chappaquiddick"],
+    "themes": ["Afro-Indigeneity", "race science", "enfranchisement", "property", "recognition", "memory"],
+    "claim": "I demonstrate that racial classification and the promise of citizenship could operate as technologies of dispossession.",
+    "claimIds": "A061–A082"
+  }
+]
