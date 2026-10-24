@@ -2,6 +2,7 @@
   {
     "id": "colonial_contact",
     "label": "Colonial & Contact Era (to c. 1779)",
+    "short": "Colonial & Contact",
     "yearStart": null,
     "yearEnd": 1779,
     "source": "inferred — precedes the dissertation's own front-matter Timeline, which begins in 1779",
@@ -10,6 +11,7 @@
   {
     "id": "early_republic",
     "label": "Early Years of the American Republic (c. 1780–1830)",
+    "short": "Early Republic",
     "yearStart": 1780,
     "yearEnd": 1819,
     "source": "from dissertation front-matter Timeline (stated range c.1780–1830; narrowed here to 1780–1819 to avoid overlap with the Indian Removal Era, whose listed events begin in 1820)",
@@ -18,6 +20,7 @@
   {
     "id": "indian_removal",
     "label": "Indian Removal Era (c. 1820–1850)",
+    "short": "Indian Removal",
     "yearStart": 1820,
     "yearEnd": 1849,
     "source": "from dissertation front-matter Timeline (stated range c.1820–1850; narrowed here to 1820–1849 to avoid overlap with the Reservation Era, which the Timeline dates from 1850)",
@@ -26,6 +29,7 @@
   {
     "id": "civil_war",
     "label": "Civil War (1860–1865)",
+    "short": "Civil War",
     "yearStart": 1860,
     "yearEnd": 1865,
     "source": "from dissertation front-matter Timeline, called out as a distinct period nested within the Reservation Era",
@@ -34,6 +38,7 @@
   {
     "id": "reservation_era",
     "label": "Reservation Era (1850–1887)",
+    "short": "Reservation Era",
     "yearStart": 1850,
     "yearEnd": 1887,
     "source": "from dissertation front-matter Timeline (1860–1865 carved out separately as the Civil War era)",
@@ -42,6 +47,7 @@
   {
     "id": "enfranchisement_revitalization",
     "label": "Enfranchisement, Revitalization, and Legal Recognition (1888–present)",
+    "short": "Enfranchisement",
     "yearStart": 1888,
     "yearEnd": null,
     "source": "inferred — the dissertation's Timeline ends its explicit period labels in 1887/1889, but the Conclusion narrates enfranchisement's aftermath, 20th-century cultural revitalization, and the 1970s–89 Mashpee litigation through 2024 as a continuous arc",
