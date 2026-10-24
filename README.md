@@ -1,6 +1,8 @@
 [README.md](https://github.com/user-attachments/files/32207918/README.md)
 # ais.dissertationexplorer
-# Murder by Inches — Dissertation Explorer
+# "Murdering Us By Inches" Concept Explorer
+
+by Alina Scott, PhD
 
 An interactive timeline of the 308 dated actions, figures, and events documented in the dissertation *Murder by Inches*. Explore the material through the dissertation's own structure (its four "spaces of protest," plus the introduction and conclusion), through five cross-cutting themes, or through the 48 recurring named figures who tie the narrative together.
 

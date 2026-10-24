@@ -3,27 +3,34 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Murder by Inches — Dissertation Explorer</title>
+<title>"Murdering Us By Inches" Concept Explorer — Alina Scott, PhD</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Abril+Fatface&family=Lato:ital,wght@0,400;0,700;0,900;1,400&display=swap">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/7.8.5/d3.min.js"></script>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
 <style>
   :root{
-    --ink:#1f2430; --muted:#6b7280; --bg:#f7f5f0; --card:#ffffff; --line:#e5e1d8;
+    --ink:#3b2f2a; --muted:#7a6a60; --bg:#f7f5f0; --card:#ffffff; --line:#e5e1d8;
     --c-intro:#64748b; --c-overview:#ca8a04; --c-ch1:#a16207; --c-ch2:#dc2626;
     --c-ch3:#0891b2; --c-ch4:#7c3aed; --c-conclusion:#0d9488;
     --t-fugitivity:#0891b2; --t-selfgov:#dc2626; --t-race:#7c3aed; --t-land:#a16207; --t-memory:#0d9488;
     --fig-accent:#db2777;
+    --font-head:"Abril Fatface",Georgia,"Times New Roman",serif;
+    --font-body:"Lato",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
   }
   *{box-sizing:border-box;}
-  body{ margin:0; font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif; background:var(--bg); color:var(--ink); }
+  body{ margin:0; font-family:var(--font-body); background:var(--bg); color:var(--ink); }
   /* NOTE: the old blanket `svg{ width:100%; height:auto; }` rule (removed below, now
      scoped to just the two D3 chart SVGs) was also matching Leaflet's internal SVG
      renderer for the map markers, collapsing it to 0x0 and throwing every marker's
      on-screen position off by several hundred pixels while leaving the tile layer
      (which isn't an <svg>) positioned correctly. */
   header{ padding:26px 32px 14px; max-width:1320px; margin:0 auto; }
-  header h1{ margin:0 0 6px; font-size:1.55rem; letter-spacing:-0.01em; }
+  header .header-image{ display:block; width:100%; height:auto; border-radius:14px; border:1px solid var(--line); margin-bottom:18px; }
+  header .byline{ margin:0 0 10px; color:var(--ink); font-size:.95rem; font-style:italic; }
+  header h1{ margin:0 0 4px; font-size:2.3rem; line-height:1.15; }
   header p{ margin:0; color:var(--muted); font-size:0.93rem; max-width:920px; line-height:1.5; }
   .wrap{ max-width:1320px; margin:0 auto; padding:0 32px 48px; }
   .panel{ background:var(--card); border:1px solid var(--line); border-radius:14px; padding:16px 20px; margin-bottom:18px; box-shadow:0 1px 2px rgba(0,0,0,.03); }
@@ -93,6 +100,8 @@
   .grid-two{ display:grid; grid-template-columns:1.1fr 0.9fr; gap:18px; align-items:start; }
   @media (max-width: 1000px){ .grid-two{ grid-template-columns:1fr; } }
 
+  h1,h2,h3,h4,.section-title{ font-family:var(--font-head); font-weight:400 !important; letter-spacing:0; }
+  .leaflet-container{ font-family:var(--font-body); }
   .section-title{ font-size:1rem; font-weight:700; margin:0 0 4px; }
   .section-sub{ font-size:.82rem; color:var(--muted); margin:0 0 12px; }
 
@@ -101,35 +110,13 @@
   #detail .badge{ display:inline-block; padding:3px 10px; border-radius:999px; color:#fff; font-size:.7rem; font-weight:700; text-transform:uppercase; letter-spacing:.04em; margin-bottom:8px; margin-right:6px;}
   #detail .date{ color:var(--muted); font-size:.8rem; font-weight:600; margin-bottom:4px; }
   #detail h3{ margin:0 0 8px; font-size:1.08rem; }
-  #detail p{ margin:0; line-height:1.55; font-size:.9rem; color:#333; }
+  #detail p{ margin:0; line-height:1.55; font-size:.9rem; color:var(--ink); }
   #detail .fig-row{ margin-top:10px; padding-top:8px; border-top:1px dashed var(--line); display:flex; flex-wrap:wrap; gap:6px; }
   #detail .fig-chip{ font-size:.72rem; font-weight:700; padding:3px 9px; border-radius:999px; background:var(--bg); color:var(--fig-accent); cursor:pointer; border:1px solid var(--line); }
 
-  /* Selected Event now spans the full panel width, so its content runs in a
-     horizontal row (event details on the left, a rotating image gallery on the
-     right) instead of stacking everything in a narrow column. On narrow
-     screens it wraps. */
   .detail-horizontal{ display:flex; gap:24px; align-items:flex-start; flex-wrap:wrap; }
   .detail-main-col{ flex:1 1 360px; min-width:260px; }
-  .detail-gallery-col{ flex:1 1 260px; max-width:340px; min-width:220px; }
   .detail-id{ color:var(--muted); font-size:.7rem; font-weight:600; float:right; }
-
-  /* Shared rotating image gallery: probes images/gallery/1.jpg, 2.jpg, ... (see
-     images/README.md) and, when any exist, shows them as a shuffled,
-     auto-advancing slideshow with manual arrows and dots. Independent of the
-     selected event/dataset — shows nothing extra when no images exist yet. */
-  .event-gallery{ position:relative; border-radius:10px; overflow:hidden; background:var(--bg); border:1px solid var(--line); min-height:60px; }
-  .event-gallery img{ width:100%; height:200px; object-fit:cover; display:block; background:var(--bg); }
-  .event-gallery-empty{ font-size:.78rem; color:var(--muted); padding:14px; text-align:center; }
-  .event-gallery-loading{ font-size:.78rem; color:var(--muted); padding:14px; text-align:center; }
-  .event-gallery-controls{ position:absolute; inset:0; display:flex; align-items:center; justify-content:space-between; padding:0 6px; opacity:0; transition:opacity .15s ease; pointer-events:none; }
-  .event-gallery:hover .event-gallery-controls{ opacity:1; pointer-events:auto; }
-  .event-gallery-btn{ background:rgba(0,0,0,.45); color:#fff; border:none; width:26px; height:26px; border-radius:50%; cursor:pointer; font-size:.9rem; line-height:1; }
-  .event-gallery-btn:hover{ background:rgba(0,0,0,.65); }
-  .event-gallery-dots{ position:absolute; bottom:7px; left:0; right:0; display:flex; justify-content:center; gap:4px; }
-  .event-gallery-dot{ width:6px; height:6px; border-radius:50%; background:rgba(255,255,255,.55); cursor:pointer; border:none; padding:0; }
-  .event-gallery-dot.active{ background:#fff; }
-  .event-gallery-count{ position:absolute; top:6px; right:8px; font-size:.66rem; color:#fff; background:rgba(0,0,0,.45); padding:1px 7px; border-radius:999px; }
 
   .fig-search{ width:100%; padding:7px 10px; border:1px solid var(--line); border-radius:8px; font-size:.83rem; margin-bottom:10px; font-family:inherit; }
   .fig-list{ max-height:420px; overflow-y:auto; }
@@ -178,7 +165,7 @@
   bar.style.cssText = [
     'position:sticky', 'top:0', 'z-index:9999',
     'background:#1A1D20', 'color:#FAF9F6',
-    'font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif',
+    'font-family:"Lato",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif',
     'font-size:13px', 'font-weight:600', 'padding:8px 16px',
     'box-shadow:0 2px 6px rgba(0,0,0,.15)'
   ].join(';');
@@ -188,7 +175,9 @@
 <div id="loading-banner">Loading timeline data…</div>
 
 <header>
-  <h1>Murder by Inches — Dissertation Explorer</h1>
+  <img class="header-image" src="images/header.webp" alt="Handwritten manuscript excerpt: &ldquo;…if such laws are still inforced upon us, it is still murdering us by inches&rdquo;">
+  <h1>&ldquo;Murdering Us By Inches&rdquo; Concept Explorer</h1>
+  <p class="byline">by Alina Scott, PhD</p>
   <p>All <span id="event-count">308</span> dated actions extracted from the dissertation, organized by the book's own four spaces of protest (plus intro and conclusion), filterable by cross-cutting theme and by era, and connected through the <span id="figure-count">48</span> recurring named figures who tie the timeline together. Click a figure to trace every appearance and see who else they show up alongside.</p>
 </header>
 
@@ -249,11 +238,6 @@
         <p class="section-sub">Click any dot for full details.</p>
         <div id="detail"><div class="placeholder">No event selected yet — click a dot above.</div></div>
       </div>
-      <div class="detail-gallery-col">
-        <p class="section-title">Gallery</p>
-        <p class="section-sub">Images courtesy of the NMAI and Historic New England.</p>
-        <div class="event-gallery" id="event-gallery"><div class="event-gallery-loading">Looking for images…</div></div>
-      </div>
     </div>
   </div>
 
@@ -300,82 +284,6 @@ function ensureMap(){
   mapMarkersLayer = L.layerGroup().addTo(eventMap);
 }
 
-// ---------- shared rotating image gallery ----------
-// Not tied to the selected event (yet) — just a general rotating display of
-// whatever's in images/gallery/. Images aren't listed anywhere the page can read
-// (GitHub Pages doesn't expose a folder's contents to client-side JS), so this
-// probes images/gallery/1.jpg, then 2.jpg, and so on, stopping at the first
-// number that doesn't exist. Whatever it finds gets shuffled into a small
-// slideshow that keeps running regardless of which event or dataset is active.
-// See images/README.md for how to add images.
-function imageExists(url){
-  return new Promise(resolve => {
-    const img = new Image();
-    img.onload = () => resolve(true);
-    img.onerror = () => resolve(false);
-    img.src = url;
-  });
-}
-function shuffleArray(arr){
-  const a = [...arr];
-  for(let i = a.length - 1; i > 0; i--){
-    const j = Math.floor(Math.random() * (i + 1));
-    [a[i], a[j]] = [a[j], a[i]];
-  }
-  return a;
-}
-let galleryTimer = null;
-async function initSharedGallery(){
-  const MAX_IMAGES = 40;
-  const found = [];
-  for(let i = 1; i <= MAX_IMAGES; i++){
-    const ok = await imageExists(`images/gallery/${i}.jpg`);
-    if(!ok) break;
-    found.push(`images/gallery/${i}.jpg`);
-  }
-  const host = document.getElementById('event-gallery');
-  if(!host) return;
-  if(found.length === 0){
-    host.innerHTML = '<div class="event-gallery-empty">No images yet — see images/README.md to add some.</div>';
-    return;
-  }
-  const order = shuffleArray(found);
-  let idx = 0;
-  host.innerHTML = `
-    <img src="${order[0]}" alt="">
-    ${order.length > 1 ? `<div class="event-gallery-count">1 / ${order.length}</div>` : ''}
-    ${order.length > 1 ? `
-      <div class="event-gallery-controls">
-        <button class="event-gallery-btn" data-dir="-1" aria-label="Previous image">&#8249;</button>
-        <button class="event-gallery-btn" data-dir="1" aria-label="Next image">&#8250;</button>
-      </div>
-      <div class="event-gallery-dots">${order.map((_, i) => `<button class="event-gallery-dot${i === 0 ? ' active' : ''}" data-i="${i}" aria-label="Image ${i + 1}"></button>`).join('')}</div>
-    ` : ''}
-  `;
-  const imgEl = host.querySelector('img');
-  const countEl = host.querySelector('.event-gallery-count');
-  const dots = host.querySelectorAll('.event-gallery-dot');
-  function show(i){
-    idx = (i + order.length) % order.length;
-    imgEl.src = order[idx];
-    if(countEl) countEl.textContent = `${idx + 1} / ${order.length}`;
-    dots.forEach((d, j) => d.classList.toggle('active', j === idx));
-  }
-  function resetTimer(){
-    if(galleryTimer){ clearInterval(galleryTimer); galleryTimer = null; }
-    if(order.length > 1){
-      galleryTimer = setInterval(() => show(idx + 1), 4000);
-    }
-  }
-  host.querySelectorAll('.event-gallery-btn').forEach(btn => {
-    btn.addEventListener('click', () => { show(idx + Number(btn.dataset.dir)); resetTimer(); });
-  });
-  dots.forEach(d => {
-    d.addEventListener('click', () => { show(Number(d.dataset.i)); resetTimer(); });
-  });
-  resetTimer();
-}
-
 // Eras and Locations are long lists, so each lives behind its own dropdown button
 // instead of an always-open row of chips. The chips themselves are still rendered
 // and toggled exactly as before (inside the panel that drops down) — this just
@@ -408,7 +316,6 @@ async function init(){
     else { loadMain(); }
   });
   setupLegendDropdowns();
-  initSharedGallery();
   loadMain();
 }
 
@@ -475,8 +382,7 @@ async function loadVanderhoop(){
 
 function renderTimelineWith(EVENTS, FIGURES, CHAPTER_META, ERAS, THEMES_RAW, LOCATIONS, EVENT_LOCATIONS){
   // Switching datasets (Main / Vanderhoop) leaves any previously-selected event's
-  // detail panel stale otherwise. The shared image gallery is independent of the
-  // selected event/dataset, so it's left running as-is.
+  // detail panel stale otherwise.
   document.getElementById('detail').innerHTML = '<div class="placeholder">No event selected yet — click a dot above.</div>';
   document.getElementById('event-count').textContent = EVENTS.length;
   document.getElementById('figure-count').textContent = FIGURES.length;
