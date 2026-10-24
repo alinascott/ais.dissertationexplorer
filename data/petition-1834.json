@@ -1190,5 +1190,20 @@
    "note": "A Mrs. Jane Wamsley appears at Gay Head in 1869."
   }
  },
- "listNote": "The transcription lists 91 names under females living at Mashpee, though the petition counts 92."
+ "listNote": "The transcription lists 91 names under females living at Mashpee, though the petition counts 92.",
+ "pages": {
+  "first": {
+   "src": "images/petition-1834-page1.jpg",
+   "label": "Page 1",
+   "caption": "Page 1: the petition’s summary, in the same words as the transcription beside it. The note at the bottom reads “The above not to be printed.”",
+   "alt": "Handwritten first page of the 1834 petition, headed “Petition,” beginning “Of the Proprietors and Inhabitants of the Marshpee Plantation, signed by 79 Males and 92 Females on the Plantation…” and ending “Presented by,” with the note “The above not to be printed.”"
+  },
+  "signatures": {
+   "src": "images/petition-1834-page11.jpg",
+   "label": "Page 11",
+   "caption": "Page 11: the start of the signers’ lists, “Names males” and “Names females,” beginning with Israel Amos and Leah Mingo. An × between names marks a signature made with a mark.",
+   "alt": "Handwritten page of signatures in two columns headed “Names males” and “Names females,” beginning with Israel Amos, Daniel Amos and Ebenezer Attaquin on the left and Leah Mingo, Peries Attaquin and Sally Hicks on the right."
+  }
+ },
+ "imageCredit": ""
 }
