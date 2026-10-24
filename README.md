@@ -1,82 +1,72 @@
-[README.md](https://github.com/user-attachments/files/32207918/README.md)
-# ais.dissertationexplorer
-# "Murdering Us By Inches" Concept Explorer
+# “Murdering Us By Inches” Concept Explorer
 
-by Alina Scott, PhD
+**by Alina Scott, PhD** · **[Open the live site →](https://alinascott.github.io/ais.dissertationexplorer/)**
 
-An interactive timeline of the 308 dated actions, figures, and events documented in the dissertation *Murder by Inches*. Explore the material through the dissertation's own structure (its four "spaces of protest," plus the introduction and conclusion), through five cross-cutting themes, or through the 48 recurring named figures who tie the narrative together.
+[![The Concept Explorer: the handwritten 1834 petition line “it is still murdering us by inches” above the title, the section tabs, and the timeline](images/screenshot.jpg)](https://alinascott.github.io/ais.dissertationexplorer/)
 
-## View it live
+An interactive companion to the dissertation *Murder by Inches: Family, Race, and Wampanoag Networks of Petitioners (1800–1870)* (PhD diss., University of Texas at Austin, 2025). It turns the dissertation’s dated actions, recurring people, places and arguments into views you can filter and follow, alongside one of its central sources: the 1834 petition of the Mashpee Indians, whose phrase “it is still murdering us by inches” gives the project its title.
 
-The easiest way to use this is via **GitHub Pages**:
+## What’s on the site
 
-1. Push this repo (or this folder, if it's part of a larger repo) to GitHub.
-2. Go to **Settings → Pages** in the repo.
-3. Under "Build and deployment," set **Source** to "Deploy from a branch," pick your default branch (e.g. `main`) and the `/ (root)` folder — or `/docs` if you place this folder there instead.
-4. Save. GitHub will publish the site at `https://<your-username>.github.io/<repo-name>/` within a minute or two.
+Each section is a tab with its own link:
 
-Once live, open that URL — no build step, no dependencies to install.
+| Tab | What it shows |
+|---|---|
+| [Timeline Explorer](https://alinascott.github.io/ais.dissertationexplorer/#timeline-explorer) | 308 dated events in one row per part of the dissertation, filterable by chapter, era, theme, place and search. Click a dot for its details; drag the overview strip to zoom. |
+| [Map](https://alinascott.github.io/ais.dissertationexplorer/#map) | The 25 places those events name, sized by number of events, with a list of places and the selected event alongside. |
+| [Chapter Synthesis](https://alinascott.github.io/ais.dissertationexplorer/#chapter-synthesis) | Each section’s central argument, evidence, key people, places, themes and core claim. |
+| [Key Figures](https://alinascott.github.io/ais.dissertationexplorer/#key-figures) | The 57 people who recur across the events; pick one to trace their thread through the timeline. |
+| [1834 Mashpee Petition](https://alinascott.github.io/ais.dissertationexplorer/#mashpee-petition) | Manuscript pages beside their transcription, the full text, and all 286 transcribed signers, with links for those who also appear in the dissertation. |
+| [About & Method](https://alinascott.github.io/ais.dissertationexplorer/#about) | How the data was gathered, what “possible match” means, how map locations are matched, and how to cite the site. |
 
-## Running it locally
+The counts above describe the current data; the site itself computes every number it shows from the files in `data/`.
 
-This page loads its data from the `data/` folder at runtime via `fetch()`, so it needs to be served over HTTP — opening `index.html` directly from disk (a `file://` URL) will fail in most browsers because they block local `fetch` calls for security. From this folder, run:
+## How the data was made
+
+In short (the full account is in the site’s **About & Method** tab):
+
+- **Events** were extracted from the dissertation’s full text (front-matter timeline, chapters and conclusion), deduplicated, and assigned to the section they come from, with one primary theme and optional secondary themes.
+- **Recurring figures** come from a curated list of names and variants, traced through every event.
+- **Map locations** are matched automatically from place names in each event’s text, so some are approximate and 76 events name no mappable place.
+- **Petition signers** were compared by hand with the dissertation. “In the dissertation” means the same name (or a documented spelling); “possible match” means likely but uncertain, and each carries a note.
+
+## How to cite
+
+> Scott, Alina. “Murdering Us By Inches” Concept Explorer. 2026. https://alinascott.github.io/ais.dissertationexplorer/.
+
+The underlying research: Alina Scott, *Murder by Inches: Family, Race, and Wampanoag Networks of Petitioners (1800–1870)* (PhD diss., University of Texas at Austin, 2025).
+
+## Repository contents
+
+```
+index.html                     the whole site: page, styles and code
+data/
+  events.json                  timeline events
+  figures.json                 recurring figures and who appears with whom
+  chapters.json, themes.json,  labels and colors for chapters, themes
+  eras.json                    and eras
+  locations.json               map locations
+  main-event-locations.json    which places each event names
+  chapter-synthesis.json       the Chapter Synthesis content
+  petition-1834.json           petition text, signers and signer links
+images/
+  header.webp                  banner (1834 petition manuscript)
+  petition-1834-page1.jpg      petition, page 1
+  petition-1834-page11.jpg     petition, signature page
+  social-card.jpg              preview image for shared links
+  screenshot.jpg               the screenshot above
+```
+
+### Previewing changes locally
+
+The page loads its data with `fetch()`, so open it through a local web server rather than by double-clicking `index.html`:
 
 ```bash
 python3 -m http.server 8000
 ```
 
-then visit `http://localhost:8000/` in a browser. (Any static file server works — `npx serve`, VS Code's Live Server extension, etc.)
+Then visit http://localhost:8000/. Changes pushed to `main` publish to the live site through GitHub Pages within a minute or two.
 
-## What's inside
+## Credits
 
-```
-.
-├── index.html          # page structure, styles, and all interactive logic
-├── data/
-│   ├── events.json      # 308 timeline events
-│   ├── figures.json     # 48 recurring named figures + co-occurrence links
-│   └── chapters.json    # labels/colors for the 7 chapter categories
-└── README.md
-```
-
-Keeping the data in separate JSON files (rather than inlined in the HTML) keeps `index.html` readable and makes the underlying dataset easy to diff, review, or reuse on its own — useful if this repo is reviewed on GitHub rather than just run.
-
-### Data fields
-
-Each entry in `data/events.json`:
-
-| field | meaning |
-|---|---|
-| `id` | stable identifier, e.g. `e147` |
-| `year` / `endYear` | numeric year (`endYear` is `null` for single-date events) |
-| `displayDate` | human-readable date string shown in the UI |
-| `headline` | short title for the event |
-| `text` | fuller description, shown in the detail panel |
-| `chapter` | which of the 7 dissertation sections the event comes from |
-| `theme` | one of 5 cross-cutting analytical themes |
-| `figures` | names of recurring figures mentioned in this event |
-
-Each entry in `data/figures.json`:
-
-| field | meaning |
-|---|---|
-| `id` | stable identifier, e.g. `fig-solomon-attaquin` |
-| `name` | canonical display name |
-| `count` | number of events this figure appears in |
-| `events` | ids of those events |
-| `coOccurs` | other recurring figures who appear in events with this one, with a count |
-
-`data/chapters.json` maps each of the 7 `chapter` values used in `events.json` to a display label, short label, and legend color.
-
-## Features
-
-- **Timeline** — a zoomable, pannable D3 view of all 308 events, positioned by year with automatic lane-stacking so densely-packed years (peaking at 14 events in both 1833 and 1869) don't overlap.
-- **Chapter legend** — click a chip to show/hide events from that section of the dissertation.
-- **Theme filter** — a secondary, cross-cutting set of five analytical categories; selecting one dims everything else.
-- **Notable Figures panel** — all 48 recurring people, sorted by frequency. Click one to trace a connecting line through every event they appear in and see who they most often appear alongside; click a co-occurring name to jump to them.
-- **Search** — free-text filter across headlines and event descriptions.
-- **Detail panel** — click any dot for the full text of that event and the figures involved.
-
-## Provenance
-
-The underlying dataset was extracted from the dissertation's full text (front-matter timeline, chapters, and conclusion), deduplicated, and cross-referenced against the dissertation's own chapter structure to assign each event's primary category. Recurring figures were identified via a curated name/alias list and cross-referenced across all 308 entries to compute co-occurrence.
+Petition transcription and notes: [Native Northeast Portal](https://www.nativenortheastportal.com/annotated-transcription/digcoll1834012900). Map data © OpenStreetMap contributors, drawn with Leaflet. Charts drawn with D3. Research, data and site design by Alina Scott.

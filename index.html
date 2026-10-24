@@ -4,6 +4,24 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>"Murdering Us By Inches" Concept Explorer — Alina Scott, PhD</title>
+<meta name="description" content="An interactive explorer of Alina Scott’s dissertation on Wampanoag petitioners, family, and race in Massachusetts, 1800–1870: a timeline of 300+ dated events, a map, chapter arguments, recurring figures, and the 1834 Mashpee petition and its signers.">
+<meta name="author" content="Alina Scott">
+<link rel="canonical" href="https://alinascott.github.io/ais.dissertationexplorer/">
+<!-- Link previews (Facebook, LinkedIn, Slack, iMessage, X/Twitter, …) -->
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Alina Scott, PhD">
+<meta property="og:title" content="“Murdering Us By Inches” Concept Explorer">
+<meta property="og:description" content="An interactive explorer of Alina Scott’s dissertation on Wampanoag petitioners, family, and race in Massachusetts, 1800–1870: a timeline of 300+ dated events, a map, chapter arguments, recurring figures, and the 1834 Mashpee petition and its signers.">
+<meta property="og:url" content="https://alinascott.github.io/ais.dissertationexplorer/">
+<meta property="og:image" content="https://alinascott.github.io/ais.dissertationexplorer/images/social-card.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="The handwritten line “it is still murdering us by inches” from the 1834 Mashpee petition, with the site title">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="“Murdering Us By Inches” Concept Explorer">
+<meta name="twitter:description" content="An interactive explorer of Alina Scott’s dissertation on Wampanoag petitioners, family, and race in Massachusetts, 1800–1870: a timeline of 300+ dated events, a map, chapter arguments, recurring figures, and the 1834 Mashpee petition and its signers.">
+<meta name="twitter:image" content="https://alinascott.github.io/ais.dissertationexplorer/images/social-card.jpg">
+<meta name="twitter:image:alt" content="The handwritten line “it is still murdering us by inches” from the 1834 Mashpee petition, with the site title">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Abril+Fatface&family=Lato:ital,wght@0,400;0,700;0,900;1,400&display=swap">
@@ -71,6 +89,12 @@
   .section-tabs-bar.stuck .st-badge svg{ width:13px; height:13px; }
   .tab-folder{ background:var(--folder); border:1px solid var(--line); border-top:3px solid var(--sec-color, #34504c); border-radius:0 0 16px 16px; padding:18px 18px 4px; position:relative; z-index:1; margin-bottom:24px; }
   .tab-panel[hidden]{ display:none; }
+  .about{ max-width:none; }
+  .about > p, .about li{ font-size:.92rem; line-height:1.65; max-width:860px; }
+  .about h3{ font-size:1.12rem; margin:20px 0 6px; }
+  .about ul{ padding-left:20px; margin:0; }
+  .about li{ margin-bottom:6px; }
+  .about .cite-chicago-copy{ background:var(--bg); border:1px solid var(--line); border-radius:10px; padding:10px 14px; font-size:.86rem; }
   .tab-panel-intro{ font-size:.85rem; color:var(--muted); margin:0 2px 14px; }
   @media (max-width: 800px){
     .section-tabs{ overflow-x:auto; padding:0 16px; scrollbar-width:none; }
@@ -126,7 +150,17 @@
   }
   .legend-dropdown.open .legend-dropdown-panel{ display:flex; }
 
-  #chart-panel{ padding:8px 8px 4px; }
+  #chart-panel{ padding:8px 8px 4px; position:relative; }
+  .chart-key{ display:flex; flex-wrap:wrap; gap:6px 20px; margin:2px 6px 6px; font-size:.74rem; color:var(--muted); }
+  .chart-key span{ display:inline-flex; align-items:center; gap:6px; }
+  /* Event popover: sits beside the clicked dot (flips to the dot's left near the
+     right edge); on narrow screens it spans the panel just below the dot. */
+  .event-pop{ position:absolute; z-index:30; width:380px; max-width:calc(100% - 16px); background:var(--card); border:1px solid var(--line); border-radius:14px; box-shadow:0 14px 34px rgba(59,47,42,.22); padding:14px 16px 12px; }
+  .event-pop[hidden]{ display:none; }
+  .event-pop .ep-close{ position:absolute; top:6px; right:8px; width:28px; height:28px; border:none; background:none; font-size:1.3rem; line-height:1; color:var(--muted); cursor:pointer; border-radius:8px; }
+  .event-pop .ep-close:hover{ background:var(--bg); color:var(--ink); }
+  .event-pop #detail{ max-height:min(420px, 60vh); overflow-y:auto; padding-right:6px; }
+  .event-pop #detail .detail-id{ float:none; display:block; margin:0 30px 6px 0; }
   #chart{ display:block; width:100%; height:auto; }
   .axis text{ fill:var(--muted); font-size:11px; }
   .axis path, .axis line{ stroke:var(--line); }
@@ -164,7 +198,7 @@
   .section-title{ font-size:1rem; font-weight:700; margin:0 0 4px; }
   .section-sub{ font-size:.82rem; color:var(--muted); margin:0 0 12px; }
 
-  #detail{ min-height:60px; }
+  #detail{ min-height:40px; }
   #detail .placeholder{ color:var(--muted); font-size:.87rem; }
   #detail .badge{ display:inline-block; padding:3px 10px; border-radius:999px; color:#fff; font-size:.7rem; font-weight:700; text-transform:uppercase; letter-spacing:.04em; margin-bottom:8px; margin-right:6px;}
   #detail .date{ color:var(--muted); font-size:.8rem; font-weight:600; margin-bottom:4px; }
@@ -240,6 +274,8 @@
   button.pet-name.active{ background:var(--fig-accent); color:#fff; }
   button.pet-name.active .mk, button.pet-name.active sup{ color:#fff; }
   .pet-empty{ font-size:.8rem; color:var(--muted); }
+  .pet-expand{ font:inherit; font-size:.78rem; font-weight:700; margin-top:8px; padding:4px 11px; border-radius:8px; border:1px solid var(--line); background:#fff; color:var(--ink); cursor:pointer; }
+  .pet-expand:hover{ background:var(--bg); }
   .pet-full{ margin-top:6px; border-top:1px dashed var(--line); padding-top:12px; }
   .pet-full summary{ cursor:pointer; font-weight:700; font-size:.88rem; }
   .pet-text{ max-width:820px; margin-top:12px; }
@@ -273,6 +309,13 @@
   .fig-events-list .ev-row:hover{ background:var(--bg); }
   .fig-events-list .ev-year{ color:var(--muted); font-weight:700; font-size:.74rem; min-width:60px; }
 
+  .site-footer{ max-width:1320px; margin:0 auto; padding:6px 32px 40px; text-align:center; font-size:.8rem; color:var(--muted); line-height:1.55; }
+  .site-footer p{ margin:0 0 6px; }
+  .site-footer .cite-source{ color:var(--ink); }
+  .cite-how{ display:inline-block; text-align:left; max-width:780px; margin-top:4px; }
+  .cite-how summary{ cursor:pointer; font-weight:700; color:var(--ink); text-align:center; }
+  .cite-how p{ margin:8px 0; }
+  .cite-how button{ font:inherit; font-size:.76rem; font-weight:700; padding:4px 10px; border-radius:8px; border:1px solid var(--line); background:#fff; color:var(--ink); cursor:pointer; }
   footer{ text-align:center; color:var(--muted); font-size:.78rem; padding:0 32px 40px; }
 
   #loading-banner{ text-align:center; padding:14px 20px; background:#fff; color:var(--muted); font-size:.85rem; border-bottom:1px solid var(--line); }
@@ -382,7 +425,7 @@
 <header>
   <h1>&ldquo;Murdering Us By Inches&rdquo; Concept Explorer</h1>
   <p class="byline">by Alina Scott, PhD</p>
-  <p>All <span id="event-count">308</span> dated actions extracted from the dissertation, organized by the book's own four spaces of protest (plus intro and conclusion), filterable by cross-cutting theme and by era, and connected through the <span id="figure-count">48</span> recurring named figures who tie the timeline together. Click a figure to trace every appearance and see who else they show up alongside.</p>
+  <p>All <span id="event-count">–</span> dated actions extracted from the dissertation, organized by the book's own four spaces of protest (plus intro and conclusion), filterable by cross-cutting theme and by era, and connected through the <span id="figure-count">–</span> recurring named figures who tie the timeline together. Click a figure to trace every appearance and see who else they show up alongside.</p>
 </header>
 
 <div id="tabs-sentinel" aria-hidden="true"></div>
@@ -407,6 +450,10 @@
     <button type="button" class="section-tab" role="tab" id="tab-mashpee-petition" aria-controls="panel-mashpee-petition" data-section="mashpee-petition" style="--c:#7a6a60">
       <span class="st-badge" aria-hidden="true"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M14 3v4a1 1 0 0 0 1 1h4"/><path d="M17 21H7a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h7l5 5v11a2 2 0 0 1-2 2z"/><path d="M9 9h1M9 13h6M9 17h6"/></svg></span>
       <span class="st-label">1834 Mashpee Petition</span>
+    </button>
+    <button type="button" class="section-tab" role="tab" id="tab-about" aria-controls="panel-about" data-section="about" style="--c:#5d5a6b">
+      <span class="st-badge" aria-hidden="true"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 11v5"/><path d="M12 7.5h.01"/></svg></span>
+      <span class="st-label">About &amp; Method</span>
     </button>
   </div>
 </nav>
@@ -466,17 +513,16 @@
     </div>
     <svg id="overview" viewBox="0 0 1180 62"></svg>
     <svg id="chart" viewBox="0 0 1180 560"></svg>
-  </div>
-
-  <div class="panel" id="selected-event-panel">
-    <div class="detail-horizontal">
-      <div class="detail-main-col">
-        <p class="section-title">Selected Event</p>
-        <p class="section-sub">Click any dot for full details.</p>
-        <div id="detail"><div class="placeholder">No event selected yet — click a dot above.</div></div>
-      </div>
+    <p class="chart-key" aria-label="Chart key">
+      <span><svg width="14" height="14" aria-hidden="true"><circle cx="7" cy="7" r="5.5" fill="#a16207" stroke="#fff" stroke-width="1.4"/></svg>A dated event (click for details)</span>
+      <span><svg width="34" height="14" aria-hidden="true"><line x1="4" y1="7" x2="30" y2="7" stroke="#a16207" stroke-width="4" stroke-linecap="round" opacity=".3"/><circle cx="4" cy="7" r="4" fill="#a16207"/></svg>Faint bar: the event spans a range of years, from its start date to its end date</span>
+      <span><svg width="22" height="14" aria-hidden="true"><rect x="1" y="1" width="20" height="12" fill="url(#gap-hatch)" stroke="var(--line)"/></svg>Hatched: a long stretch with no events, compressed</span>
+    </p>
+    <!-- Selected event: a popover anchored next to the clicked dot. -->
+    <div class="event-pop" id="event-pop" role="dialog" aria-label="Selected event" hidden>
+      <button type="button" class="ep-close" id="ep-close" aria-label="Close event details">×</button>
+      <div id="detail"></div>
     </div>
-  </div>
 
 </section>
 
@@ -512,7 +558,7 @@
 <section class="tab-panel" id="panel-key-figures" role="tabpanel" aria-labelledby="tab-key-figures" data-section="key-figures" hidden>
   <div class="panel" id="figures-wrap-panel">
     <p class="section-title">Key Figures</p>
-    <p class="section-sub" id="fig-sub">48 recurring people tie this timeline together. Click one to trace their thread.</p>
+    <p class="section-sub" id="fig-sub">Recurring people tie this timeline together. Click one to trace their thread.</p>
     <div id="figures-panel"></div>
   </div>
 </section>
@@ -524,10 +570,58 @@
   </div>
 </section>
 
+<section class="tab-panel" id="panel-about" role="tabpanel" aria-labelledby="tab-about" data-section="about" hidden>
+  <div class="panel about">
+    <p class="section-title">About This Site</p>
+    <p>This explorer accompanies Alina Scott’s dissertation, <i>Murder by Inches: Family, Race, and Wampanoag Networks of Petitioners (1800–1870)</i> (PhD diss., University of Texas at Austin, 2025). It turns the dissertation’s dated actions, recurring people, places and arguments into views you can filter and follow, and pairs them with one of its central sources, the 1834 petition of the Mashpee Indians, which gives the dissertation and this site their title.</p>
+
+    <h3>How the events were gathered</h3>
+    <ul>
+      <li>Every dated action was extracted from the dissertation’s full text: the front-matter timeline, each chapter and the conclusion. Duplicates were merged.</li>
+      <li>Each event belongs to the part of the dissertation it comes from (Preface and Introduction, the four “spaces of protest,” and the Conclusion), carries one primary theme, and may carry secondary themes added on a later review of the manuscript.</li>
+      <li>Dates follow the source: approximate dates keep their “c.,” and events that span years are drawn as faint bars from start to end. Of <span data-count="dated">–</span> dated events plus <span data-count="undated">–</span> undated, only dated events appear on the timeline.</li>
+      <li>The timeline’s axis is stretched on purpose: each 25-year stretch gets width according to how many events fall in it, so busy decades are readable. Long empty stretches are compressed and hatched.</li>
+    </ul>
+
+    <h3>Recurring figures</h3>
+    <p>The <span data-count="figures">–</span> recurring figures were identified from a curated list of names and their variants, then traced through every event to count appearances and see who appears alongside whom.</p>
+
+    <h3>Map locations</h3>
+    <p>Places are matched <b>automatically</b> from the place names written in each event’s text, then placed using a list of locations. Some markers are approximate, some stand for a whole state or the federal government rather than one point, and <span data-count="unplaced">–</span> events name no place that could be mapped. Treat the map as a guide to where activity concentrates, not as exact locations.</p>
+
+    <h3>Chapter Synthesis</h3>
+    <p>The synthesis is drawn from the dissertation’s research argument map: each section’s central argument, its evidence, key people, places and themes, and a one-sentence claim.</p>
+
+    <h3>The 1834 petition and its signers</h3>
+    <ul>
+      <li>The text and the four lists of signers come from the Native Northeast Portal’s annotated transcription of the “Petition of the Mashpee Indians to the Senate and House of Representatives of the Commonwealth of Massachusetts.” Spelling and wording follow that transcription. The footnotes are the Portal’s editorial notes.</li>
+      <li>Signers were compared by hand with the people in the dissertation. Of <span data-count="signers">–</span> transcribed names, <span data-count="signersMatched">–</span> are linked to dissertation events.</li>
+      <li><b>In the dissertation</b> means the same name appears there, or a documented spelling of it (William Apes is spelled “Apess” in the dissertation).</li>
+      <li><b>Possible match</b> (<span data-count="signersPossible">–</span> names) means it is likely, but not certain, that the signer is the person in the dissertation: a middle initial differs, a married name may differ, or the dissertation’s record comes from another time or community. Each possible match carries a note explaining why.</li>
+      <li>An unlinked name may still be in the dissertation under a spelling or name not yet matched.</li>
+    </ul>
+
+    <h3>How to cite this site</h3>
+    <p class="cite-chicago-copy"></p>
+
+    <h3>Credits</h3>
+    <p>Petition transcription and notes: Native Northeast Portal. Map data © OpenStreetMap contributors, drawn with Leaflet. Charts drawn with D3. Site design and data by Alina Scott.</p>
+  </div>
+</section>
+
 </div>
 </div>
 
-<footer id="footer-note">Built from Dissertation_Timeline.xlsx — 308 events, 48 recurring named figures, organized by the dissertation's own chapter structure.</footer>
+<footer class="site-footer" id="site-footer">
+  <p class="cite-source">Based on Alina Scott, <i>Murder by Inches: Family, Race, and Wampanoag Networks of Petitioners (1800–1870)</i> (PhD diss., University of Texas at Austin, 2025).</p>
+  <p class="cite-counts" id="footer-counts"></p>
+  <details class="cite-how">
+    <summary>How to cite this site</summary>
+    <p><b>Chicago:</b> <span id="cite-chicago"></span></p>
+    <p><b>APA:</b> <span id="cite-apa"></span></p>
+    <button type="button" id="cite-copy">Copy Chicago citation</button>
+  </details>
+</footer>
 
 <div class="tooltip" id="tooltip"></div>
 
@@ -542,7 +636,7 @@
 
 <script>
 // ---------- shared map layer (persists across dataset switches) ----------
-// Leaflet's map can only be initialized once per container, but loadMain()/loadScott()
+// Leaflet's map can only be initialized once per container, but loadMain()/loadVanderhoop()
 // re-run renderTimelineWith() on every dataset switch, so the map instance and its
 // marker layer live up here instead of inside renderTimelineWith.
 let eventMap = null;
@@ -591,14 +685,57 @@ function setupLegendDropdowns(){
   });
 }
 
+// ---------- site facts, counts and citations ----------
+// Every number shown in the header, footer and About tab is computed from the
+// data files at load time (see setCount); nothing is typed in by hand.
+const SITE = {
+  title: '“Murdering Us By Inches” Concept Explorer',
+  author: { last: 'Scott', first: 'Alina' },
+  url: 'https://alinascott.github.io/ais.dissertationexplorer/',
+  year: 2026,
+  dissertation: {
+    title: 'Murder by Inches: Family, Race, and Wampanoag Networks of Petitioners (1800–1870)',
+    institution: 'University of Texas at Austin',
+    year: 2025
+  }
+};
+const COUNTS = {};
+// Store a count and write it into every element marked data-count="name".
+function setCount(name, value){
+  COUNTS[name] = value;
+  document.querySelectorAll(`[data-count="${name}"]`).forEach(el => { el.textContent = value; });
+  renderFooterCounts();
+}
+function renderFooterCounts(){
+  const el = document.getElementById('footer-counts');
+  if(!el || COUNTS.dated == null) return;
+  const parts = [`${COUNTS.dated} dated events${COUNTS.undated ? ` (plus ${COUNTS.undated} undated)` : ''}`,
+    `${COUNTS.figures} recurring figures`, `${COUNTS.places} mapped places`];
+  if(COUNTS.signers != null) parts.push(`${COUNTS.signers} signers of the 1834 petition`);
+  el.textContent = `${COUNTS.view === 'main' ? 'This explorer' : 'Current view'}: ${parts.join(' · ')}.`;
+}
+function renderCitations(){
+  const accessed = new Date().toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
+  const chicago = `${SITE.author.last}, ${SITE.author.first}. ${SITE.title}. ${SITE.year}. ${SITE.url}. Accessed ${accessed}.`;
+  const apa = `${SITE.author.last}, ${SITE.author.first[0]}. (${SITE.year}). ${SITE.title} [Interactive website]. ${SITE.url}`;
+  document.getElementById('cite-chicago').textContent = chicago;
+  document.getElementById('cite-apa').textContent = apa;
+  document.querySelectorAll('.cite-chicago-copy').forEach(el => { el.textContent = chicago; });
+  const btn = document.getElementById('cite-copy');
+  btn.onclick = () => navigator.clipboard.writeText(chicago).then(() => {
+    btn.textContent = 'Copied'; setTimeout(() => { btn.textContent = 'Copy Chicago citation'; }, 1600);
+  });
+}
+renderCitations();
+
 // ---------- section tabs ----------
 // Each tab has its own address (#timeline-explorer, #map, #chapter-synthesis,
-// #key-figures, #mashpee-petition), so sections can be linked to directly and
+// #key-figures, #mashpee-petition, #about), so sections can be linked to directly and
 // the back button moves between them. None of these ids match an element on
 // the page, so following one never makes the browser jump on its own.
 // onSectionShown is set by renderTimelineWith: the map and timeline need to be
 // redrawn when their tab opens, since hidden elements have no size.
-const SECTION_IDS = ['timeline-explorer', 'map', 'chapter-synthesis', 'key-figures', 'mashpee-petition'];
+const SECTION_IDS = ['timeline-explorer', 'map', 'chapter-synthesis', 'key-figures', 'mashpee-petition', 'about'];
 let onSectionShown = null;
 function currentSectionFromHash(){
   const id = location.hash.slice(1);
@@ -704,23 +841,6 @@ async function loadMain(){
   renderTimelineWith(EVENTS, FIGURES, CHAPTER_META, ERAS, THEMES_RAW, LOCATIONS, EVENT_LOCATIONS);
 }
 
-async function loadScott(){
-  // NOTE: this file lives at the repo root (same folder as index.html), not in data/ —
-  // the other Scott files (scott-eras.json, scott-themes.json) do live in data/.
-  const EVENTS = await fetch('scott-events.json').then(r => r.json());
-  const CHAPTER_META = { scott_dissertation: { short: 'Scott', label: 'Scott Timeline', color: '#6366f1' } };
-  const ERAS = await fetch('data/scott-eras.json').then(r => r.json());
-  const THEMES_RAW = await fetch('data/scott-themes.json').then(r => r.json());
-  const LOCATIONS = await fetch('data/locations.json').then(r => r.json());
-  const EVENT_LOCATIONS = await fetch('data/scott-event-locations.json').then(r => r.json());
-  const figCounts = {};
-  EVENTS.forEach(e => { (e.figures || []).forEach(f => { figCounts[f] = (figCounts[f] || 0) + 1; }); });
-  const FIGURES = Object.entries(figCounts)
-    .map(([name, count]) => ({ name, count, events: EVENTS.filter(e => (e.figures || []).includes(name)).map(e => e.id), coOccurs: [] }))
-    .sort((a,b) => b.count - a.count);
-  renderTimelineWith(EVENTS, FIGURES, CHAPTER_META, ERAS, THEMES_RAW, LOCATIONS, EVENT_LOCATIONS);
-}
-
 // Mary Cleggett Vanderhoop & the Vanderhoops of Aquinnah (Gay Head): a slice of the
 // main dataset limited to events where at least one of these named family members
 // appears in the event's figures list. Other figures who co-occur in those same
@@ -756,13 +876,19 @@ function renderTimelineWith(EVENTS, FIGURES, CHAPTER_META, ERAS, THEMES_RAW, LOC
   clearInterval(strollTimer); strollTimer = null;
   // Switching datasets (Main / Vanderhoop) leaves any previously-selected event's
   // detail panel stale otherwise.
-  document.getElementById('detail').innerHTML = '<div class="placeholder">No event selected yet — click a dot above.</div>';
+  document.getElementById('event-pop').hidden = true;
   const mapSel = document.getElementById('map-selected');
   if(mapSel) mapSel.innerHTML = '<div class="placeholder">No event selected. Click a marker or a place below.</div>';
-  document.getElementById('event-count').textContent = EVENTS.length;
+  const datedCount = EVENTS.filter(e => typeof e.year === 'number').length;
+  COUNTS.view = document.getElementById('dataset-select').value;
+  setCount('dated', datedCount);
+  setCount('undated', EVENTS.length - datedCount);
+  setCount('figures', FIGURES.length);
+  setCount('places', new Set(EVENTS.flatMap(e => (EVENT_LOCATIONS[e.id] || []).filter(id => LOCATIONS[id]))).size);
+  setCount('unplaced', EVENTS.filter(e => !(EVENT_LOCATIONS[e.id] || []).some(id => LOCATIONS[id])).length);
+  document.getElementById('event-count').textContent = datedCount;
   document.getElementById('figure-count').textContent = FIGURES.length;
   document.getElementById('fig-sub').textContent = `${FIGURES.length} recurring people tie this timeline together. Click one to trace their thread.`;
-  document.getElementById('footer-note').textContent = `Built from Dissertation_Timeline.xlsx — ${EVENTS.length} events, ${FIGURES.length} recurring named figures, organized by the dissertation's own chapter structure.`;
 
   const THEME_META = {};
   Object.entries(THEMES_RAW).forEach(([key, t]) => { THEME_META[key] = { label: t.label, hex: t.color, kind: t.kind || 'primary' }; });
@@ -774,12 +900,8 @@ function renderTimelineWith(EVENTS, FIGURES, CHAPTER_META, ERAS, THEMES_RAW, LOC
   ERAS.forEach(e => { ERA_META[e.id] = e; });
 
   // Chapter order and colors are derived from whichever CHAPTER_META was passed in
-  // (7 keys for the main dataset, a single "scott_dissertation" key for the Scott
-  // dataset) instead of being hardcoded to the main dataset's keys — that hardcoding
-  // used to crash the Scott view (CHAPTER_META[ch] was undefined for every key it
-  // looped over). Likewise, chapter colors are read straight off CHAPTER_META.color
-  // (every chapters file already has one) instead of a separate CSS-variable map
-  // that only had entries for the main dataset's 7 chapters.
+  // instead of being hardcoded, and chapter colors are read straight off
+  // CHAPTER_META.color (every chapters file has one).
   const CHAPTER_ORDER = Object.keys(CHAPTER_META);
 
   const figMap = new Map(FIGURES.map(f => [f.name, f]));
@@ -1113,7 +1235,7 @@ function renderTimelineWith(EVENTS, FIGURES, CHAPTER_META, ERAS, THEMES_RAW, LOC
     const i = list.indexOf(state.selected);
     const next = i === -1 ? (dir > 0 ? 0 : list.length-1) : i + dir;
     if(next < 0 || next >= list.length) return false;
-    selectEvent(list[next], { locId });
+    selectEvent(list[next], { locId, quiet: true });
     return true;
   }
   function startStroll(locId){
@@ -1282,8 +1404,57 @@ function renderTimelineWith(EVENTS, FIGURES, CHAPTER_META, ERAS, THEMES_RAW, LOC
     host.innerHTML = `<span class="badge" style="background:${chMeta.color}">${chMeta.short}</span>
       <div class="ms-date">${d.displayDate}</div><h4>${d.headline}</h4><p>${d.text}</p>
       <button type="button" id="map-open-timeline">See it on the timeline</button>`;
-    document.getElementById('map-open-timeline').addEventListener('click', () => goToSection('timeline-explorer', 'selected-event-panel', 'center'));
+    document.getElementById('map-open-timeline').addEventListener('click', () => goToSection('timeline-explorer', 'chart-panel'));
   }
+
+  // ---------- event popover ----------
+  // Places the popover beside the selected dot, in chart-panel coordinates.
+  // If the dot isn't drawn (filtered out or scrolled off by zooming), it's
+  // pinned to the top-left of the chart instead.
+  const eventPop = document.getElementById('event-pop');
+  function positionEventPop(){
+    if(eventPop.hidden || !state.selected) return;
+    const panel = document.getElementById('chart-panel');
+    const pr = panel.getBoundingClientRect();
+    const node = gDots.selectAll('.event-dot').filter(d => d === state.selected).node();
+    const cr = node && node.getBoundingClientRect();
+    const onScreen = cr && cr.width && cr.left >= pr.left && cr.right <= pr.right;
+    const x = onScreen ? cr.left - pr.left + cr.width/2 : 24;
+    const y = onScreen ? cr.top - pr.top + cr.height/2 : document.getElementById('chart').getBoundingClientRect().top - pr.top + 30;
+    const w = eventPop.offsetWidth, h = eventPop.offsetHeight;
+    let left, top;
+    if(pr.width < 640){
+      left = 8; top = y + 16;
+    } else {
+      left = x + 18;
+      if(left + w > pr.width - 8) left = x - 18 - w;
+      left = Math.max(8, left);
+      top = Math.min(Math.max(8, y - 44), Math.max(8, pr.height - h - 8));
+    }
+    eventPop.style.left = left + 'px';
+    eventPop.style.top = top + 'px';
+  }
+  function showEventPop(scroll){
+    eventPop.hidden = false;
+    positionEventPop();
+    if(scroll && document.getElementById('panel-timeline-explorer').hidden === false){
+      requestAnimationFrame(() => eventPop.scrollIntoView({ behavior: 'smooth', block: 'nearest' }));
+    }
+  }
+  function hideEventPop(){ eventPop.hidden = true; }
+  function deselectEvent(){
+    state.selected = null;
+    hideEventPop();
+    renderMapSelected(null);
+    render();
+  }
+  document.getElementById('ep-close').onclick = deselectEvent;
+  // Esc closes it; so does a click on empty chart space (not a dot).
+  if(window.__eventPopKeys) document.removeEventListener('keydown', window.__eventPopKeys);
+  window.__eventPopKeys = ev => { if(ev.key === 'Escape' && !eventPop.hidden && !document.getElementById('img-viewer').open) deselectEvent(); };
+  document.addEventListener('keydown', window.__eventPopKeys);
+  svg.on('click.pop', ev => { if(!ev.target.classList.contains('event-dot') && !eventPop.hidden) deselectEvent(); });
+  window.onresize = () => positionEventPop();
 
   function render(){
     renderGaps();
@@ -1336,6 +1507,7 @@ function renderTimelineWith(EVENTS, FIGURES, CHAPTER_META, ERAS, THEMES_RAW, LOC
           .attr('d', `M${x1},${y1} C${x1},${midY} ${x2},${midY} ${x2},${y2}`);
       }
     }
+    positionEventPop();
   }
 
   // opts.locId: when the selection comes from a particular map marker (a popup
@@ -1365,6 +1537,17 @@ function renderTimelineWith(EVENTS, FIGURES, CHAPTER_META, ERAS, THEMES_RAW, LOC
       selectFigure(d3.select(this).attr('data-fig'));
     });
     renderMapSelected(d);
+    // If zooming has put this dot off-screen, slide the timeline (same zoom
+    // level) so the dot is in the middle, then open the popover beside it.
+    if(typeof d.year === 'number'){
+      const t = d3.zoomTransform(svg.node());
+      const cx = xScale(d.year);
+      if(t.k > 1 && (cx < PLOT_L || cx > PLOT_R)){
+        const tx = (PLOT_L + PLOT_R)/2 - t.k * xScale0(d.year);
+        svg.call(zoomBehavior.transform, d3.zoomIdentity.translate(tx, 0).scale(t.k));
+      }
+    }
+    showEventPop(!opts.quiet);
 
     // Keep the map in sync with whatever event was just selected, however it was
     // selected (a timeline dot, a figure's event list, or a map popup itself) —
@@ -1451,7 +1634,7 @@ function renderTimelineWith(EVENTS, FIGURES, CHAPTER_META, ERAS, THEMES_RAW, LOC
     stopStroll();
     state.selected = null;
     tooltip.style('opacity', 0);
-    document.getElementById('detail').innerHTML = '<div class="placeholder">No event selected yet — click a dot above.</div>';
+    hideEventPop();
     renderMapSelected(null);
     if(eventMap) eventMap.closePopup();
     render();
@@ -1516,7 +1699,7 @@ function renderTimelineWith(EVENTS, FIGURES, CHAPTER_META, ERAS, THEMES_RAW, LOC
     fig.events.map(id=>idMap.get(id)).filter(Boolean).sort((a,b)=>(a.year??0)-(b.year??0)).forEach(ev=>{
       const row = evList.append('div').attr('class','ev-row').on('click', ()=> {
         stopStroll(); selectEvent(ev);
-        goToSection('timeline-explorer', 'selected-event-panel', 'center');
+        goToSection('timeline-explorer', 'chart-panel');
       });
       row.append('span').attr('class','ev-year').text(ev.displayDate);
       row.append('span').text(ev.headline);
@@ -1529,7 +1712,7 @@ function renderTimelineWith(EVENTS, FIGURES, CHAPTER_META, ERAS, THEMES_RAW, LOC
   // Timeline and map are drawn while possibly hidden (page opened on another
   // tab); redraw both whenever Timeline Explorer is shown.
   onSectionShown = (id) => {
-    if(id === 'timeline-explorer') render();
+    if(id === 'timeline-explorer'){ render(); positionEventPop(); }
     if(id === 'map' && eventMap){
       // The map may have been panned or had a popup opened while hidden (e.g. an
       // event picked on the timeline); re-measure, then re-center on that popup.
@@ -1664,7 +1847,9 @@ function renderTimelineWith(EVENTS, FIGURES, CHAPTER_META, ERAS, THEMES_RAW, LOC
   // (PETITION.links), each marked "match" (same name) or "possible". A link's
   // events are its figure's events plus any listed event ids, limited to
   // whatever is in the current dataset.
-  const petitionState = { query: '', onlyLinked: false, active: null, fullOpen: false };
+  // onlyLinked starts on so the long lists open collapsed to the names that also
+  // appear in the dissertation; each group can be expanded on its own.
+  const petitionState = { query: '', onlyLinked: true, active: null, fullOpen: false, expanded: new Set() };
   function signerEvents(link){
     const ids = new Set(link.events || []);
     if(link.figure && figMap.has(link.figure)) figMap.get(link.figure).events.forEach(id => ids.add(id));
@@ -1682,9 +1867,13 @@ function renderTimelineWith(EVENTS, FIGURES, CHAPTER_META, ERAS, THEMES_RAW, LOC
     const key = PETITION.text.find(b => b.text.includes('murdering us by inches'));
 
     const groupsHtml = PETITION.groups.map(g => {
+      // A search looks through every name. Otherwise a collapsed group shows only
+      // its matched names; an expanded one shows every name in petition order.
+      const expanded = petitionState.expanded.has(g.id) || !petitionState.onlyLinked;
+      const matched = g.signers.filter(s => links[s.name]).length;
       const names = g.signers.filter(s => {
-        if(petitionState.onlyLinked && !links[s.name]) return false;
-        return !petitionState.query || s.name.toLowerCase().includes(petitionState.query);
+        if(petitionState.query) return s.name.toLowerCase().includes(petitionState.query);
+        return expanded || links[s.name];
       }).map(s => {
         const mk = s.mark ? '<span class="mk" title="Signed with a mark">(mark)</span>' : '';
         const nt = s.note ? noteRef(s.note) : '';
@@ -1697,7 +1886,9 @@ function renderTimelineWith(EVENTS, FIGURES, CHAPTER_META, ERAS, THEMES_RAW, LOC
       return `<div class="pet-group">
         <h4>${esc(g.label)}<span class="pg-count">${g.signers.length} names</span></h4>
         ${g.intro ? `<p class="pg-intro">“${withNotes(g.intro)}”</p>` : ''}
-        <div class="pet-names">${names || '<span class="pet-empty">No matching names.</span>'}</div>
+        <div class="pet-names">${names || `<span class="pet-empty">${petitionState.query ? 'No matching names.' : 'No one on this list appears in the dissertation.'}</span>`}</div>
+        ${!petitionState.query && petitionState.onlyLinked ? `<button type="button" class="pet-expand" data-group="${g.id}" aria-expanded="${expanded}">
+          ${expanded ? `Show only the ${matched} in the dissertation` : `Show all ${g.signers.length}`}</button>` : ''}
       </div>`;
     }).join('');
 
@@ -1757,7 +1948,7 @@ function renderTimelineWith(EVENTS, FIGURES, CHAPTER_META, ERAS, THEMES_RAW, LOC
           <p>${total} names are transcribed in four lists: men and women living at Mashpee, and those living away who, the petition says, would not return under the present laws. Names that also appear in the dissertation can be clicked to see their events.</p>
           <div class="pet-tools">
             <input type="text" id="pet-search" placeholder="Find a signer…" value="${esc(petitionState.query)}" aria-label="Find a signer">
-            <label><input type="checkbox" id="pet-only" ${petitionState.onlyLinked ? 'checked' : ''}> Only names in the dissertation (${linkedCount})</label>
+            <label><input type="checkbox" id="pet-only" ${petitionState.onlyLinked ? 'checked' : ''}> Show only names in the dissertation (${linkedCount})</label>
             <span class="pet-legend">
               <span><span class="sw match"></span>In the dissertation</span>
               <span><span class="sw possible"></span>Possible match</span>
@@ -1797,7 +1988,17 @@ function renderTimelineWith(EVENTS, FIGURES, CHAPTER_META, ERAS, THEMES_RAW, LOC
       const again = document.getElementById('pet-search');
       again.focus(); again.setSelectionRange(pos, pos);
     });
-    host.querySelector('#pet-only').addEventListener('change', ev => { petitionState.onlyLinked = ev.target.checked; renderPetition(); });
+    host.querySelector('#pet-only').addEventListener('change', ev => {
+      petitionState.onlyLinked = ev.target.checked;
+      petitionState.expanded.clear();
+      renderPetition();
+    });
+    host.querySelectorAll('.pet-expand').forEach(btn => btn.addEventListener('click', () => {
+      const id = btn.dataset.group;
+      if(petitionState.expanded.has(id)) petitionState.expanded.delete(id); else petitionState.expanded.add(id);
+      renderPetition();
+      document.querySelector(`.pet-expand[data-group="${id}"]`).focus();
+    }));
     host.querySelectorAll('[data-signer]').forEach(btn => btn.addEventListener('click', () => {
       petitionState.active = petitionState.active === btn.dataset.signer ? null : btn.dataset.signer;
       renderPetition();
@@ -1806,7 +2007,7 @@ function renderTimelineWith(EVENTS, FIGURES, CHAPTER_META, ERAS, THEMES_RAW, LOC
       const ev = idMap.get(el.dataset.ev);
       if(!ev) return;
       stopStroll(); selectEvent(ev);
-      goToSection('timeline-explorer', 'selected-event-panel', 'center');
+      goToSection('timeline-explorer', 'chart-panel');
     }));
     const trace = host.querySelector('[data-trace]');
     if(trace) trace.addEventListener('click', () => {
@@ -1817,7 +2018,13 @@ function renderTimelineWith(EVENTS, FIGURES, CHAPTER_META, ERAS, THEMES_RAW, LOC
     if(close) close.addEventListener('click', () => { petitionState.active = null; renderPetition(); });
   }
   (PETITION ? Promise.resolve(PETITION) : fetch('data/petition-1834.json').then(r => r.json()))
-    .then(data => { PETITION = data; renderPetition(); })
+    .then(data => {
+      PETITION = data;
+      setCount('signers', data.groups.reduce((n, g) => n + g.signers.length, 0));
+      setCount('signersMatched', data.groups.reduce((n, g) => n + g.signers.filter(x => data.links[x.name]).length, 0));
+      setCount('signersPossible', Object.values(data.links).filter(l => l.confidence === 'possible').length);
+      renderPetition();
+    })
     .catch(() => { document.getElementById('petition').textContent = 'The 1834 petition could not be loaded.'; });
 
   render();
