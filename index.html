@@ -278,7 +278,59 @@
   #loading-banner{ text-align:center; padding:14px 20px; background:#fff; color:var(--muted); font-size:.85rem; border-bottom:1px solid var(--line); }
   #loading-banner.error{ background:#fee2e2; color:#7f1d1d; text-align:left; max-width:720px; margin:20px auto; border-radius:10px; border:1px solid #fecaca; }
 
-  #event-map{ height:440px; border-radius:10px; z-index:0; }
+  #event-map{ height:620px; border-radius:10px; z-index:0; }
+  /* Map tab: map beside a side column (filter note, selected event, places). */
+  .map-layout{ display:grid; grid-template-columns:minmax(0, 2.3fr) minmax(260px, 1fr); gap:18px; align-items:start; }
+  .map-side{ display:flex; flex-direction:column; gap:12px; }
+  .map-side-box{ background:var(--bg); border:1px solid var(--line); border-radius:12px; padding:12px 14px; }
+  .map-side-title{ font-size:.7rem; text-transform:uppercase; letter-spacing:.06em; color:var(--muted); font-weight:700; margin:0 0 8px; }
+  .map-filter-note{ font-size:.78rem; color:var(--muted); line-height:1.45; }
+  .map-filter-note button, #map-selected button{ font:inherit; font-size:.76rem; font-weight:700; padding:4px 10px; border-radius:8px; border:1px solid var(--line); background:#fff; color:var(--ink); cursor:pointer; margin-top:6px; }
+  #map-selected .placeholder{ color:var(--muted); font-size:.84rem; }
+  #map-selected .ms-date{ color:var(--muted); font-size:.76rem; font-weight:700; margin:6px 0 2px; }
+  #map-selected h4{ margin:0 0 6px; font-family:var(--font-body); font-size:.92rem; line-height:1.4; }
+  #map-selected p{ margin:0; font-size:.84rem; line-height:1.5; max-height:9.5em; overflow:auto; }
+  #map-selected .badge{ display:inline-block; padding:2px 9px; border-radius:999px; color:#fff; font-size:.66rem; font-weight:700; text-transform:uppercase; letter-spacing:.04em; }
+  #map-places{ max-height:300px; overflow-y:auto; margin:0 -4px; }
+  .place-row{ display:flex; align-items:center; gap:8px; width:100%; padding:6px 4px; border:none; border-top:1px dashed var(--line); background:none; font:inherit; font-size:.84rem; color:var(--ink); text-align:left; cursor:pointer; border-radius:6px; }
+  .place-row:first-child{ border-top:none; }
+  .place-row:hover{ background:#fff; }
+  .place-row.active{ background:#fff; font-weight:700; }
+  .place-row .pr-dot{ width:10px; height:10px; border-radius:50%; flex:none; }
+  .place-row .pr-name{ flex:1; }
+  .place-row .pr-count{ font-size:.74rem; font-weight:700; color:var(--muted); background:#fff; border:1px solid var(--line); border-radius:999px; padding:0 8px; }
+  .place-row.dim{ opacity:.45; }
+  .map-unplaced{ font-size:.74rem; color:var(--muted); margin:8px 0 0; }
+  @media (max-width: 900px){ .map-layout{ grid-template-columns:1fr; } #event-map{ height:440px; } }
+
+  /* Petition manuscript pages: a scan beside the text it matches. */
+  .pet-pair{ display:grid; grid-template-columns:minmax(0, 0.85fr) minmax(0, 1.4fr); gap:22px; align-items:start; margin-bottom:18px; }
+  @media (max-width: 800px){ .pet-pair{ grid-template-columns:1fr; } }
+  .pet-scan{ margin:0; }
+  .pet-scan button{ display:block; width:100%; padding:0; border:1px solid #d9c9a8; border-radius:6px; background:#efe2c9; cursor:zoom-in; overflow:hidden; box-shadow:0 3px 10px rgba(59,47,42,.14); }
+  .pet-scan img{ display:block; width:100%; height:auto; }
+  .pet-scan figcaption{ font-size:.74rem; color:var(--muted); line-height:1.45; margin-top:6px; }
+  .pet-scan figcaption b{ color:var(--ink); }
+  .pet-transcript h4{ font-family:var(--font-head); font-weight:400; font-size:1.25rem; margin:0 0 6px; }
+  .pet-transcript .pet-summary{ margin-bottom:10px; }
+  .pet-transcript .pet-presented{ font-size:.8rem; color:var(--muted); font-style:italic; margin:0 0 14px; }
+  .pet-transcript .pet-presented a{ color:inherit; }
+  .pet-read-full{ font:inherit; font-size:.8rem; font-weight:700; padding:6px 12px; border-radius:8px; border:1px solid var(--line); background:#fff; color:var(--ink); cursor:pointer; }
+  .pet-read-full:hover{ background:var(--bg); }
+  .pet-signers-intro h4{ font-family:var(--font-head); font-weight:400; font-size:1.25rem; margin:0 0 6px; }
+  .pet-signers-intro p{ font-size:.86rem; line-height:1.55; margin:0 0 10px; }
+  .pet-signers-intro .pet-tools{ flex-direction:column; align-items:flex-start; border-bottom:none; }
+  .pet-signers-intro .pet-legend{ margin-left:0; }
+
+  /* Image viewer for the manuscript pages: click the image to zoom in/out. */
+  #img-viewer{ border:none; padding:0; border-radius:14px; width:min(1100px, 94vw); max-height:92vh; background:var(--card); color:var(--ink); box-shadow:0 20px 60px rgba(0,0,0,.35); }
+  #img-viewer::backdrop{ background:rgba(40,32,28,.72); }
+  #img-viewer .iv-bar{ display:flex; align-items:center; gap:8px; padding:10px 14px; border-bottom:1px solid var(--line); }
+  #img-viewer .iv-cap{ flex:1; font-size:.82rem; color:var(--muted); }
+  #img-viewer .iv-bar button{ font:inherit; font-size:.8rem; font-weight:700; padding:5px 11px; border-radius:8px; border:1px solid var(--line); background:#fff; color:var(--ink); cursor:pointer; }
+  #img-viewer .iv-scroll{ overflow:auto; max-height:calc(92vh - 56px); background:#efe2c9; text-align:center; }
+  #img-viewer img{ display:block; margin:0 auto; width:100%; max-width:900px; height:auto; cursor:zoom-in; }
+  #img-viewer.zoomed img{ width:220%; max-width:none; cursor:zoom-out; }
   .map-popup{ font-size:.82rem; min-width:200px; max-width:260px; }
   .map-popup h4{ margin:0 0 6px; font-size:.86rem; }
   .map-popup .mp-count{ color:var(--muted); font-size:.74rem; margin-bottom:8px; }
@@ -340,6 +392,10 @@
       <span class="st-badge" aria-hidden="true"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12h18"/><circle cx="6" cy="12" r="2.2"/><circle cx="12" cy="12" r="2.2"/><circle cx="18" cy="12" r="2.2"/><path d="M6 5v3M12 16v3M18 5v3"/></svg></span>
       <span class="st-label">Timeline Explorer</span>
     </button>
+    <button type="button" class="section-tab" role="tab" id="tab-map" aria-controls="panel-map" data-section="map" style="--c:#3f6f8f">
+      <span class="st-badge" aria-hidden="true"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-6.5-5.6-6.5-11a6.5 6.5 0 0 1 13 0c0 5.4-6.5 11-6.5 11z"/><circle cx="12" cy="10" r="2.4"/></svg></span>
+      <span class="st-label">Map</span>
+    </button>
     <button type="button" class="section-tab" role="tab" id="tab-chapter-synthesis" aria-controls="panel-chapter-synthesis" data-section="chapter-synthesis" style="--c:#a16207">
       <span class="st-badge" aria-hidden="true"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 19a9 9 0 0 1 9 0a9 9 0 0 1 9 0"/><path d="M3 6a9 9 0 0 1 9 0a9 9 0 0 1 9 0"/><path d="M3 6v13M12 6v13M21 6v13"/></svg></span>
       <span class="st-label">Chapter Synthesis</span>
@@ -359,7 +415,7 @@
 <div class="tab-folder" id="tab-folder">
 
 <section class="tab-panel" id="panel-timeline-explorer" role="tabpanel" aria-labelledby="tab-timeline-explorer" data-section="timeline-explorer">
-  <div class="panel">
+  <div class="panel" id="controls-panel">
     <div class="controls-row">
       <div style="display:flex; gap:12px; align-items:center; flex-wrap:wrap;">
         <span class="dataset-label">View</span>
@@ -422,10 +478,26 @@
     </div>
   </div>
 
+</section>
+
+<section class="tab-panel" id="panel-map" role="tabpanel" aria-labelledby="tab-map" data-section="map" hidden>
   <div class="panel" id="map-wrap-panel">
     <p class="section-title">Where It Happened</p>
-    <p class="section-sub">Marker size shows how many currently-visible events trace to that place, and color shows the most common chapter among them (search, chapter, era and theme filters above apply here too). Click any dot, figure event, or map marker to sync the other two. Locations are matched automatically from place names in each event's own text, so a few are approximate, statewide/federal rather than a single point, or missing when no place is named.</p>
-    <div id="event-map"></div>
+    <p class="section-sub">Marker size shows how many events trace to each place, and color shows the most common chapter among them. Click a marker or a place in the list to read its events. Locations are matched automatically from place names in each event's own text, so a few are approximate, statewide/federal rather than a single point, or missing when no place is named.</p>
+    <div class="map-layout">
+      <div id="event-map"></div>
+      <aside class="map-side">
+        <div class="map-filter-note" id="map-filter-note"></div>
+        <div class="map-side-box">
+          <p class="map-side-title">Selected event</p>
+          <div id="map-selected"><div class="placeholder">No event selected. Click a marker or a place below.</div></div>
+        </div>
+        <div class="map-side-box">
+          <p class="map-side-title">Places</p>
+          <div id="map-places"></div>
+        </div>
+      </aside>
+    </div>
   </div>
 </section>
 
@@ -458,6 +530,15 @@
 <footer id="footer-note">Built from Dissertation_Timeline.xlsx — 308 events, 48 recurring named figures, organized by the dissertation's own chapter structure.</footer>
 
 <div class="tooltip" id="tooltip"></div>
+
+<dialog id="img-viewer" aria-label="Manuscript page">
+  <div class="iv-bar">
+    <span class="iv-cap" id="iv-cap"></span>
+    <button type="button" id="iv-zoom">Zoom in</button>
+    <button type="button" id="iv-close">Close</button>
+  </div>
+  <div class="iv-scroll"><img id="iv-img" alt=""></div>
+</dialog>
 
 <script>
 // ---------- shared map layer (persists across dataset switches) ----------
@@ -511,13 +592,13 @@ function setupLegendDropdowns(){
 }
 
 // ---------- section tabs ----------
-// Each tab has its own address (#timeline-explorer, #chapter-synthesis,
+// Each tab has its own address (#timeline-explorer, #map, #chapter-synthesis,
 // #key-figures, #mashpee-petition), so sections can be linked to directly and
 // the back button moves between them. None of these ids match an element on
 // the page, so following one never makes the browser jump on its own.
 // onSectionShown is set by renderTimelineWith: the map and timeline need to be
 // redrawn when their tab opens, since hidden elements have no size.
-const SECTION_IDS = ['timeline-explorer', 'chapter-synthesis', 'key-figures', 'mashpee-petition'];
+const SECTION_IDS = ['timeline-explorer', 'map', 'chapter-synthesis', 'key-figures', 'mashpee-petition'];
 let onSectionShown = null;
 function currentSectionFromHash(){
   const id = location.hash.slice(1);
@@ -575,6 +656,30 @@ function setupSectionTabs(){
   showSection(currentSectionFromHash(), { updateHash: false });
 }
 setupSectionTabs();
+
+// ---------- manuscript image viewer ----------
+function openImageViewer(src, alt, caption){
+  const dlg = document.getElementById('img-viewer');
+  const img = document.getElementById('iv-img');
+  img.src = src; img.alt = alt;
+  document.getElementById('iv-cap').textContent = caption;
+  dlg.classList.remove('zoomed');
+  document.getElementById('iv-zoom').textContent = 'Zoom in';
+  dlg.showModal();
+}
+(function setupImageViewer(){
+  const dlg = document.getElementById('img-viewer');
+  const zoomBtn = document.getElementById('iv-zoom');
+  const toggleZoom = () => {
+    const on = dlg.classList.toggle('zoomed');
+    zoomBtn.textContent = on ? 'Zoom out' : 'Zoom in';
+  };
+  zoomBtn.addEventListener('click', toggleZoom);
+  document.getElementById('iv-img').addEventListener('click', toggleZoom);
+  document.getElementById('iv-close').addEventListener('click', () => dlg.close());
+  // Clicking the dimmed backdrop (outside the dialog box) closes it.
+  dlg.addEventListener('click', ev => { if(ev.target === dlg) dlg.close(); });
+})();
 
 async function init(){
   const dropdown = document.getElementById('dataset-select');
@@ -652,6 +757,8 @@ function renderTimelineWith(EVENTS, FIGURES, CHAPTER_META, ERAS, THEMES_RAW, LOC
   // Switching datasets (Main / Vanderhoop) leaves any previously-selected event's
   // detail panel stale otherwise.
   document.getElementById('detail').innerHTML = '<div class="placeholder">No event selected yet — click a dot above.</div>';
+  const mapSel = document.getElementById('map-selected');
+  if(mapSel) mapSel.innerHTML = '<div class="placeholder">No event selected. Click a marker or a place below.</div>';
   document.getElementById('event-count').textContent = EVENTS.length;
   document.getElementById('figure-count').textContent = FIGURES.length;
   document.getElementById('fig-sub').textContent = `${FIGURES.length} recurring people tie this timeline together. Click one to trace their thread.`;
@@ -1127,6 +1234,55 @@ function renderTimelineWith(EVENTS, FIGURES, CHAPTER_META, ERAS, THEMES_RAW, LOC
       });
       marker.addTo(mapMarkersLayer);
     });
+    renderPlacesList(byLocation, visible);
+  }
+
+  // Map tab side column: every place with visible events, busiest first. Clicking
+  // one opens its marker. The note above it says how many events are on the map
+  // and whether Timeline Explorer's filters are narrowing them.
+  let activePlace = null;
+  function renderPlacesList(byLocation, visible){
+    const host = document.getElementById('map-places');
+    if(!host) return;
+    const rows = [...byLocation.entries()].sort((a, b) => b[1].events.length - a[1].events.length);
+    host.innerHTML = rows.map(([locId, { loc, events: evs }]) => {
+      const marker = markerByLocation.get(locId);
+      const color = marker ? marker.options.fillColor : 'var(--muted)';
+      const dim = !evs.some(ev => !isDimmed(ev));
+      return `<button type="button" class="place-row${dim ? ' dim' : ''}${activePlace === locId ? ' active' : ''}" data-loc="${locId}">
+        <span class="pr-dot" style="background:${color}"></span><span class="pr-name">${loc.label}</span><span class="pr-count">${evs.length}</span></button>`;
+    }).join('') || '<div class="placeholder">No mapped events match the current filters.</div>';
+    const unplaced = visible.filter(ev => !(EVENT_LOCATIONS[ev.id] || []).some(id => LOCATIONS[id])).length;
+    const old = host.parentNode.querySelector('.map-unplaced');
+    if(old) old.remove();
+    if(unplaced) host.insertAdjacentHTML('afterend', `<p class="map-unplaced">${unplaced} event${unplaced===1?'':'s'} in view name no mappable place.</p>`);
+    host.querySelectorAll('.place-row').forEach(btn => btn.addEventListener('click', () => {
+      activePlace = btn.dataset.loc;
+      host.querySelectorAll('.place-row').forEach(b => b.classList.toggle('active', b === btn));
+      const marker = markerByLocation.get(btn.dataset.loc);
+      if(marker){ eventMap.panTo(marker.getLatLng(), { animate: true }); marker.openPopup(); }
+    }));
+
+    const note = document.getElementById('map-filter-note');
+    const filtered = state.hiddenChapters.size || state.hiddenEras.size || state.hiddenLocations.size || state.search || state.theme || state.figure;
+    note.innerHTML = filtered
+      ? `Showing ${visible.length} of ${EVENTS.length} events: the filters, search or highlight chosen in Timeline Explorer apply here too.<br><button type="button" id="map-adjust">Adjust filters</button>`
+      : `Showing all ${visible.length} events. Filters chosen in Timeline Explorer also apply to this map.`;
+    const adjust = document.getElementById('map-adjust');
+    if(adjust) adjust.addEventListener('click', () => goToSection('timeline-explorer', 'controls-panel'));
+  }
+
+  // The Map tab's own copy of the selected event (short form), kept in step with
+  // the Selected Event panel in Timeline Explorer.
+  function renderMapSelected(d){
+    const host = document.getElementById('map-selected');
+    if(!host) return;
+    if(!d){ host.innerHTML = '<div class="placeholder">No event selected. Click a marker or a place below.</div>'; return; }
+    const chMeta = CHAPTER_META[d.chapter];
+    host.innerHTML = `<span class="badge" style="background:${chMeta.color}">${chMeta.short}</span>
+      <div class="ms-date">${d.displayDate}</div><h4>${d.headline}</h4><p>${d.text}</p>
+      <button type="button" id="map-open-timeline">See it on the timeline</button>`;
+    document.getElementById('map-open-timeline').addEventListener('click', () => goToSection('timeline-explorer', 'selected-event-panel', 'center'));
   }
 
   function render(){
@@ -1208,6 +1364,7 @@ function renderTimelineWith(EVENTS, FIGURES, CHAPTER_META, ERAS, THEMES_RAW, LOC
     d3.selectAll('#detail .fig-chip').on('click', function(){
       selectFigure(d3.select(this).attr('data-fig'));
     });
+    renderMapSelected(d);
 
     // Keep the map in sync with whatever event was just selected, however it was
     // selected (a timeline dot, a figure's event list, or a map popup itself) —
@@ -1295,6 +1452,7 @@ function renderTimelineWith(EVENTS, FIGURES, CHAPTER_META, ERAS, THEMES_RAW, LOC
     state.selected = null;
     tooltip.style('opacity', 0);
     document.getElementById('detail').innerHTML = '<div class="placeholder">No event selected yet — click a dot above.</div>';
+    renderMapSelected(null);
     if(eventMap) eventMap.closePopup();
     render();
     svg.transition().duration(500).call(zoomBehavior.transform, d3.zoomIdentity);
@@ -1371,9 +1529,14 @@ function renderTimelineWith(EVENTS, FIGURES, CHAPTER_META, ERAS, THEMES_RAW, LOC
   // Timeline and map are drawn while possibly hidden (page opened on another
   // tab); redraw both whenever Timeline Explorer is shown.
   onSectionShown = (id) => {
-    if(id !== 'timeline-explorer') return;
-    if(eventMap) eventMap.invalidateSize();
-    render();
+    if(id === 'timeline-explorer') render();
+    if(id === 'map' && eventMap){
+      // The map may have been panned or had a popup opened while hidden (e.g. an
+      // event picked on the timeline); re-measure, then re-center on that popup.
+      eventMap.invalidateSize();
+      const popup = eventMap._popup;
+      if(popup && eventMap.hasLayer(popup)) eventMap.panTo(popup.getLatLng(), { animate: false });
+    }
   };
 
   // ---------- Chapter Synthesis ----------
@@ -1482,7 +1645,7 @@ function renderTimelineWith(EVENTS, FIGURES, CHAPTER_META, ERAS, THEMES_RAW, LOC
     }));
     host.querySelectorAll('[data-loc]').forEach(btn => btn.addEventListener('click', () => {
       const locId = btn.dataset.loc, loc = LOCATIONS[locId];
-      goToSection('timeline-explorer', 'map-wrap-panel', 'center');
+      goToSection('map', 'map-wrap-panel', 'start');
       const marker = markerByLocation.get(locId);
       if(marker){ eventMap.panTo(marker.getLatLng(), { animate: true }); marker.openPopup(); }
       else eventMap.setView([loc.lat, loc.lon], Math.max(eventMap.getZoom(), 10));
@@ -1501,7 +1664,7 @@ function renderTimelineWith(EVENTS, FIGURES, CHAPTER_META, ERAS, THEMES_RAW, LOC
   // (PETITION.links), each marked "match" (same name) or "possible". A link's
   // events are its figure's events plus any listed event ids, limited to
   // whatever is in the current dataset.
-  const petitionState = { query: '', onlyLinked: false, active: null };
+  const petitionState = { query: '', onlyLinked: false, active: null, fullOpen: false };
   function signerEvents(link){
     const ids = new Set(link.events || []);
     if(link.figure && figMap.has(link.figure)) figMap.get(link.figure).events.forEach(id => ids.add(id));
@@ -1538,6 +1701,15 @@ function renderTimelineWith(EVENTS, FIGURES, CHAPTER_META, ERAS, THEMES_RAW, LOC
       </div>`;
     }).join('');
 
+    // Manuscript scans: each opens in the image viewer at full size.
+    const pages = PETITION.pages || {};
+    const scanHtml = pg => !pg ? '' : `<figure class="pet-scan">
+        <button type="button" data-scan="${esc(pg.src)}" data-alt="${esc(pg.alt)}" data-cap="${esc(pg.label + ' of the petition, ' + PETITION.date)}" aria-label="Enlarge ${esc(pg.label)}">
+          <img src="${esc(pg.src)}" alt="${esc(pg.alt)}" loading="lazy">
+        </button>
+        <figcaption><b>${esc(pg.label)}</b> · click to enlarge. ${esc(pg.caption.replace(/^Page \d+: (.)/, (_, c) => c.toUpperCase()))}${PETITION.imageCredit ? ` ${esc(PETITION.imageCredit)}` : ''}</figcaption>
+      </figure>`;
+
     let detailHtml = '';
     if(petitionState.active && links[petitionState.active]){
       const link = links[petitionState.active];
@@ -1557,21 +1729,36 @@ function renderTimelineWith(EVENTS, FIGURES, CHAPTER_META, ERAS, THEMES_RAW, LOC
 
     host.innerHTML = `
       <p class="pet-source">Source: ${esc(PETITION.citation)}, <a href="${esc(PETITION.url)}" target="_blank" rel="noopener">nativenortheastportal.com</a>. The handwritten passage in the banner at the top of this page is from this petition.</p>
-      ${key ? `<blockquote class="pet-quote">${esc(key.text.slice(0, key.text.indexOf('murdering us by inches.') + 'murdering us by inches.'.length))}<cite>— ${esc(PETITION.title)}, ${esc(PETITION.date)}</cite></blockquote>` : ''}
-      <p class="pet-summary">${esc(PETITION.summary)}</p>
-      <div class="pet-tools">
-        <input type="text" id="pet-search" placeholder="Find a signer…" value="${esc(petitionState.query)}" aria-label="Find a signer">
-        <label><input type="checkbox" id="pet-only" ${petitionState.onlyLinked ? 'checked' : ''}> Only names in the dissertation (${linkedCount})</label>
-        <span class="pet-legend">
-          <span><span class="sw match"></span>In the dissertation</span>
-          <span><span class="sw possible"></span>Possible match</span>
-          <span>(mark) signed with a mark</span>
-        </span>
+      <div class="pet-pair">
+        ${scanHtml(pages.first)}
+        <div class="pet-transcript">
+          <h4>Petition</h4>
+          <p class="pet-summary">${esc(PETITION.summary)}</p>
+          <p class="pet-presented">Presented by — <a href="#pet-note-1" title="${esc(PETITION.notes[0])}">left blank in the original</a>. ${esc(PETITION.date)}.</p>
+          ${key ? `<blockquote class="pet-quote">${esc(key.text.slice(0, key.text.indexOf('murdering us by inches.') + 'murdering us by inches.'.length))}<cite>— from the petition’s closing appeal</cite></blockquote>` : ''}
+          <button type="button" class="pet-read-full">Read the full petition</button>
+        </div>
+      </div>
+      <div class="pet-pair">
+        ${scanHtml(pages.signatures)}
+        <div class="pet-signers-intro">
+          <h4>The signers</h4>
+          <p>${total} names are transcribed in four lists: men and women living at Mashpee, and those living away who, the petition says, would not return under the present laws. Names that also appear in the dissertation can be clicked to see their events.</p>
+          <div class="pet-tools">
+            <input type="text" id="pet-search" placeholder="Find a signer…" value="${esc(petitionState.query)}" aria-label="Find a signer">
+            <label><input type="checkbox" id="pet-only" ${petitionState.onlyLinked ? 'checked' : ''}> Only names in the dissertation (${linkedCount})</label>
+            <span class="pet-legend">
+              <span><span class="sw match"></span>In the dissertation</span>
+              <span><span class="sw possible"></span>Possible match</span>
+              <span>(mark) signed with a mark</span>
+            </span>
+          </div>
+        </div>
       </div>
       ${detailHtml}
       ${groupsHtml}
       <p class="pet-action">${total} names transcribed. ${esc(PETITION.listNote)} ${esc(PETITION.total)}.</p>
-      <details class="pet-full">
+      <details class="pet-full" id="pet-full" ${petitionState.fullOpen ? 'open' : ''}>
         <summary>Read the full petition</summary>
         <div class="pet-text">
           ${PETITION.text.map(b => b.type === 'heading' ? `<h5>${withNotes(b.text)}</h5>` : `<p>${withNotes(b.text)}</p>`).join('')}
@@ -1583,6 +1770,14 @@ function renderTimelineWith(EVENTS, FIGURES, CHAPTER_META, ERAS, THEMES_RAW, LOC
         </div>
       </details>`;
 
+    host.querySelectorAll('[data-scan]').forEach(btn => btn.addEventListener('click', () =>
+      openImageViewer(btn.dataset.scan, btn.dataset.alt, btn.dataset.cap)));
+    const full = host.querySelector('#pet-full');
+    full.addEventListener('toggle', () => { petitionState.fullOpen = full.open; });
+    host.querySelector('.pet-read-full').addEventListener('click', () => {
+      full.open = true;
+      full.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    });
     const search = host.querySelector('#pet-search');
     search.addEventListener('input', () => {
       petitionState.query = search.value.trim().toLowerCase();
